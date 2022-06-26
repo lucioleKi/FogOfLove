@@ -1,0 +1,3 @@
+Patient	Able to remain calm and not become annoyed while experiencing delays and problems.	Individual	Sincerity	3
+Promiscuous	Having an unselective and casual approach to engaging in sexual relationships.	Individual	Curiosity	1
+Jealous	Showing envious resentment of others\' success. Being suspicious and possessive towards others.	Individual	Sensitivity	3

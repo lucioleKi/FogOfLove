@@ -1,0 +1,3 @@
+Odd socks	Discipline	-1
+Jiggling legs	Sensitivity	1
+Worn-out jewelry	Curiosity	-1
