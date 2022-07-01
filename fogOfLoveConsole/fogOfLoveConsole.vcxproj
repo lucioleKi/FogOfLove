@@ -144,7 +144,11 @@
     <ClCompile Include="fogOfLoveConsole.cpp" />
     <ClCompile Include="Occupation.cpp" />
     <ClCompile Include="PersonalityToken.cpp" />
+    <ClCompile Include="ReadTxt.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Shuffle.cpp" />
     <ClCompile Include="StartChar.cpp" />
+    <ClCompile Include="SynopsisDestiny.cpp" />
     <ClCompile Include="Trait.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -153,7 +157,11 @@
     <ClInclude Include="Feature.h" />
     <ClInclude Include="Occupation.h" />
     <ClInclude Include="PersonalityToken.h" />
+    <ClInclude Include="ReadTxt.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Shuffle.h" />
     <ClInclude Include="StartChar.h" />
+    <ClInclude Include="SynopsisDestiny.h" />
     <ClInclude Include="Trait.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

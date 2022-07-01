@@ -36,28 +36,52 @@
     <ClCompile Include="PersonalityToken.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SynopsisDestiny.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ReadTxt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shuffle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Occupation.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Trait.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="CharacterInitial.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Enums.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Feature.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CharacterInitial.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="Occupation.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PersonalityToken.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StartChar.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SynopsisDestiny.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Trait.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadTxt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shuffle.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

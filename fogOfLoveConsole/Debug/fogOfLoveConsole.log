@@ -1,5 +1,4 @@
-﻿  StartChar.cpp
-C:\Users\huang\Desktop\fogOfLoveConsole\StartChar.cpp(118,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\huang\Desktop\fogOfLoveConsole\StartChar.cpp(169,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\huang\Desktop\fogOfLoveConsole\StartChar.cpp(175,19): warning C4018: '<': signed/unsigned mismatch
+﻿  ReadTxt.cpp
+C:\Users\huang\Desktop\fogOfLoveConsole\ReadTxt.cpp(36,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\huang\Desktop\fogOfLoveConsole\ReadTxt.cpp(70,20): warning C4018: '<': signed/unsigned mismatch
   fogOfLoveConsole.vcxproj -> C:\Users\huang\Desktop\fogOfLoveConsole\Debug\fogOfLoveConsole.exe
