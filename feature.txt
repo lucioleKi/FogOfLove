@@ -1,0 +1,60 @@
+Odd Socks	0	-1
+Jiggling Legs	3	1
+Worn-out Jewelry	1	-1
+Androgynous	4	1
+Perfect Teeth	0	1
+Body Odor	0	-1
+Old Cell Phone	1	-1
+Fancy Tie	1	1
+Short	2	-1
+Smiling	4	1
+Luxurious Watch	1	-1
+Slow Speaker	4	1
+Booming Voice	4	-1
+Symmetric Face	5	1
+Broad Shoulders	3	-1
+Strong Arms	3	-1
+Facial Scar	4	-1
+Shaky Hands	3	1
+Unstylish	1	-1
+Flowery Hat	3	1
+Old-fashioned Clothes	1	-1
+Fashionable	2	1
+Beauty Mark	5	1
+Gold Chain	5	-1
+Lean	0	1
+Sensuous Voice	1	1
+Muscular	0	1
+Hairy	0	-1
+High Heels	4	-1
+Long Blond Hair	2	1
+Bedroom Eyes	2	1
+Crooked Teeth	4	-1
+Stoned	0	-1
+Big	2	1
+Sneakers	1	1
+Hairy armpits	2	-1
+Eloquent	2	1
+Tattooed	5	-1
+Giggles	3	1
+Clumsy	2	1
+Wheel Chair	3	-1
+Strange Makeup	1	1
+Mumbling	2	-1
+Stuttering	2	-1
+Nerdy Glasses	5	1
+Soft Skin	5	1
+Tall	5	1
+Cute	4	1
+Piercing Eyes	4	-1
+Leather Gloves	3	-1
+Well-dressed	0	1
+Strong Hands	4	1
+Seducing Scent	2	1
+Counterfeit Watch	5	-1
+Crooked Nose	5	-1
+Nose Piercing	1	1
+Tanned	0	1
+Poorly Dressed	2	-1
+Squeaky Voice	3	-1
+Slang	0	-1

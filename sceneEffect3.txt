@@ -1,0 +1,14 @@
+1	OT	-3	F	OT	-2	F	B	-1	F	CH	-2	F	CAE	CA	3	F	CB-CD	B	2	F	CCD	C	1	F	MC	B	1	RE	Equal Partners	F	MD	B	2	SI	Unconditional Love	F
+2	PT	4	-1	F	PT	5	-1	F	PT	1	1	F	PT	3	-1	F
+3	PT	1	2	OT	2	F	PT	1	-1	PT	4	-1	CH	-2	SI	Honorable Exit	OT	-2	DR	Serious	F	PT	3	-1	PT	4	1	CH	-1	F	PT	3	2	CH	-2	F
+4	PT	3	-1	PT	4	1	CH	-1	CT	OT	4	F	PT	4	-2	CH	-1	OT	-2	F	PT	0	-2	CH	-2	OT	-1	F
+5	PT	4	1	F	PT	5	1	F	PT	3	-1	F	PT	0	1	F	M	PL	2	D	ANY	OT	2	F	NM	PL	-2	RE	ANY	OT	-3	F
+6	PT	2	-1	F	PT	4	-1	F	PT	1	1	PT	2	1	F	PT	4	1	F	M	B	2	F	CAE	A	-2	OT	-3	RE	ANY	F	CBC	B	1	F
+7	PT	1	-1	PT	2	1	PT	3	1	CH	-3	OT	-3	DR	Drama	F	PT	0	-2	PT	2	-1	CH	-3	CT	OT	2	DR	Serious	F
+8	PT	4	2	CH	-2	OT	2	F	PT	5	-1	PT	4	-1	CH	1	OT	-1	F	PT	3	-1	PT	4	1	CH	-1	F	MB	B	-2	F	MC	TRADE	F
+9	PT	4	-1	B	-2	F	PT	4	1	OT	SI	Heartbreaker	F	PT	1	1	CH	-1	SO	Unconditional Love	RS	F
+10	PL	DS	ANY	F	PT	3	-1	PT	4	1	CH	-3	SI	Unconditional Love	F	PT	2	-2	CH	-4	OT	-4	DR	Serious	F	PT	4	-2	CH	-2	SI	Honorable Exit	OT	-4	F
+11	PT	4	2	OT	3	CT	F	PT	4	-2	CH	-3	SI	Heartbreaker/Honorable Exit	OT	-3	F
+12	PL	DS	<2	F	PT	5	-1	PT	4	-1	CH	MAY	SI	Dominant	OT	-4	F	PT	4	2	CH	D	ANY	OT	2	SI	Unconditional Love	F	PT	2	-2	CH	-1	OT	-3	F
+13	PL	DS	ANY	F	PT	4	2	DOUBLEIMPACT	F	PT	4	-2	CH	SI	Dominant	OT	-3	F	PT	0	1	PT	3	-1	CH	-2	OT	-2	RS	2	F	PT	1	1	PT	2	1	CH	RS	ALL	SI	Equal Partners	F
+14	PT	3	1	F	PT	5	-1	F	PT	3	-1	F	PT	2	-1	D	ANY	F	MAC	B	1	F	MB	B	2	F	MD	B	3	RE	ANY	F	E	B	2	F

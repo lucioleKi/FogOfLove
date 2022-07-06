@@ -1,0 +1,3 @@
+1	F	F	F	M	B	14	F	NM	B	10	F
+2	D	N	Unconditional Love	F	D	N	Love Team	F	D	N	Dominant	F	M	B	8	F
+3	D	F	D	F	D	F	M	B	6	F	NM	B	-4	F
