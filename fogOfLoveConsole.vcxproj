@@ -139,19 +139,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BeforeScenes.cpp" />
     <ClCompile Include="CharacterInitial.cpp" />
     <ClCompile Include="Feature.cpp" />
     <ClCompile Include="fogOfLoveConsole.cpp" />
     <ClCompile Include="Occupation.cpp" />
     <ClCompile Include="PersonalityToken.cpp" />
     <ClCompile Include="ReadTxt.cpp" />
+    <ClCompile Include="ResolveEffects.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ReadEffects.cpp" />
     <ClCompile Include="StartChar.cpp" />
     <ClCompile Include="SynopsisDestiny.cpp" />
     <ClCompile Include="Trait.cpp" />
+    <ClCompile Include="VocabTranslator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BeforeScenes.h" />
     <ClInclude Include="CharacterInitial.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="Feature.h" />
@@ -159,11 +163,14 @@
     <ClInclude Include="PersonalityToken.h" />
     <ClInclude Include="ReadEffects.h" />
     <ClInclude Include="ReadTxt.h" />
+    <ClInclude Include="ResolveEffects.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Session.h" />
     <ClInclude Include="Shuffle.h" />
     <ClInclude Include="StartChar.h" />
     <ClInclude Include="SynopsisDestiny.h" />
     <ClInclude Include="Trait.h" />
+    <ClInclude Include="VocabTranslator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

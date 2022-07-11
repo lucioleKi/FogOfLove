@@ -40,3 +40,4 @@ enum Instruction {
 	doubleImpact = 0x0a,
 	guess = 0x0b,
 };
+

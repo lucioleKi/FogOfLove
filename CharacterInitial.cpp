@@ -26,4 +26,7 @@ void Character::setGender(Gender gender) {
 };
 void Character::setSatisfaction(int satisfaction) {
 	char_satisfaction = char_satisfaction + satisfaction;
+	if (char_satisfaction < 0) {
+		char_satisfaction = 0;
+	}
 };

@@ -5,6 +5,8 @@
 #include <string>
 #include <iostream>
 
+
+
 class Card {
 protected:
 	std::string title;
@@ -24,7 +26,7 @@ private:
 	int other_satis;
 	std::vector<PersonalityDim> dims;
 	std::array<int, 3> nums;
-	std::string fullText;
+	std::string text;
 	std::vector<std::string> code;
 public:
 	Choice(std::string d) { description = d; };
@@ -33,13 +35,15 @@ public:
 	void setOther(int o) { other_satis = o; };
 	void setDims(std::vector<PersonalityDim> d) { dims = d; };
 	void setNums(std::array<int, 3> n) { nums = n; };
-	void setFull(std::string f) { fullText = f; };
+	void setFull(std::string f) { text = f; };
 	void setCode(std::vector<std::string> c) { code = c; };
+	
 	std::string getDescription() { return description; };
 	int getChoser() { return choser_satis; };
 	int getOther() { return other_satis; };
 	std::vector<PersonalityDim> getDims() { return dims; };
-	std::string getFull() { return fullText; };
+	std::array<int, 3> getNums() { return nums; };
+	std::string getFull() { return text; };
 	std::vector<std::string> getCode() { return code; };
 	std::string printFull();
 };
@@ -47,13 +51,13 @@ public:
 class Additional {
 private:
 	std::vector<std::string> code;
-
-	std::string match;
-	std::string noMatch;
+	std::string text;
 public:
 	Additional(std::vector<std::string> c) { code = c; };
 	void setCode(std::vector<std::string> c) { code = c; };
+	void setFull(std::string t) { text = t; };
 	std::vector<std::string> getCode() { return code; };
+	std::string getFull() { return text; };
 };
 
 class Chapter : public Card {

@@ -61,10 +61,15 @@ std::string Scene::printFull() {
 	}
 	char alphabet[] = "ABCD";
 	for (int i = 0; i < choices.size(); i++) {
-		x = x + alphabet[i] + " = " + choices.at(i).printFull() + "\n";
+		x = x + alphabet[i] + " = " + choices.at(i).printFull();
+	}
+	if (additionals.size() > 0) {
+		x = x + "ADDITIONAL EFFECTS\n";
 	}
 	for (int i = 0; i < additionals.size(); i++) {
+		x = x + additionals.at(i).getFull() + "\n";
 		for (int j = 0; j < additionals.at(i).getCode().size(); j++) {
+			
 			x = x + additionals.at(i).getCode().at(j) + ", ";
 		}
 		x = x + "\n";
@@ -133,9 +138,13 @@ std::string Choice::printFull() {
 	else if (choser_satis < 0) {
 		x = x + "Other - " + std::to_string(choser_satis * (-1)) + "\n";
 	}
+	x = x + text+"\n";
 
 	for (int i = 0; i < code.size(); i++) {
 		x = x + code.at(i)+", ";
+	}
+	if (code.size() > 0) {
+		x = x + "\n";
 	}
 	return x;
 };

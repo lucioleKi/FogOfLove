@@ -47,18 +47,3 @@ std::string Occupation::printFull() {
 	}
 	
 };
-
-
-std::vector<Occupation> selectOccu() {
-	Occupation occu1 = Occupation{ "Banker", Sincerity, -1};
-	Occupation occu2 = Occupation{ "Architect", Sensitivity, 1};
-	Occupation occu3 = Occupation{ "Insurance agent", Discipline, -1};
-	Occupation occu4 = Occupation{ "Advertising manager", Sincerity, -1};
-	std::vector<Occupation> occus{ occu1, occu2, occu3 };
-	return occus;
-	//banker 6 - 1
-//architect 4 + 1
-//insurance agent 1 - 1
-//advertising manager 6 - 1;
-
-}

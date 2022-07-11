@@ -1,0 +1,73 @@
+M	Match:
+MA	Match A:
+MB	Match B:
+MC	Match C:
+MD	Match D:
+MAB	Match A or B:
+MABC	Match A, B, or C:
+M/CDE	Match or one chose D:
+CBD/MD	Chose B and D or match D:
+CB-CD	One chose B, other C or D:
+CAB	Chose A and B:
+CAB-CD	One chose A or B, other C or D:
+CCD	Chose C and D:
+CD-AB	One chose D, and other chose A or B:
+CAB-CDP	Player chose A or B, Partner C or D:
+CCD-ABP	Player chose C or D, Partner A or B:
+CD-CP	Player chose D, Partner C:
+CBC	Chose B and C:
+CAE	One chose A, and the other didn't:
+CCE	One chose C, and the other didn't:
+CDE	One chose D, and the other didn't:
+CA	CHOOSER A
+CB	CHOOSER B
+CC	CHOOSER C
+CD	CHOOSER D
+A/B	CHOOSER A/B
+C/D	CHOOSER C/D
+E	Else:
+B	Both
+PA	PARTNER
+NM	No Match:
+DS	discard X SCENE
+<2	up to 2
+N	not
+T	tell
+DD	discard
+DR	draw
+CH	CHOOSER
+OT	OTHER
+RD	reveal and then discard a DESTINY.
+PL	PLAYER
+RE	retrieve
+SI	swap in
+SO	swap out
+R	reveal a DESTINY from hand
+RR	reveal a random DESTINY
+CO	change occupation
+CT	change a TRAIT
+CRT	change a random TRAIT
+ANY	a DESTINY
+A#S	any number of SCENES
+MIRROR	OTHER gets same PERSONALITY TOKEN as CHOOSER.
+SWO	switch OCCUPATION with PARTNERS
+STELL	CHOOSER chooses one of their SECRETS in play randomly. Let the OTHER know whether you think it is beneficial for them to reveal it or not. It stays hidden.
+STELL2	BOTH randomly select a SECRET in play and tell whether you believe it is beneficial for the OTHER to reveal it. It stays hidden.
+Double3	You will be trying to lose weight and will be a bit more sensitive than usual. BOTH get double SENSITIVITY PERSONALITY TOKENS from the next SCENE played.
+DOUBLEIMPACT	CHOOSER ignore all satisfaction effects on the next SCENE played while there will be double impact on satisfaction outcomes for the OTHER.
+RI	reveal if you have X in hand
+RS	reveal a SECRET in play played by the OTHER
+RS2	reveal 2 SECRETS in play
+RSALL	reveal all SECRETS in play with an affair.
+MAY	may
+TRADE	BOTH secretly select a SCENE from their hand to give to the other. You then trade SCENES simultaneously.
+Drama	a DRAMA SCENE.
+Serious	a SERIOUS SCENE
+Sweet	a SWEET SCENE
+Equal Partners	EQUAL PARTNERS
+Honorable Exit	HONORABLE EXIT
+Love Team	LOVE TEAM
+Unconditional Love	UNCONDITIONAL LOVE
+Dominant	DOMINANT
+Heartbreaker	HEARTBREAKER
+Heartbreaker/Honorable Exit	HEARTBREAKER or HONORABLE EXIT

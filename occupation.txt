@@ -1,3 +1,36 @@
 Banker	5	-1
 Architect	3	1
-Insurance Agent	0	-1
+Insurance Agent	1	-1
+Advertising Manager	5	-1
+Lawyer	4	-1
+Police Officer	5	+1
+Manager	4	-1
+Royal Heir	0	-1
+Internet Celebrity	0	-1
+Security Guard	0	+1
+Athlete	0	+1
+Journalist	1	+1
+Programmer	2	-1
+Musician	0	-1
+Fashion Model	3	+1
+Psychologist	4	+1
+Priest	5	+1
+Dancer	2	+1
+Wedding Planner	3	+1
+Flight Attendant	4	+1
+Baker	4	+1
+Florist	3	+1
+Teacher	1	+1
+Chef	3	-1
+Entrepreneur	2	+1
+TV Star	4	-1
+Politician	2	+1
+Nurse	5	+1
+Doctor	3	-1
+Parking Attendant	1	-1
+Farmer	1	-1
+Pilot	0	+1
+Chemist	2	-1
+Firefight	3	-1
+Criminal	5	-1
+Bookstore Owner	2	-1

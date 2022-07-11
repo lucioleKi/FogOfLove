@@ -5,6 +5,7 @@
 #include "Occupation.h"
 #include <vector>
 #include <string>
+#include <map>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -12,7 +13,12 @@
 // take from http://stackoverflow.com/a/236803/248823
 void split(const std::string& s, char delim, std::vector<std::string>& elems);
 
+std::map<std::string, std::string> importVocab();
+
 std::vector<Feature> importFeatures();
+std::vector<Occupation> importOccus();
+
+
 
 std::vector<Chapter> importChapters();
 

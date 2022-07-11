@@ -6,6 +6,7 @@
 #include "Feature.h"
 #include "ReadEffects.h"
 #include <array>
+#include <map>
 #include <vector>
 #include <string>
 #include <iostream>
@@ -18,6 +19,18 @@ void split(const std::string& s, char delim, std::vector<std::string>& elems) {
 		elems.push_back(item);
 	}
 };
+
+std::map<std::string, std::string> importVocab() {
+	std::ifstream fs("vocabulary.txt");
+	std::string line;
+	std::map<std::string, std::string> pairs;
+	while (std::getline(fs, line)) {
+		std::vector<std::string> info;
+		split(line, '\t', info);
+		pairs.insert({ info[0], info[1] });
+	}
+	return pairs;
+}
 
 std::vector<Feature> importFeatures() {
 	std::ifstream fs("feature.txt");
@@ -35,6 +48,23 @@ std::vector<Feature> importFeatures() {
 	features = Shuffle(features);
 	return features;
 };
+
+std::vector<Occupation> importOccus() {
+	std::ifstream fs("occupation.txt");
+	std::string line;
+	std::vector<Occupation> occus;
+	while (std::getline(fs, line)) {
+		std::vector<std::string> info;
+		split(line, '\t', info);
+		int temp = std::stoi(info[1]);
+		PersonalityDim p = (PersonalityDim)temp;
+		int number = std::stoi(info[2]);
+		Occupation o = Occupation{ info[0], p, number };
+		occus.push_back(o);
+	}
+	occus = Shuffle(occus);
+	return occus;
+}
 
 std::vector<Chapter> importChapters() {
 	std::ifstream fs("chapters.txt");
@@ -74,6 +104,9 @@ std::vector<Scene> importScenes() {
 		scenes.push_back(newScene);
 	}
 	scenes = importEffects(scenes);
+	std::map<std::string, std::string> vocab = importVocab();
+	scenes = Vocab(scenes, vocab);
+
 	//scenes = Shuffle(scenes);
 	
 	return scenes;
