@@ -16,3 +16,7 @@ Next step: Creating back-end functions for card effects.
 7/10/2022
 Completed: Finished back-end code for personality token. Finished occupation deck and its selection functions. Added a vocabulary list for effects. Can printAll for choices and additional effects (tested up to sweet deck #22). Finished additional effect matcher for 2-player-choices.
 Next step: Back-end functions for other effects. 
+
+7/19/2022
+Completed: All scenes are now loaded into the files. Tried to dynamic cast chapter and scene objects for certain functions and failed (inefficient and bad object design). Finished resolving effects: draw new scenes, reveal and then discard a DESTINY, reveal if you have X(destiny) in hand.
+Next step: Finish resolving other effects.
