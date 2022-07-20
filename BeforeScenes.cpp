@@ -13,16 +13,6 @@
 #include <iostream>
 #include <conio.h>
 
-
-void readyGame() {
-	std::cout << "Welcome to Fog of Love - Romandic Comedy as a Board Game\n";
-
-	std::cout << "This application is made by ki. It does NOT include the tutorial. You and your co-player need to know the rules beforehand.\n";
-	std::cout << "Press enter to start creating the characters: ";
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	return;
-};
-
 //https://stackoverflow.com/questions/24708700/c-detect-when-user-presses-arrow-key
 #define KEY_UP 72       //Up arrow character
 #define KEY_DOWN 80    //Down arrow character
@@ -67,7 +57,18 @@ int select(int numChoices) {
 	//Lets us know what we ended up selecting.
 	std::cout << '\n';
 	return selected;
-}
+};
+
+void readyGame() {
+	std::cout << "Welcome to Fog of Love - Romandic Comedy as a Board Game\n";
+
+	std::cout << "This application is made by ki. It does NOT include the tutorial. You and your co-player need to know the rules beforehand.\n";
+	std::cout << "Press enter to start creating the characters: ";
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	return;
+};
+
+
 
 Character startGender(int num) {
 	std::cout << "\033[2J\033[1;1H";
@@ -133,8 +134,8 @@ std::vector<Trait> startTraits(int num) {
 dealCards<std::vector<Occupation>> startOccupation(std::vector<Occupation> deck) {
 	std::cout << "\033[2J\033[1;1H";
 	std::cout << "Player 1, please select 1 out of the 3 occupations you received below. You and your co-player's occupations will be revealed simultaneously.\n";
-	std::vector<Occupation> occus1 = { deck.at(0), deck.at(1), deck.at(2)};
-	std::vector<Occupation> occus2 = { deck.at(3), deck.at(4), deck.at(5)};
+	std::vector<Occupation> occus1 = { deck.at(0), deck.at(1), deck.at(2) };
+	std::vector<Occupation> occus2 = { deck.at(3), deck.at(4), deck.at(5) };
 	deck.erase(deck.begin(), deck.begin() + 6);
 	std::vector<Occupation> chosen1, chosen2;
 	for (int i = 0; i < 3; i++) {
@@ -156,9 +157,9 @@ dealCards<std::vector<Occupation>> startOccupation(std::vector<Occupation> deck)
 	deck.push_back(occus2.at(1));
 	std::cout << "Player 1's occupation is " + chosen1.at(0).getName() + ".\n";
 	std::cout << "Player 2's occupation is " + chosen2.at(0).getName() + ".\n";
-	dealCards<std::vector<Occupation>> d{ deck , chosen1, chosen2};
+	dealCards<std::vector<Occupation>> d{ deck , chosen1, chosen2 };
 	return d;
-}
+};
 
 dealCards<std::vector<Feature>> startFeatures(std::vector<Feature> deck) {
 	//select in turn
@@ -207,9 +208,9 @@ dealCards<std::vector<Feature>> startFeatures(std::vector<Feature> deck) {
 	std::cout << chosen2.at(1).printFull();
 	std::cout << chosen2.at(2).printFull();
 	//to-do: left-over cards at the bottom
-	dealCards<std::vector<Feature>> d{ deck, chosen1, chosen2};
+	dealCards<std::vector<Feature>> d{ deck, chosen1, chosen2 };
 	return d;
-}
+};
 
 Character changeName(Character player) {
 	std::cout << "\033[2J\033[1;1H";

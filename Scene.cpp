@@ -21,7 +21,18 @@ std::string Chapter::printFull() {
 	}
 	char alphabet[] = "ABCD";
 	for (int i = 0; i < choices.size(); i++) {
-		x = x + alphabet[i] + " = " + choices.at(i).getDescription() + "\n";
+		x = x + alphabet[i] + " = " + choices.at(i).printFull();
+	}
+	if (additionals.size() > 0) {
+		x = x + "ADDITIONAL EFFECTS\n";
+	}
+	for (int i = 0; i < additionals.size(); i++) {
+		x = x + additionals.at(i).getFull() + "\n";
+		for (int j = 0; j < additionals.at(i).getCode().size(); j++) {
+
+			x = x + additionals.at(i).getCode().at(j) + ", ";
+		}
+		x = x + "\n";
 	}
 	x = x + "Length: " + std::to_string(length) + "\n";
 	for (int i = 0; i < drawFrom.size(); i++) {
@@ -56,7 +67,7 @@ std::string Scene::printFull() {
 	else {
 		x = x + "Partner chooses\n";
 	}
-	if (explain_choices != "N") {
+	if (explain_choices != "") {
 		x = x + "(" + explain_choices + ")\n";
 	}
 	char alphabet[] = "ABCD";
@@ -151,7 +162,7 @@ std::string Choice::printFull() {
 
 
 std::vector<Scene> selectScenes() {
-	std::vector<Scene> scenes = importScenes();
+	std::vector<Scene> scenes;
 
 	/*std::cout << scenes.at(0).printFull();
 	std::cout << scenes.at(1).printFull();

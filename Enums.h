@@ -22,8 +22,8 @@ enum Gender {
 
 enum Deck {
 	Sweet,
-	Drama,
 	Serious,
+	Drama,
 };
 
 enum Instruction {
@@ -40,4 +40,5 @@ enum Instruction {
 	doubleImpact = 0x0a,
 	guess = 0x0b,
 };
+
 

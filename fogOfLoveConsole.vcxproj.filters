@@ -57,6 +57,9 @@
     <ClCompile Include="VocabTranslator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RunGameHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CharacterInitial.h">
@@ -105,6 +108,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VocabTranslator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RunGameHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

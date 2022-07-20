@@ -67,17 +67,20 @@ private:
 	int length;
 	std::vector<Deck> drawFrom;
 	std::vector<Choice> choices;
+	std::vector<Additional> additionals;
 public:
 	Chapter(int i, bool b, int l, std::vector<Deck> d);
 	void setIndex(int i) { index = i; };
 	void setBoth(bool b) { both = b; };
 	void setDraw(std::vector<Deck> d) { drawFrom = d; };
 	void setChoices(std::vector<Choice> c) { choices = c; };
+	void setAddis(std::vector<Additional> a) { additionals = a; };
 	int getIndex() { return index; };
 	bool getBoth() { return both; };
 	int getLength() { return length; };
 	std::vector<Deck> getDraw() { return drawFrom; };
 	std::vector<Choice> getChoices() { return choices; };
+	std::vector<Additional> getAddis() { return additionals; };
 	std::string printFull();
 };
 

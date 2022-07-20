@@ -20,8 +20,9 @@ void split(const std::string& s, char delim, std::vector<std::string>& elems) {
 	}
 };
 
-std::map<std::string, std::string> importVocab() {
-	std::ifstream fs("vocabulary.txt");
+std::map<std::string, std::string> importVocab(std::string fileName) {
+
+	std::ifstream fs(fileName);
 	std::string line;
 	std::map<std::string, std::string> pairs;
 	while (std::getline(fs, line)) {
@@ -30,10 +31,10 @@ std::map<std::string, std::string> importVocab() {
 		pairs.insert({ info[0], info[1] });
 	}
 	return pairs;
-}
+};
 
-std::vector<Feature> importFeatures() {
-	std::ifstream fs("feature.txt");
+std::vector<Feature> importFeatures(std::string fileName) {
+	std::ifstream fs(fileName);
 	std::string line;
 	std::vector<Feature> features;
 	while (std::getline(fs, line)) {
@@ -49,8 +50,8 @@ std::vector<Feature> importFeatures() {
 	return features;
 };
 
-std::vector<Occupation> importOccus() {
-	std::ifstream fs("occupation.txt");
+std::vector<Occupation> importOccus(std::string fileName) {
+	std::ifstream fs(fileName);
 	std::string line;
 	std::vector<Occupation> occus;
 	while (std::getline(fs, line)) {
@@ -64,10 +65,10 @@ std::vector<Occupation> importOccus() {
 	}
 	occus = Shuffle(occus);
 	return occus;
-}
+};
 
-std::vector<Chapter> importChapters() {
-	std::ifstream fs("chapters.txt");
+std::vector<Chapter> importChapters(std::string fileName, std::string effects) {
+	std::ifstream fs(fileName);
 	std::string line;
 	std::vector<Chapter> chapters;
 	while (std::getline(fs, line)) {
@@ -90,11 +91,14 @@ std::vector<Chapter> importChapters() {
 		c.setChoices(choices);
 		chapters.push_back(c);
 	}
+	chapters = importChapterE(chapters, effects);
+	std::map<std::string, std::string> vocab = importVocab("vocabulary.txt");
+	chapters = Vocab(chapters, vocab);
 	return chapters;
 };
 
-std::vector<Scene> importScenes() {
-	std::ifstream fs("scenes.txt");
+std::vector<Scene> importScenes(std::string fileName, std::string effects) {
+	std::ifstream fs(fileName);
 	std::string line;
 	std::vector<Scene> scenes;
 	while (std::getline(fs, line)) {
@@ -103,8 +107,8 @@ std::vector<Scene> importScenes() {
 		Scene newScene = generateScene(info);
 		scenes.push_back(newScene);
 	}
-	scenes = importEffects(scenes);
-	std::map<std::string, std::string> vocab = importVocab();
+	scenes = importEffects(scenes, effects);
+	std::map<std::string, std::string> vocab = importVocab("vocabulary.txt");
 	scenes = Vocab(scenes, vocab);
 
 	//scenes = Shuffle(scenes);
@@ -120,7 +124,13 @@ Scene generateScene(std::vector<std::string> info) {
 	Scene scene = Scene{ i, d, w };
 	scene.setTitle(info[1]);
 	scene.setLine(info[2]);
-	scene.setExplain(info[3]);
+	if (info[3] == "N") {
+		scene.setExplain("");
+	}
+	else {
+		scene.setExplain(info[3]);
+	}
+	
 	std::vector<Choice> choices;
 	for (int i = 6; i < info.size(); i++) {
 		Choice choice = { info[i] };
@@ -130,8 +140,8 @@ Scene generateScene(std::vector<std::string> info) {
 	return scene;
 };
 
-std::vector<Scene> importEffects(std::vector<Scene> scenes) {
-	std::ifstream fs("sceneEffect.txt");
+std::vector<Scene> importEffects(std::vector<Scene> scenes, std::string fileName) {
+	std::ifstream fs(fileName);
 	std::string line;
 	int index = 0;
 	while (std::getline(fs, line)) {
@@ -142,4 +152,18 @@ std::vector<Scene> importEffects(std::vector<Scene> scenes) {
 		index++;
 	}
 	return scenes;
+};
+
+std::vector<Chapter> importChapterE(std::vector<Chapter> chapters, std::string fileName) {
+	std::ifstream fs(fileName);
+	std::string line;
+	int index = 0;
+	while (std::getline(fs, line)) {
+		std::vector<std::string> info;
+		split(line, '\t', info);
+		int i = std::stoi(info[0]);
+		chapters.at(i - 1) = readEffectsC(chapters.at(i - 1), info);
+		index++;
+	}
+	return chapters;
 };

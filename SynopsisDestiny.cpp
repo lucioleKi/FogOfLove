@@ -8,8 +8,8 @@
 Synopsis::Synopsis(std::string t, std::vector<Destiny> d) {
 	title = t;
 	destinies = d;
-	std::vector<Scene> *scenes = 0;
-	int starting_hand[3]{};
+	std::vector<Scene> scenes;
+	std::vector<int> starting_hand;
 };
 
 std::string Synopsis::printFull() {
@@ -22,14 +22,23 @@ std::string Synopsis::printFull() {
 	return x;
 };
 
+std::string Destiny::printFull() {
+	std::string x = name + ". " + description + "\n";
+	return x;
+}
+
 std::vector<Destiny> getDestinies() {
-	Destiny dominant = Destiny{ "Dominant", "You will stay in the relationship, but you will only be happy if you have the upper hand. " };
-	Destiny equalPartners = Destiny{"Equal Partners", "You will stay in the relationship, but you will only be happy if you are a team of equals. "};
-	Destiny loveTeam = Destiny{ "Love Team", "You will stay in the relationship, but your happiness depends on your shared outcomes. "};
-	Destiny unconditionalLove = Destiny{ "Unconditional Love", "You will stay in the relationship, but you will only be happy if your partner is happy. "};
-	std::vector<Destiny> destinies = { dominant, equalPartners, loveTeam, unconditionalLove };
+	Destiny dominant = Destiny{ "DOMINANT", "You will stay in the relationship, but you will only be happy if you have the upper hand. ", true};
+	Destiny equalPartners = Destiny{"EQUAL PARTNERS", "You will stay in the relationship, but you will only be happy if you are a team of equals. ", true};
+	Destiny loveTeam = Destiny{ "LOVE TEAM", "You will stay in the relationship, but your happiness depends on your shared outcomes. ", true};
+	Destiny unconditionalLove = Destiny{ "UNCONDITIONAL LOVE", "You will stay in the relationship, but you will only be happy if your partner is happy. ", true};
+	Destiny honorableExit = Destiny{ "HONORABLE EXIT", "You break up, because you weren\'t meant for each other." ,false};
+	Destiny heartbreaker = Destiny{ "HEARTBREAKER", "You break up, because that\'s what you do.", false};
+	std::vector<Destiny> destinies = { dominant, equalPartners, loveTeam, unconditionalLove, honorableExit, heartbreaker };
 	return destinies;
 };
+
+
 
 
 

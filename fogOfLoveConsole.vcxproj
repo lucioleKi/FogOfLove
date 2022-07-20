@@ -147,6 +147,7 @@
     <ClCompile Include="PersonalityToken.cpp" />
     <ClCompile Include="ReadTxt.cpp" />
     <ClCompile Include="ResolveEffects.cpp" />
+    <ClCompile Include="RunGameHelper.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ReadEffects.cpp" />
     <ClCompile Include="StartChar.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="ReadEffects.h" />
     <ClInclude Include="ReadTxt.h" />
     <ClInclude Include="ResolveEffects.h" />
+    <ClInclude Include="RunGameHelper.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="Shuffle.h" />

@@ -30,7 +30,7 @@ B	Both
 PA	PARTNER
 NM	No Match:
 DS	discard X SCENE
-<2	up to 2
+<TWO	up to 2
 N	not
 T	tell
 DD	discard
@@ -52,12 +52,12 @@ A#S	any number of SCENES
 MIRROR	OTHER gets same PERSONALITY TOKEN as CHOOSER.
 SWO	switch OCCUPATION with PARTNERS
 STELL	CHOOSER chooses one of their SECRETS in play randomly. Let the OTHER know whether you think it is beneficial for them to reveal it or not. It stays hidden.
-STELL2	BOTH randomly select a SECRET in play and tell whether you believe it is beneficial for the OTHER to reveal it. It stays hidden.
-Double3	You will be trying to lose weight and will be a bit more sensitive than usual. BOTH get double SENSITIVITY PERSONALITY TOKENS from the next SCENE played.
+STELLL	BOTH randomly select a SECRET in play and tell whether you believe it is beneficial for the OTHER to reveal it. It stays hidden.
+DoubleThree	You will be trying to lose weight and will be a bit more sensitive than usual. BOTH get double SENSITIVITY PERSONALITY TOKENS from the next SCENE played.
 DOUBLEIMPACT	CHOOSER ignore all satisfaction effects on the next SCENE played while there will be double impact on satisfaction outcomes for the OTHER.
 RI	reveal if you have X in hand
 RS	reveal a SECRET in play played by the OTHER
-RS2	reveal 2 SECRETS in play
+RSS	reveal 2 SECRETS in play
 RSALL	reveal all SECRETS in play with an affair.
 MAY	may
 TRADE	BOTH secretly select a SCENE from their hand to give to the other. You then trade SCENES simultaneously.
@@ -68,6 +68,9 @@ Equal Partners	EQUAL PARTNERS
 Honorable Exit	HONORABLE EXIT
 Love Team	LOVE TEAM
 Unconditional Love	UNCONDITIONAL LOVE
+DNUnconditional Love	May not discard UNCONDITIONAL LOVE.
+DNLove Team	May not discard LOVE TEAM.
+DNDominant	May not discard DOMINANT.
 Dominant	DOMINANT
 Heartbreaker	HEARTBREAKER
 Heartbreaker/Honorable Exit	HEARTBREAKER or HONORABLE EXIT

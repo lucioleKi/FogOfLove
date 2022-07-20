@@ -7,6 +7,7 @@
 #include <iostream>
 
 Scene readEffects(Scene s, std::vector<std::string> effects) {
+
 	int numChoice = s.getChoices().size();
 	int numF = std::count(effects.begin(), effects.end(), "F");
 	int index = 1;
@@ -60,6 +61,51 @@ Scene readEffects(Scene s, std::vector<std::string> effects) {
 	return s;
 };
 
+Chapter readEffectsC(Chapter s, std::vector<std::string> effects) {
+	int numChoice = s.getChoices().size();
+	int numF = std::count(effects.begin(), effects.end(), "F");
+	int index = 1;
+
+	std::vector<Choice> tempC;
+	for (int i = 0; i < numChoice; i++) {
+		//choice effects
+		int begin = index;
+		std::vector<std::string> code;
+		Choice c = s.getChoices().at(i);
+		while (effects.at(index) != "F") {
+
+			index++;
+		}
+		//c.setCode(code);
+		//handle PT here
+		PT pt = readPT(begin, index, c, effects);
+		c = pt.c;
+		effects = pt.effects;
+
+		index = index - pt.in + 1;
+		tempC.push_back(c);
+	}
+	s.setChoices(tempC);
+	std::vector<Additional> a;
+	for (int i = 0; i < numF - numChoice; i++) {
+		//additional effects
+
+		std::vector<std::string> code{};
+		while (effects.at(index) != "F") {
+			code.push_back(effects.at(index));
+			index++;
+		}
+		Additional add{ code };
+		add.setFull("");
+		a.push_back(add);
+		index++;
+	}
+
+	s.setAddis(a);
+	//std::cout<<s.printFull();
+	return s;
+}
+
 
 PT readPT(int begin,int end,  Choice c, std::vector<std::string> effects) {
 	int numPT = std::count(effects.begin()+begin, effects.begin()+end, "PT");
@@ -94,6 +140,7 @@ PT readPT(int begin,int end,  Choice c, std::vector<std::string> effects) {
 	return PT{numPT*3, c, effects };
 };
 
+/*
 PT readChoser(int begin, int index, Choice c, std::vector<std::string> effects) {
 	int del = 0;
 	std::vector<std::string> code;
@@ -133,3 +180,4 @@ PT readChoser(int begin, int index, Choice c, std::vector<std::string> effects) 
 	c.setCode(code);
 	return PT{ del, c, effects };
 };
+*/

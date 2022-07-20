@@ -1,6 +1,6 @@
 #pragma once
-#include "Enums.h";
-#include "Scene.h";
+#include "Enums.h"
+#include "Scene.h"
 #include "CharacterInitial.h"
 #include "PersonalityToken.h"
 #include "SynopsisDestiny.h"
@@ -23,5 +23,6 @@ struct Session {
 	std::vector<Scene> sweetS;
 	std::vector<Scene> seriousS;
 	std::vector<Scene> dramaS;
-
+	std::vector<Scene> hand1;
+	std::vector<Scene> hand2;
 };

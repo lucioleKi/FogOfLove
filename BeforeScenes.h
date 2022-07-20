@@ -17,6 +17,7 @@
 
 int select(int numChoices);
 void readyGame();
+
 Character startGender(int num);
 
 std::vector<Trait> startTraits(int num);
