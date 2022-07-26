@@ -33,6 +33,6 @@ Next step: Finish resolving other effects.
 
 7/25/2022
 
-Completed: reveal a random DESTINY, match Chooser ABCD to other codes, swap in & out, discard a DESTINY, retrieve a DESTINY, change occupation, swap occupation with partner, discard a scene, resolve effects for chapter cards
+Completed: reveal a random DESTINY, match Chooser ABCD to other codes, swap in & out, discard a DESTINY, retrieve a DESTINY, change occupation, swap occupation with partner, discard a scene, resolve effect for chapters.
 
 Next step: Finish resolving effects that carries on to the next round. Make secret and special effect objects.
