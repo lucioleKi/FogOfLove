@@ -4,11 +4,13 @@ MB	Match B:
 MC	Match C:
 MD	Match D:
 MAB	Match A or B:
+MBC	Match B or C:
 MABC	Match A, B, or C:
 M/CDE	Match or one chose D:
 CBD/MD	Chose B and D or match D:
 CB-CD	One chose B, other C or D:
 CAB	Chose A and B:
+CAC	Chose A and C:
 CAB-CD	One chose A or B, other C or D:
 CCD	Chose C and D:
 CD-AB	One chose D, and other chose A or B:
@@ -29,8 +31,7 @@ E	Else:
 B	Both
 PA	PARTNER
 NM	No Match:
-DS	discard X SCENE
-<TWO	up to 2
+DS	discard X SCENE(s).
 N	not
 T	tell
 DD	discard
@@ -42,12 +43,12 @@ PL	PLAYER
 RE	retrieve
 SI	swap in
 SO	swap out
-R	reveal a DESTINY from hand
+RK	reveal a DESTINY from hand
 RR	reveal a random DESTINY
 CO	change occupation
-CT	change a TRAIT
-CRT	change a random TRAIT
-ANY	a DESTINY
+CTT	change a TRAIT.
+CRT	change a random TRAIT.
+ANY	a DESTINY.
 A#S	any number of SCENES
 MIRROR	OTHER gets same PERSONALITY TOKEN as CHOOSER.
 SWO	switch OCCUPATION with PARTNERS
@@ -62,15 +63,15 @@ RSALL	reveal all SECRETS in play with an affair.
 MAY	may
 TRADE	BOTH secretly select a SCENE from their hand to give to the other. You then trade SCENES simultaneously.
 Drama	a DRAMA SCENE.
-Serious	a SERIOUS SCENE
-Sweet	a SWEET SCENE
-Equal Partners	EQUAL PARTNERS
-Honorable Exit	HONORABLE EXIT
-Love Team	LOVE TEAM
-Unconditional Love	UNCONDITIONAL LOVE
+Serious	a SERIOUS SCENE.
+Sweet	a SWEET SCENE.
+EQUAL PARTNERS	EQUAL PARTNERS.
+HONORABLE EXIT	HONORABLE EXIT.
+LOVE TEAM	LOVE TEAM.
+UNCONDITIONAL LOVE	UNCONDITIONAL LOVE.
 DNUnconditional Love	May not discard UNCONDITIONAL LOVE.
 DNLove Team	May not discard LOVE TEAM.
 DNDominant	May not discard DOMINANT.
-Dominant	DOMINANT
-Heartbreaker	HEARTBREAKER
-Heartbreaker/Honorable Exit	HEARTBREAKER or HONORABLE EXIT
+DOMINANT	DOMINANT.
+HEARTBREAKER	HEARTBREAKER.
+HEARTBREAKER/HONORABLE EXIT	HEARTBREAKER or HONORABLE EXIT.

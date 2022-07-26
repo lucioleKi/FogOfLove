@@ -19,3 +19,5 @@ Session drawStarting(Session game);
 Session drawFill(Session session, Deck d);
 
 int chooseScene(Session game, int turn);
+
+int chooseDestiny(Session session, int player);

@@ -21,3 +21,7 @@ int startGame();
 
 Session startSession();
 Session runGame(Session session);
+
+Session specialOp(Session session, int index, Deck deck, int turn, Scene scene);
+
+Session resolution(Session session);

@@ -64,15 +64,25 @@ std::string Scene::printFull() {
 	if (whoChoose == 'B') {
 		x = x + "Both choose\n";
 	}
-	else {
+	else if(whoChoose == 'P') {
 		x = x + "Partner chooses\n";
+	}
+	else if (whoChoose == 'S') {
+		x = x + "Situation\n";
 	}
 	if (explain_choices != "") {
 		x = x + "(" + explain_choices + ")\n";
 	}
 	char alphabet[] = "ABCD";
+	
 	for (int i = 0; i < choices.size(); i++) {
-		x = x + alphabet[i] + " = " + choices.at(i).printFull();
+		if (whoChoose == 'B' || whoChoose == 'P') {
+			x = x + alphabet[i] + " = " + choices.at(i).printFull();
+		}
+		else if (whoChoose == 'S') {
+			x = x + choices.at(i).printFull();
+		}
+		
 	}
 	if (additionals.size() > 0) {
 		x = x + "ADDITIONAL EFFECTS\n";

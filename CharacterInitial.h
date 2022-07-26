@@ -13,7 +13,7 @@ private:
 	Gender char_gender;
 	int char_satisfaction;
 public:
-	Character();
+	Character(int index);
 	Character(int index,std::string name, Gender gender, int satisfaction);
 	int getIndex() { return char_index; };
 	std::string getName() { return char_name; };

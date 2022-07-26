@@ -72,8 +72,7 @@ void readyGame() {
 
 Character startGender(int num) {
 	std::cout << "\033[2J\033[1;1H";
-	Character player = Character();
-	player.setIndex(num);
+	Character player = Character(num);
 	player.setSatisfaction(0);
 	std::cout << "Player " << num << ", please select a gender: \n 1 = Female \n 2 = Male \n 3 = Other \n";
 
@@ -213,18 +212,13 @@ dealCards<std::vector<Feature>> startFeatures(std::vector<Feature> deck) {
 };
 
 Character changeName(Character player) {
-	std::cout << "\033[2J\033[1;1H";
+	
 	std::cout << "Player " + std::to_string(player.getIndex()) + ", please choose a name that is not your own name. Remember, you are playing fictional characters.\n";
 	std::string name;
 	
-	std::getline(std::cin, name);
-	
-	
-	if (name.length() > 20)
-	{
-		name.erase(20);
-	}
-	player.setName("Kelly");
+	std::cin>>name;
+	player.setName(name);
+	//player.setName("Kelly");
 	return player;
 };
 

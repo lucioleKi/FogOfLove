@@ -123,7 +123,13 @@ Scene generateScene(std::vector<std::string> info) {
 	char w = info[5][0];
 	Scene scene = Scene{ i, d, w };
 	scene.setTitle(info[1]);
-	scene.setLine(info[2]);
+	if (info[2] == "N") {
+		scene.setLine("");
+	}
+	else {
+		scene.setLine(info[2]);
+	}
+	
 	if (info[3] == "N") {
 		scene.setExplain("");
 	}

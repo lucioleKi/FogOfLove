@@ -7,6 +7,13 @@
 #include <algorithm>
 #include <iostream>
 
+struct codePlayer {
+	std::vector<std::string> code{};
+	int chooser{};
+};
+
+Session resolveEffectsC(Session session, Chapter chapter, int choice1, int choice2);
+
 Session resolveEffectsP(Session game, int turn, Scene scene, int choice1);
 
 Session resolveEffectsB(Session game, int turn, Scene scene, int choice1, int choice2);
@@ -19,3 +26,4 @@ int matchChoice(Scene scene, int c1, int c2, int player);
 
 std::vector<std::string> match2(int c1, int c2, int player);
 
+codePlayer resolveCABCD(int turn, Scene scene, int c1, int c2, std::vector<std::string> code);

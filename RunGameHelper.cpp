@@ -73,3 +73,32 @@ int chooseScene(Session session, int turn) {
 		return select(5);
 	}
 };
+
+int chooseDestiny(Session session, int player) {
+	int index = 0;
+	std::vector<int> hand;
+	if (player == 1) {
+		
+		for (int i = 0; i < session.d1.size(); i++) {
+			if (session.d1.at(i).getIn()) {
+				std::cout << session.d1.at(i).printFull();
+				hand.push_back(i);
+				index++;
+			}
+		}
+		std::cout << session.x1.getName()+", select a final DESTINY:\n";
+	}
+	else {
+		for (int i = 0; i < session.d2.size(); i++) {
+			if (session.d2.at(i).getIn()) {
+				std::cout << session.d2.at(i).printFull();
+				hand.push_back(i);
+				index++;
+			}
+		}
+		std::cout << session.x2.getName() + ", select a final DESTINY:\n";
+	}
+	
+	int temp = select(index);
+	return hand.at(temp);
+};

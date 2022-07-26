@@ -109,11 +109,45 @@ std::vector<T> Vocab(std::vector<T> x, std::map<std::string, std::string> pairs)
 };
 
 template<typename T>
-T Vocab1(T x, std::map<std::string, std::string> pairs) {
-	/*for (auto itr = pairs.begin(); itr != pairs.end(); ++itr) {
-		std::cout << itr->first
-			<< '\t' << itr->second << '\n';
-	}*/
-	
+T ApplyEffect(T x, int player, PersonalityDim d, int number) {
+	if (player == 1) {
+		if (number > 0) {
+			x.per.change(1, d * 2, number);
+		}
+		else {
+			x.per.change(1, d * 2+1, number*(-1));
+		}
+	}
+	else {
+		if (number > 0) {
+			x.per.change(2, d * 2, number);
+		}
+		else {
+			x.per.change(2, d * 2+1, number*(-1));
+		}
+	}
+	std::cout<<x.per.printFull();
+	return x;
+};
+
+template<typename T>
+T CancelEffect(T x, int player, PersonalityDim d, int number) {
+	if (player == 1) {
+		if (number > 0) {
+			x.per.change(1, d * 2, number * (-1));
+		}
+		else {
+			x.per.change(1, d * 2+1, number);
+		}
+	}
+	else {
+		if (number > 0) {
+			x.per.change(2, d * 2, number * (-1));
+		}
+		else {
+			x.per.change(2, d * 2+1, number);
+		}
+	}
+	std::cout << x.per.printFull();
 	return x;
 };

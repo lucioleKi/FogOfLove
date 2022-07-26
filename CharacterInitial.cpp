@@ -3,7 +3,8 @@
 #include <string>
 #include <iostream>
 
-Character::Character() {
+Character::Character(int index) {
+	char_index = index;
 	char_satisfaction = 0;
 };
 
