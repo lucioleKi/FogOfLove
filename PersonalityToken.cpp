@@ -335,15 +335,15 @@ void PersonalityToken::changeFeature(int player, Feature fea) {
 std::string PersonalityToken::printFull() {
 	std::string x{"Player 1: \n"};
 	for (int i = 0; i < 6; i++) {
-		x = x + text.at(i) + ": + " + std::to_string(personality1.at(i * 2)) + " - " + std::to_string(personality1.at(i * 2+1)*(-1)) + "\n";
+		x = x + text.at(i) + ": + " + std::to_string(personality1.at(i * 2)) + " - " + std::to_string(personality1.at(i * 2+1)) + "\n";
 	}
 	x = x + "\nPlayer2: \n";
 	for (int i = 0; i < 6; i++) {
-		x = x + text.at(i) + ": + " + std::to_string(personality2.at(i * 2)) + " - " + std::to_string(personality2.at(i * 2+1)*(-1)) + "\n";
+		x = x + text.at(i) + ": + " + std::to_string(personality2.at(i * 2)) + " - " + std::to_string(personality2.at(i * 2+1)) + "\n";
 	}
 	x = x + "\nShared: \n";
 	for (int i = 0; i < 6; i++) {
-		x = x + text.at(i) + ": + " + std::to_string(personalityShared.at(i * 2)) + " - " + std::to_string(personalityShared.at(i * 2+1)*(-1)) + "\n";
+		x = x + text.at(i) + ": + " + std::to_string(personalityShared.at(i * 2)) + " - " + std::to_string(personalityShared.at(i * 2+1)) + "\n";
 	}
 	return x;
 };

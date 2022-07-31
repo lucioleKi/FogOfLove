@@ -660,3 +660,50 @@ Session DS(Session session, int chooser, std::string number) {
 	}
 	return session;
 };
+
+Session TRADE(Session session) {
+	std::cout << session.x1.getName() + "has the following SCENES in hand:\n";
+	for (int i = 0; i < session.hand1.size(); i++) {
+		std::cout << session.hand1.at(i).getTitle()+"\n";
+	}
+	std::cout << "Select a SCENE to give to " + session.x2.getName()+"\n";
+	int t1 = select(session.hand1.size());
+
+	std::cout << session.x2.getName() + "has the following SCENES in hand:\n";
+	for (int i = 0; i < session.hand2.size(); i++) {
+		std::cout << session.hand2.at(i).getTitle() + "\n";
+	}
+	std::cout << "Select a SCENE to give to " + session.x1.getName()+"\n";
+	int t2 = select(session.hand2.size());
+	session.hand1.push_back(session.hand2.at(t2));
+	session.hand2.push_back(session.hand1.at(t1));
+	session.hand1.erase(session.hand1.begin() + t1);
+	session.hand2.erase(session.hand2.begin() + t2);
+	return session;
+};
+
+void STELLL(Session session, int chooser) {
+	if (chooser == 1) {
+		if (session.secret1.size() > 0) {
+			std::cout << session.x1.getName() + "The randomly selected SECRET is:\n";
+			int temp = rand() / RAND_MAX * session.secret1.size();
+			std::cout << session.secret1.at(temp).getTitle();
+			std::cout << "\nTell " + session.x2.getName() + " whether you think it is beneficial for them to reveal it or not. \n1 = Yes\n2 = No\n";
+			int choice = select(2);
+
+		}
+	}
+	else {
+		if (session.secret2.size() > 0) {
+			std::cout << session.x2.getName() + "The randomly selected SECRET is:\n";
+			int temp = rand() / RAND_MAX * session.secret2.size();
+			std::cout << session.secret2.at(temp).getTitle();
+			std::cout << "\nTell " + session.x1.getName() + " whether you think it is beneficial for them to reveal it or not. \n1 = Yes\n2 = No\n";
+			int choice = select(2);
+
+		}
+	}
+	
+	
+	return;
+};

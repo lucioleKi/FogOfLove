@@ -52,10 +52,10 @@ ANY	a DESTINY.
 A#S	any number of SCENES
 MIRROR	OTHER gets same PERSONALITY TOKEN as CHOOSER.
 SWO	switch OCCUPATION with PARTNERS
-STELL	CHOOSER chooses one of their SECRETS in play randomly. Let the OTHER know whether you think it is beneficial for them to reveal it or not. It stays hidden.
+STELL	chooses one of their SECRETS in play randomly. Let the OTHER know whether you think it is beneficial for them to reveal it or not. It stays hidden.
 STELLL	BOTH randomly select a SECRET in play and tell whether you believe it is beneficial for the OTHER to reveal it. It stays hidden.
 DoubleThree	You will be trying to lose weight and will be a bit more sensitive than usual. BOTH get double SENSITIVITY PERSONALITY TOKENS from the next SCENE played.
-DOUBLEIMPACT	CHOOSER ignore all satisfaction effects on the next SCENE played while there will be double impact on satisfaction outcomes for the OTHER.
+DOUBLEIMPACT	ignore all satisfaction effects on the next SCENE played while there will be double impact on satisfaction outcomes for the OTHER.
 RI	reveal if you have X in hand
 RS	reveal a SECRET in play played by the OTHER
 RSS	reveal 2 SECRETS in play

@@ -4,16 +4,16 @@
 #include <string>
 #include <iostream>
 
-Chapter::Chapter(int i, bool b, int l, std::vector<Deck> d) {
+Chapter::Chapter(int i, char b, int l, std::vector<Deck> d) {
 	index = i;
-	both = b;
+	whoChoose = b;
 	length = l;
 	drawFrom = d;
 }
 
 std::string Chapter::printFull() {
 	std::string x = "Chapter " + std::to_string(index) + "\n" + title + "\n";
-	if (both) {
+	if (whoChoose=='B') {
 		x = x + "Both Choose\n";
 	}
 	else {
@@ -61,6 +61,7 @@ Scene::Scene(int i, Deck d, char w) {
 
 std::string Scene::printFull() {
 	std::string x = title + "\n"+line+"\n";
+	
 	if (whoChoose == 'B') {
 		x = x + "Both choose\n";
 	}
@@ -70,31 +71,76 @@ std::string Scene::printFull() {
 	else if (whoChoose == 'S') {
 		x = x + "Situation\n";
 	}
+	else if (whoChoose == 'E') {
+		x = x + "Special Effect\n";
+	}
+	else if (whoChoose == 'T' || whoChoose == 'C') {
+		x = x + "Secret\n";
+	}
+	else if (whoChoose == 'V') {
+		x = x + "Reveal Secret\nReveal one of your PARTNER'S SECRETS in play. All consequences of the SECRET are resolved immediately.\n";
+	}
+	else if (whoChoose == 'R'||whoChoose=='N') {
+		x = x + "Reaction\n";
+	}
+	
 	if (explain_choices != "") {
-		x = x + "(" + explain_choices + ")\n";
+		if (whoChoose == 'T' || whoChoose == 'C') {
+			x = x + explain_choices+additionals.at(0).getFull()+"\n";
+			for (int j = 0; j < additionals.at(0).getCode().size(); j++) {
+
+				x = x + additionals.at(0).getCode().at(j) + ", ";
+			}
+			x = x + "\n";
+		}
+		else {
+			x = x + explain_choices + "\n";
+		}
+		
 	}
 	char alphabet[] = "ABCD";
 	
+	if (whoChoose == 'T' || whoChoose == 'C') {
+		x = x + "If revealed\n";
+	}
+	if (whoChoose == 'T') {
+		x = x + additionals.at(1).getFull() + "\n";
+		for (int j = 0; j < additionals.at(1).getCode().size(); j++) {
+
+			x = x + additionals.at(1).getCode().at(j) + ", ";
+		}
+	}
+	else if (whoChoose == 'C') {
+		x = x + "Partner chooses\n";
+	}
+
 	for (int i = 0; i < choices.size(); i++) {
-		if (whoChoose == 'B' || whoChoose == 'P') {
+		if (whoChoose == 'B' || whoChoose == 'P'||whoChoose=='C') {
 			x = x + alphabet[i] + " = " + choices.at(i).printFull();
 		}
-		else if (whoChoose == 'S') {
+		else if (whoChoose == 'S'||whoChoose=='E') {
 			x = x + choices.at(i).printFull();
 		}
 		
 	}
-	if (additionals.size() > 0) {
-		x = x + "ADDITIONAL EFFECTS\n";
-	}
-	for (int i = 0; i < additionals.size(); i++) {
-		x = x + additionals.at(i).getFull() + "\n";
-		for (int j = 0; j < additionals.at(i).getCode().size(); j++) {
-			
-			x = x + additionals.at(i).getCode().at(j) + ", ";
+	if (whoChoose == 'B' || whoChoose == 'P') {
+		if (additionals.size() > 0) {
+			x = x + "ADDITIONAL EFFECTS\n";
 		}
-		x = x + "\n";
+		for (int i = 0; i < additionals.size(); i++) {
+			x = x + additionals.at(i).getFull() + "\n";
+			for (int j = 0; j < additionals.at(i).getCode().size(); j++) {
+
+				x = x + additionals.at(i).getCode().at(j) + ", ";
+			}
+			x = x + "\n";
+		}
 	}
+	
+	if (whoChoose == 'V' || whoChoose == 'R' || whoChoose == 'N') {
+		x = x + "Minor Scene\nDoes not count towards CHAPTER LENGTH.\nYou may discard this SCENE face up at the beginning of your turn and draw a new one.\n";
+	}
+
 	x = x + "Deck: ";
 	switch (deck) {
 	case Sweet:

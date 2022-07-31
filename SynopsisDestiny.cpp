@@ -34,7 +34,8 @@ std::vector<Destiny> getDestinies() {
 	Destiny unconditionalLove = Destiny{ "UNCONDITIONAL LOVE", "You will stay in the relationship, but you will only be happy if your partner is happy. ", true};
 	Destiny honorableExit = Destiny{ "HONORABLE EXIT", "You break up, because you weren\'t meant for each other." ,false};
 	Destiny heartbreaker = Destiny{ "HEARTBREAKER", "You break up, because that\'s what you do.", false};
-	std::vector<Destiny> destinies = { dominant, equalPartners, loveTeam, unconditionalLove, honorableExit, heartbreaker };
+	Destiny selfRealization = Destiny{ "SELF-REALIZATION", "You will stay in the relationship, but you will only be happy if you satisfy your needs. ", false };
+	std::vector<Destiny> destinies = { dominant, equalPartners, loveTeam, unconditionalLove, honorableExit, heartbreaker, selfRealization};
 	return destinies;
 };
 

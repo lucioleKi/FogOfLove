@@ -75,12 +75,12 @@ std::vector<Chapter> importChapters(std::string fileName, std::string effects) {
 		std::vector<std::string> info;
 		split(line, '\t', info);
 		int i = std::stoi(info[0]);
-		bool b = (info[1] == "1");
+		
 		int l = std::stoi(info[2]);
 		int temp = std::stoi(info[3]);
 		Deck d1 = (Deck)temp;
 		std::vector<Deck> d = { d1 };
-		Chapter c = Chapter{ i, b, l, d };
+		Chapter c = Chapter{ i, 'B', l, d};
 		c.setTitle(info[4]);
 		c.setLine(info[5]);
 		std::vector<Choice> choices;
@@ -136,13 +136,16 @@ Scene generateScene(std::vector<std::string> info) {
 	else {
 		scene.setExplain(info[3]);
 	}
-	
-	std::vector<Choice> choices;
-	for (int i = 6; i < info.size(); i++) {
-		Choice choice = { info[i] };
-		choices.push_back(choice);
+	if (w == 'B'||w == 'P'||w =='C'||w =='S'||w =='E') {
+		std::vector<Choice> choices;
+		for (int i = 6; i < info.size(); i++) {
+			Choice choice = { info[i] };
+			choices.push_back(choice);
+		}
+		scene.setChoices(choices);
 	}
-	scene.setChoices(choices);
+	
+	
 	return scene;
 };
 

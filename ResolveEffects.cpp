@@ -99,35 +99,111 @@ Session resolveEffectsB(Session game, int turn, Scene scene, int choice1, int ch
 	//resolve PT effects
 	Choice c1 = scene.getChoices().at(choice1);
 	Choice c2 = scene.getChoices().at(choice2);
-	for (int i = 0; i < c1.getDims().size(); i++) {
-		if (c1.getNums().at(i) > 0) {
-			game.per.change(1, c1.getDims().at(i)*2, c1.getNums().at(i));
 
-		}
-		else {
-			game.per.change(1, c1.getDims().at(i)*2+1, (c1.getNums().at(i))*(-1));
-		}
+	//special effects for PT
+	int double3 = 0;
+	if (std::find(game.carryOver.begin(), game.carryOver.end(), "DoubleThree") != game.carryOver.end()) {
+		int position = std::find(game.carryOver.begin(), game.carryOver.end(), "DoubleThree") - game.carryOver.begin();
+		game.carryOver.erase(game.carryOver.begin() + position);
+		double3 = 1;
 	}
+	int doubleImpact = 0;
+	if (std::find(game.carryOver.begin(), game.carryOver.end(), "DOUBLEIMPACT") != game.carryOver.end()) {
+		int position = std::find(game.carryOver.begin(), game.carryOver.end(), "DOUBLEIMPACT") - game.carryOver.begin();
+		doubleImpact = std::stoi(game.carryOver.at(position+1));		
+	}
+	int doubleB = 0;
+	if (std::find(game.carryOver.begin(), game.carryOver.end(), "DOUBLEIMPACTPT") != game.carryOver.end()) {
+		int position = std::find(game.carryOver.begin(), game.carryOver.end(), "DOUBLEIMPACTPT") - game.carryOver.begin();
+		doubleB = 1;
+	}
+
+	
+	for (int i = 0; i < c1.getDims().size(); i++) {
+			if (c1.getNums().at(i) > 0) {
+				game.per.change(1, c1.getDims().at(i) * 2, c1.getNums().at(i));
+				if (doubleB != 0) {
+					game.per.change(1, c1.getDims().at(i) * 2, c1.getNums().at(i));
+				}
+				if (scene.getIndex() == 20 && scene.getDeck() == Sweet) {
+					game.per.change(2, c1.getDims().at(i) * 2, c1.getNums().at(i));
+				}
+				else if (double3 == 1) {
+					if (c1.getDims().at(i) == 3) {
+						game.per.change(1, c1.getDims().at(i) * 2, c1.getNums().at(i));
+					}
+				}
+			}
+			else {
+				game.per.change(1, c1.getDims().at(i) * 2 + 1, (c1.getNums().at(i)) * (-1));
+				if (doubleB != 0) {
+					game.per.change(1, c1.getDims().at(i) * 2 + 1, (c1.getNums().at(i)) * (-1));
+				}
+				if (scene.getIndex() == 20 && scene.getDeck() == Sweet) {
+					game.per.change(2, c1.getDims().at(i) * 2 + 1, c1.getNums().at(i) * (-1));
+				}
+				else if (double3 == 1) {
+					if (c1.getDims().at(i) == 3) {
+						game.per.change(1, c1.getDims().at(i) * 2 + 1, c1.getNums().at(i) * (-1));
+					}
+				}
+			}
+		}
+	
+	
 	for (int i = 0; i < c2.getDims().size(); i++) {
-		if (c2.getNums().at(i) > 0) {
-			game.per.change(2, c2.getDims().at(i) * 2, c2.getNums().at(i));
+			if (c2.getNums().at(i) > 0) {
+				game.per.change(2, c2.getDims().at(i) * 2, c2.getNums().at(i));
+				if (doubleB != 0) {
+					game.per.change(2, c2.getDims().at(i) * 2, c2.getNums().at(i));
+				}
+				if (scene.getIndex() == 20 && scene.getDeck() == Sweet) {
+					game.per.change(1, c2.getDims().at(i) * 2, c2.getNums().at(i));
+				}
+				else if (double3 == 1) {
+					if (c2.getDims().at(i) == 3) {
+						game.per.change(2, c2.getDims().at(i) * 2, c2.getNums().at(i));
+					}
+				}
+			}
+			else {
+				game.per.change(2, c2.getDims().at(i) * 2 + 1, (c2.getNums().at(i)) * (-1));
+				if (doubleB != 0) {
+					game.per.change(2, c2.getDims().at(i) * 2 + 1, (c2.getNums().at(i)) * (-1));
+				}
+				if (scene.getIndex() == 20 && scene.getDeck() == Sweet) {
+					game.per.change(1, c2.getDims().at(i) * 2 + 1, c2.getNums().at(i) * (-1));
+				}
+				else if (double3 == 1) {
+					if (c1.getDims().at(i) == 3) {
+						game.per.change(2, c2.getDims().at(i) * 2 + 1, c2.getNums().at(i) * (-1));
+					}
+				}
+			}
 		}
-		else {
-			game.per.change(2, c2.getDims().at(i) * 2 + 1, (c2.getNums().at(i))*(-1));
-		}
-	}
+	
+	
+
 	//resolve satisfaction
-	if (c1.getCode().size() > 0) {
-		game = resolveChoice(game, 1, turn, c1.getCode());
+	if (doubleImpact == 0||player==2) {
+		if (c1.getCode().size() > 0) {
+			game = resolveChoice(game, 1, turn, c1.getCode());
+		}
 	}
-	if (c2.getCode().size() > 0) {
+	if (doubleImpact == 0 || player == 1) {
+		if (c2.getCode().size() > 0) {
+			game = resolveChoice(game, 2, turn, c2.getCode());
+		}
+	}
+	if (doubleImpact == 1&&c2.getCode().size()>0) {
 		game = resolveChoice(game, 2, turn, c2.getCode());
+	}
+	if (doubleImpact == 2 && c1.getCode().size() > 0) {
+		game = resolveChoice(game, 1, turn, c1.getCode());
 	}
 	
 	
 	std::cout << game.per.printFull();
-	std::cout << std::to_string(game.x1.getSatisfaction());
-	std::cout << std::to_string(game.x2.getSatisfaction());
 	return game;
 };
 
@@ -145,30 +221,125 @@ Session resolveEffectsP(Session game, int turn, Scene scene, int choice1) {
 	//resolve PT effects
 	Choice c1 = scene.getChoices().at(choice1);
 	
-	
+	//special effects for PT
+	int double3 = 0;
+	if (std::find(game.carryOver.begin(), game.carryOver.end(), "DoubleThree") != game.carryOver.end()) {
+		int position = std::find(game.carryOver.begin(), game.carryOver.end(), "DoubleThree") - game.carryOver.begin();
+		game.carryOver.erase(game.carryOver.begin() + position);
+		double3 = 1;
+	}
+	int doubleImpact = 0;
+	int doubleImpactB = 0;
+	if (std::find(game.carryOver.begin(), game.carryOver.end(), "DOUBLEIMPACT") != game.carryOver.end()) {
+		int position = std::find(game.carryOver.begin(), game.carryOver.end(), "DOUBLEIMPACT") - game.carryOver.begin();
+		doubleImpact = std::stoi(game.carryOver.at(position + 1));
+	}
+	int doubleB = 0;
+	if (std::find(game.carryOver.begin(), game.carryOver.end(), "DOUBLEIMPACTPT") != game.carryOver.end()) {
+		int position = std::find(game.carryOver.begin(), game.carryOver.end(), "DOUBLEIMPACTPT") - game.carryOver.begin();
+		doubleB = 1;
+	}
 
 	for (int i = 0; i < c1.getDims().size(); i++) {
 		if (c1.getNums().at(i) > 0) {
-			game.per.change(1, c1.getDims().at(i) * 2, c1.getNums().at(i));
+			if (player == 2) {
+				game.per.change(1, c1.getDims().at(i) * 2, c1.getNums().at(i));
+				if (doubleB != 0) {
+					game.per.change(1, c1.getDims().at(i) * 2, c1.getNums().at(i));
+				}
+				if (double3 == 1) {
+					if (c1.getDims().at(i) == 3) {
+						
+						game.per.change(1, c1.getDims().at(i) * 2, c1.getNums().at(i));
+					}
+				}
+				
+			}
+			else {
+				game.per.change(2, c1.getDims().at(i) * 2, c1.getNums().at(i));
+				if (doubleB != 0) {
+					game.per.change(2, c1.getDims().at(i) * 2, c1.getNums().at(i));
+				}
+				if (double3 == 1) {
+					if (c1.getDims().at(i) == 3) {
+						
+						game.per.change(2, c1.getDims().at(i) * 2, c1.getNums().at(i));
+					}
+				}
+				
+			}
+			
 		}
 		else {
-			game.per.change(1, c1.getDims().at(i) * 2 + 1, c1.getNums().at(i));
+			if (player == 2) {
+				game.per.change(1, c1.getDims().at(i) * 2 + 1, c1.getNums().at(i)*(-1));
+				if (doubleB != 0) {
+					game.per.change(1, c1.getDims().at(i) * 2 + 1, c1.getNums().at(i) * (-1));
+				}
+				if (double3 == 1) {
+					if (c1.getDims().at(i) == 3) {
+						game.per.change(1, c1.getDims().at(i) * 2 + 1, c1.getNums().at(i) * (-1));
+					}
+				}
+				
+
+			}
+			else {
+				game.per.change(2, c1.getDims().at(i) * 2 + 1, c1.getNums().at(i)*(-1));
+				if (doubleB != 0) {
+					game.per.change(2, c1.getDims().at(i) * 2 + 1, c1.getNums().at(i) * (-1));
+				}
+				if (double3 == 1) {
+					if (c1.getDims().at(i) == 3) {
+						game.per.change(2, c1.getDims().at(i) * 2 + 1, c1.getNums().at(i) * (-1));
+					}
+				}
+				
+			}
+			
 		}
 	}
-	//std::cout << game.per.printFull();
+	std::cout << game.per.printFull();
 	//resolve satisfaction
-	game = resolveChoice(game, other, turn, c1.getCode());
-	//std::cout << std::to_string(game.x1.getSatisfaction());
-	//std::cout << std::to_string(game.x2.getSatisfaction());
+	if (doubleImpact == 0) {
+		game = resolveChoice(game, other, turn, c1.getCode());
+	}
+	else if (doubleImpact == other) {
+		game = resolveChoice(game, other, turn, c1.getCode());
+	}
+	
+	
 	return game;
 };
 
 Session resolveChoice(Session game, int chooser, int player, std::vector<std::string> code) {
 	//std::vector<std::string> code = c.getCode();
+	int doubleimpact = 0;
+	int doubleImpactB = 0;
+	if (std::find(game.carryOver.begin(), game.carryOver.end(), "DOUBLEIMPACT") != game.carryOver.end()) {
+		int position = std::find(game.carryOver.begin(), game.carryOver.end(), "DOUBLEIMPACT") - game.carryOver.begin();
+		doubleimpact = std::stoi(game.carryOver.at(position+1));
+	}
+	if (std::find(game.carryOver.begin(), game.carryOver.end(), "DOUBLEIMPACT") != game.carryOver.end()) {
+		int position = std::find(game.carryOver.begin(), game.carryOver.end(), "DOUBLEIMPACT") - game.carryOver.begin();
+		doubleImpactB = 1;
+	}
 	int index = 0;
 	if (code.size() > 0 && code.at(0) == "B") {
 		std::vector<std::string> B;
 		if (code.at(1).find_first_of("0123456789") != std::string::npos) {
+			if (doubleImpact == 1) {
+				game.x1.setSatisfaction(std::stoi(code.at(1)));
+				game.x2.setSatisfaction(std::stoi(code.at(1))*(-1));
+			}
+			else if(doubleImpact == 2){
+				game.x2.setSatisfaction(std::stoi(code.at(1)));
+				game.x1.setSatisfaction(std::stoi(code.at(1)) * (-1));
+			}
+			if (doubleImpactB == 1) {
+				game.x1.setSatisfaction(std::stoi(code.at(1)));
+				game.x2.setSatisfaction(std::stoi(code.at(1)));
+			}
 			game.x1.setSatisfaction(std::stoi(code.at(1)));
 			game.x2.setSatisfaction(std::stoi(code.at(1)));
 			code.erase(code.begin() + 1);
@@ -225,6 +396,37 @@ Session resolveChoice(Session game, int chooser, int player, std::vector<std::st
 				game = SWO(game);
 				B.erase(B.begin() + position);
 			}
+			if (std::find(B.begin(), B.end(), "TRADE") != B.end()) {
+				int position = std::find(B.begin(), B.end(), "TRADE") - B.begin();
+				game = TRADE(game);
+				B.erase(B.begin() + position);
+			}
+			if (std::find(B.begin(), B.end(), "STELLL") != B.end()) {
+				int position = std::find(B.begin(), B.end(), "STELLL") - B.begin();
+				STELLL(game, 1);
+				STELLL(game, 2);
+				B.erase(B.begin() + position);
+			}
+			if (std::find(B.begin(), B.end(), "DOUBLEIMPACTB") != B.end()) {
+				int position = std::find(B.begin(), B.end(), "DOUBLEIMPACTB") - B.begin();
+				game.carryOver.push_back("DOUBLEIMPACTB");
+				B.erase(B.begin() + position);
+			}
+			if (std::find(B.begin(), B.end(), "DOUBLEIMPACTPT") != B.end()) {
+				int position = std::find(B.begin(), B.end(), "DOUBLEIMPACTPT") - B.begin();
+				game.carryOver.push_back("DOUBLEIMPACTPT");
+				B.erase(B.begin() + position);
+			}
+			if (std::find(B.begin(), B.end(), "BEHALF") != B.end()) {
+				int position = std::find(B.begin(), B.end(), "BEHALF") - B.begin();
+				game.carryOver.push_back("BEHALF");
+				B.erase(B.begin() + position);
+			}
+			if (std::find(B.begin(), B.end(), "BEHALFCHO") != B.end()) {
+				int position = std::find(B.begin(), B.end(), "BEHALFCHO") - B.begin();
+				game.carryOver.push_back("BEHALFCHO");
+				B.erase(B.begin() + position);
+			}
 
 		}
 		code.erase(code.begin(), code.begin() + index + 1);
@@ -236,11 +438,26 @@ Session resolveChoice(Session game, int chooser, int player, std::vector<std::st
 		std::vector<std::string> OT;
 		int other = std::find(code.begin(), code.end(), "OT") - code.begin();
 		if (code.at(other + 1).find_first_of("0123456789") != std::string::npos) {
+			
 			if (chooser == 2) {
 				game.x1.setSatisfaction(std::stoi(code.at(other + 1)));
+				if (doubleImpactB == 1) {
+					game.x1.setSatisfaction(std::stoi(code.at(other+1)));
+				}
 			}
 			else {
+				if (doubleImpactB == 1) {
+					game.x2.setSatisfaction(std::stoi(code.at(other+1)));
+				}
 				game.x2.setSatisfaction(std::stoi(code.at(other + 1)));
+			}
+			if (doubleimpact!=0) {
+				if (doubleimpact == chooser) {
+					game.x1.setSatisfaction(std::stoi(code.at(other + 1)));
+				}
+				else {
+					game.x2.setSatisfaction(std::stoi(code.at(other + 1))*(-1));
+				}
 			}
 			code.erase(code.begin() + other + 1);
 		}
@@ -298,6 +515,35 @@ Session resolveChoice(Session game, int chooser, int player, std::vector<std::st
 				}
 				OT.erase(OT.begin() + position, OT.begin() + position + 2);
 			}
+			if (std::find(OT.begin(), OT.end(), "DoubleThree") != OT.end()) {
+				int position = std::find(OT.begin(), OT.end(), "DoubleThree")-OT.begin();
+				game.carryOver.push_back("DoubleThree");
+				OT.erase(OT.begin() + position);
+			}
+			if (std::find(OT.begin(), OT.end(), "RSS") != OT.end()) {
+				int position = std::find(OT.begin(), OT.end(), "RSS") - OT.begin();
+				
+				if (game.secret2.size()+game.secret1.size() > 1) {
+						game.carryOver.push_back("RSS");
+						game.carryOver.push_back(std::to_string(2));
+					}
+				else if (game.secret2.size()+game.secret1.size() > 0) {
+						game.carryOver.push_back("RSS");
+						game.carryOver.push_back(std::to_string(1));
+					}
+				OT.erase(OT.begin() + position);
+			}
+			if (std::find(OT.begin(), OT.end(), "CO") != OT.end()) {
+				int position = std::find(OT.begin(), OT.end(), "CO") - OT.begin();
+				if (chooser == 1) {
+					game = CO(game, 2);
+				}
+				else {
+					game = CO(game, 1);
+				}
+				
+				OT.erase(OT.begin() + position);
+			}
 		}
 		code.erase(code.begin() + other, code.begin() + other + index + 1);
 	}
@@ -309,9 +555,23 @@ Session resolveChoice(Session game, int chooser, int player, std::vector<std::st
 		if (code.at(1).find_first_of("0123456789") != std::string::npos) {
 			if (chooser == 1) {
 				game.x1.setSatisfaction(std::stoi(code.at(1)));
+				if (doubleImpactB == 1) {
+					game.x1.setSatisfaction(std::stoi(code.at(1)));
+				}
 			}
 			else {
 				game.x2.setSatisfaction(std::stoi(code.at(1)));
+				if (doubleImpactB == 1) {
+					game.x2.setSatisfaction(std::stoi(code.at(1)));
+				}
+			}
+			if (doubleimpact != 0) {
+				if (doubleimpact == chooser) {
+					game.x1.setSatisfaction(std::stoi(code.at(1))*(-1));
+				}
+				else {
+					game.x2.setSatisfaction(std::stoi(code.at(1)));
+				}
 			}
 			code.erase(code.begin() + 1);
 		}
@@ -394,6 +654,51 @@ Session resolveChoice(Session game, int chooser, int player, std::vector<std::st
 				}
 				CH.erase(CH.begin() + position, CH.begin() + position + 2);
 			}
+			if (std::find(CH.begin(), CH.end(), "DOUBLEIMPACT") != CH.end()) {
+				int position = std::find(CH.begin(), CH.end(), "DOUBLEIMPACT") - CH.begin();
+				game.carryOver.push_back("DOUBLEIMPACT");
+				game.carryOver.push_back(std::to_string(chooser));
+				CH.erase(CH.begin() + position);
+			}
+			if (std::find(CH.begin(), CH.end(), "STELL") != CH.end()) {
+				int position = std::find(CH.begin(), CH.end(), "STELL") - CH.begin();
+				STELLL(game, chooser);
+				CH.erase(CH.begin() + position);
+			}
+			if (std::find(CH.begin(), CH.end(), "RS") != CH.end()) {
+				int position = std::find(CH.begin(), CH.end(), "RS") - CH.begin();
+				if (chooser == 1) {
+					if (game.secret2.size() > 0) {
+						game.carryOver.push_back("RS");
+						game.carryOver.push_back(std::to_string(1));
+					}
+				}
+				else {
+					if(game.secret1.size()>0){
+						game.carryOver.push_back("RS");
+						game.carryOver.push_back(std::to_string(1));
+					}	
+				}
+				CH.erase(CH.begin() + position);
+			}
+			
+			if (std::find(CH.begin(), CH.end(), "RSALL") != CH.end()) {
+				int position = std::find(CH.begin(), CH.end(), "RSALL") - CH.begin();
+				if (chooser == 1) {
+					if (game.secret2.size() > 0) {
+						game.carryOver.push_back("RSALL");
+						game.carryOver.push_back(std::to_string(game.secret2.size()+game.secret1.size()));
+					}
+
+				}
+				else {
+					if (game.secret1.size() > 1) {
+						game.carryOver.push_back("RSALL");
+						game.carryOver.push_back(std::to_string(game.secret2.size()+game.secret1.size()));
+					}
+				}
+				CH.erase(CH.begin() + position);
+			}
 			code.erase(code.begin(), code.begin() + index + 1);
 		}		
 	}
@@ -403,10 +708,24 @@ Session resolveChoice(Session game, int chooser, int player, std::vector<std::st
 		int other = std::find(code.begin(), code.end(), "PA") - code.begin();
 		if (code.at(other + 1).find_first_of("0123456789") != std::string::npos) {
 			if (player == 1) {
-				game.x1.setSatisfaction(std::stoi(code.at(other + 1)));
+				game.x2.setSatisfaction(std::stoi(code.at(other + 1)));
+				if (doubleImpactB == 1) {
+					game.x2.setSatisfaction(std::stoi(code.at(1)));
+				}
 			}
 			else {
-				game.x2.setSatisfaction(std::stoi(code.at(other + 1)));
+				game.x1.setSatisfaction(std::stoi(code.at(other + 1)));
+				if (doubleImpactB == 1) {
+					game.x1.setSatisfaction(std::stoi(code.at(1)));
+				}
+			}
+			if (doubleimpact != 0) {
+				if (doubleimpact == player) {
+					game.x2.setSatisfaction(std::stoi(code.at(other + 1)));
+				}
+				else {
+					game.x1.setSatisfaction(std::stoi(code.at(other + 1))*(-1) );
+				}
 			}
 			code.erase(code.begin() + other + 1);
 		}
@@ -435,6 +754,16 @@ Session resolveChoice(Session game, int chooser, int player, std::vector<std::st
 				}
 				PA.erase(PA.begin() + position, PA.begin() + position + 2);
 			}
+			if (std::find(PA.begin(), PA.end(), "RR") != PA.end()) {
+				int position = std::find(PA.begin(), PA.end(), "RR") - PA.begin();
+				if (player == 1) {
+					RR(game, 2);
+				}
+				else {
+					RR(game, 1);
+				}
+				PA.erase(PA.begin() + position);
+			}
 		}
 		code.erase(code.begin() + other, code.begin() + other + index + 1);
 	}
@@ -447,9 +776,23 @@ Session resolveChoice(Session game, int chooser, int player, std::vector<std::st
 		if (code.at(other + 1).find_first_of("0123456789") != std::string::npos) {
 			if (player == 1) {
 				game.x1.setSatisfaction(std::stoi(code.at(other + 1)));
+				if (doubleImpactB == 1) {
+					game.x1.setSatisfaction(std::stoi(code.at(1)));
+				}
 			}
 			else {
 				game.x2.setSatisfaction(std::stoi(code.at(other + 1)));
+				if (doubleImpactB == 1) {
+					game.x2.setSatisfaction(std::stoi(code.at(1)));
+				}
+			}
+			if (doubleimpact != 0) {
+				if (doubleimpact == chooser) {
+					game.x1.setSatisfaction(std::stoi(code.at(other + 1))*(-1));
+				}
+				else {
+					game.x2.setSatisfaction(std::stoi(code.at(other + 1)));
+				}
 			}
 			code.erase(code.begin() + 1);
 		}

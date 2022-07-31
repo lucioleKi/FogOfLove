@@ -63,20 +63,21 @@ public:
 class Chapter : public Card {
 private:
 	int index;
-	bool both;
+	
 	int length;
+	char whoChoose;
 	std::vector<Deck> drawFrom;
 	std::vector<Choice> choices;
 	std::vector<Additional> additionals;
 public:
-	Chapter(int i, bool b, int l, std::vector<Deck> d);
+	Chapter(int i, char b, int l, std::vector<Deck> d);
 	void setIndex(int i) { index = i; };
-	void setBoth(bool b) { both = b; };
+	void setWho(char w) { whoChoose = w; };
 	void setDraw(std::vector<Deck> d) { drawFrom = d; };
 	void setChoices(std::vector<Choice> c) { choices = c; };
 	void setAddis(std::vector<Additional> a) { additionals = a; };
 	int getIndex() { return index; };
-	bool getBoth() { return both; };
+	char getWho() { return whoChoose; };
 	int getLength() { return length; };
 	std::vector<Deck> getDraw() { return drawFrom; };
 	std::vector<Choice> getChoices() { return choices; };
@@ -89,6 +90,7 @@ private:
 	int index;
 	std::string explain_choices;
 	Deck deck;
+	//B = Both choose, P = Partner chooses, S = Situation, E = Special Effect, T = Secret, C = Secret w/ Partner chooses, V = Reveal secret, R = Reaction, N = Reaction w/ Partner chooses
 	char whoChoose;
 	std::vector<Choice> choices;
 	std::vector<Additional> additionals;

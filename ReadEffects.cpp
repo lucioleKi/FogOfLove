@@ -13,50 +13,121 @@ Scene readEffects(Scene s, std::vector<std::string> effects) {
 	int index = 1;
 	
 	std::vector<Choice> tempC;
-	for (int i = 0; i < numChoice; i++) {
-		//choice effects
-		int begin = index;
+
+	if (s.getWho() == 'S') {
 		std::vector<std::string> code;
-		Choice c = s.getChoices().at(i);
-		while (effects.at(index) != "F") {
-			
-			index++;
-		}
-		//c.setCode(code);
-		//handle PT here
-		
-		PT pt = readPT(begin, index, c, effects);
-		c = pt.c;
-		effects = pt.effects;
-		
-		index = index - pt.in + 1;
-		tempC.push_back(c);
-		//handle choser and other here
-		/*PT choser = readChoser(begin, index, c, effects);
-		effects = choser.effects;
-		c = choser.c;
-		
-		index = index - choser.in;
-		*/
-		//std::cout << "index out"+std::to_string(index) + "\n";
-	}
-	s.setChoices(tempC);
-	std::vector<Additional> a;
-	for (int i = 0; i < numF - numChoice; i++) {
-		//additional effects
-		
-		std::vector<std::string> code{};
+		Choice c = s.getChoices().at(0);
 		while (effects.at(index) != "F") {
 			code.push_back(effects.at(index));
 			index++;
 		}
+		c.setCode(code);
+		tempC.push_back(c);
+		for (int i = 1; i < s.getChoices().size(); i++) {
+			tempC.push_back(s.getChoices().at(i));
+		}
+		s.setChoices(tempC);
+	}
+	else if (s.getWho() == 'T') {
+		//make 2 additional objects, not-revealed, if-revealed respectively
+		std::vector<Additional> a;
+		for (int i = 0; i < 2; i++) {
+			//additional effects
+
+			std::vector<std::string> code{};
+			while (effects.at(index) != "F") {
+				code.push_back(effects.at(index));
+				index++;
+			}
+			Additional add{ code };
+			add.setFull("");
+			a.push_back(add);
+			index++;
+		}
+
+		s.setAddis(a);
+	}
+	else if (s.getWho() == 'C') {
+		//make 2 aditional objects, for initial and not-revealed
+		std::vector<Additional> a;
+		std::vector<std::string> code{};
+		while (effects.at(index) != "F") {
+				code.push_back(effects.at(index));
+				index++;
+			}
 		Additional add{ code };
 		add.setFull("");
 		a.push_back(add);
 		index++;
+		s.setAddis(a);
+
+		//choice effects
+		for (int i = 0; i < numChoice; i++) {
+			int begin = index;
+			std::vector<std::string> code;
+			Choice c = s.getChoices().at(i);
+			while (effects.at(index) != "F") {
+				index++;
+			}
+			PT pt = readPT(begin, index, c, effects);
+			c = pt.c;
+			effects = pt.effects;
+
+			index = index - pt.in + 1;
+			tempC.push_back(c);
+			
+		}
+		s.setChoices(tempC);
+
+	}
+	else if (s.getWho() == 'B' || s.getWho() == 'P') {
+		for (int i = 0; i < numChoice; i++) {
+			//choice effects
+			int begin = index;
+			std::vector<std::string> code;
+			Choice c = s.getChoices().at(i);
+			while (effects.at(index) != "F") {
+
+				index++;
+			}
+			//c.setCode(code);
+			//handle PT here
+
+			PT pt = readPT(begin, index, c, effects);
+			c = pt.c;
+			effects = pt.effects;
+
+			index = index - pt.in + 1;
+			tempC.push_back(c);
+			//handle choser and other here
+			/*PT choser = readChoser(begin, index, c, effects);
+			effects = choser.effects;
+			c = choser.c;
+
+			index = index - choser.in;
+			*/
+			//std::cout << "index out"+std::to_string(index) + "\n";
+		}
+		s.setChoices(tempC);
+		std::vector<Additional> a;
+		for (int i = 0; i < numF - numChoice; i++) {
+			//additional effects
+
+			std::vector<std::string> code{};
+			while (effects.at(index) != "F") {
+				code.push_back(effects.at(index));
+				index++;
+			}
+			Additional add{ code };
+			add.setFull("");
+			a.push_back(add);
+			index++;
+		}
+
+		s.setAddis(a);
 	}
 	
-	s.setAddis(a);
+	
 	//std::cout<<s.printFull();
 	return s;
 };

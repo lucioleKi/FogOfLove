@@ -26,4 +26,7 @@ struct Session {
 	std::vector<Scene> dramaS;
 	std::vector<Scene> hand1;
 	std::vector<Scene> hand2;
+	std::vector<std::string> carryOver;
+	std::vector<Scene> secret1;
+	std::vector<Scene> secret2;
 };
