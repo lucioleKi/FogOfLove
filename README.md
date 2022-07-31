@@ -36,3 +36,9 @@ Next step: Finish resolving other effects.
 Completed: reveal a random DESTINY, match Chooser ABCD to other codes, swap in & out, discard a DESTINY, retrieve a DESTINY, change occupation, swap occupation with partner, discard a scene, resolve effect for chapters.
 
 Next step: Finish resolving effects that carries on to the next round. Make secret and special effect objects.
+
+7/30/2022
+
+Completed: Effect: Mirror, DoubleThree, Trade, Double Impact, reveal secret, resolve unrevealed secrets. Special effect #2, 4, 5, Situation #1-5
+
+Next step: Reactions, Trait-related funtions, minor scenes.
