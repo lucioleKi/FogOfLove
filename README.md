@@ -46,6 +46,7 @@ Completed: Effect: Mirror, DoubleThree, Trade, Double Impact, reveal secret, res
 Next step: Reactions, Trait-related funtions, minor scenes.
 
 8/5/2022
+
 Completed: ALL GAME FUNCTIONS ARE NOW COMPLETED!!!
 
 Next step: Testing, testing, testing...
