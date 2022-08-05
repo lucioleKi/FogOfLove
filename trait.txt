@@ -1,3 +1,38 @@
 Patient	Able to remain calm and not become annoyed while experiencing delays and problems.	0	5	3
 Promiscuous	Having an unselective and casual approach to engaging in sexual relationships.	0	1	1
 Jealous	Showing envious resentment of others' success. Being suspicious and possessive towards others.	0	4	3
+Just	Having a strong sense of what's right and what's wrong.	1	5	5
+Task-oriented	Concerned with one's activities and goals rather than other people.	1	2	-5
+Perfectionist	Refusing to accept anything less than perfection. Demands the highest standards possible.	1	0	5
+Spiritual	Embracing the humble belief that there are things greater than oneself.	0	5	3	
+Narrow-minded	Judgmental and unreceptive to novel ideas or opinion.	1	1	-5
+Greedy	Having an excessive and selfish desire for money or possessions.	0	5	-3
+Intense	Passionate, vocal and very serious about one's emotions and thoughts.	0	2	3
+Irresponsible	Taking actions without thought arcading about the impact of t those actions on others.	0	0	-3
+Adventurous	Willing to take risks and try new experiences, showing boldness in doing so.	1	1	5
+Manipulative	Scheming and trying to influence the behavior of others for one's own advantage.	1	5	-5
+Sensual	Appreciating arousing gratification of the senses; seeking to explore sensory pleasure.	1	1	5
+Subservient	Prepared to obey others without questions, considering own wishes as less important.	0	4	3
+Disorganized	Lacking coherence or systematic structure leading to various levels of disorder.	1	0	-5	
+Conservative	Favors traditional views and values. Often in opposition to change.	1	1	-5
+Macho	Aggressive pride in one's masculine qualities; being overly assertive and dominating.	1	4	-5
+Hardened	Able to withstand hardship and deal with bad experiences without being emotionally affected.	0	3	-3
+Ambitious	Driven by a strong desire to reach hard-to-achieve goals.	1	0	5
+Pretentious	Characterized by a showiness exaggerating one's dignity or importance.	0	5	-3
+Impulsive	Acting without forethought, following spontaneous desires or whims.	1	0	-5
+Secure	Free from anxiety and with a strong sense of oneself. Unafraid to engage with others.	0	3	-3
+Flirtatious	Inclined to playfully suggest sexual attraction without serious intent.	0	2	5
+Kind	Having a benevolent nature and an attitude of friendliness.	1	4	5
+Shy	Feeling uncomfortable and awkward in proximity of others, especially unfamiliar people.	0	2	-3
+Hypocritical	Pretending to have higher standards and being more virtuous than is the case.	1	5	-5
+Worrywart	Inclined to excessive wording, especially about unimportant matters.	1	3	5
+Workaholic	Compulsively working excessively hard, sacrificing other interests and responsibilities.	0	0	3
+Cynical	Having an arrogant mistrust of others, believing all people are driven by pure self-interest.	1	4	-5
+Innocent	Being of pure intent and motive.	1	5	5
+Relaxed	Free from stress and tension. Feels on top of everything that happens.	1	3	-5
+Insecure	Lack of confidence, in particular self-confidence.	0	3	3
+Cocky	Self-confident to a degree that is rude and arrogant.	0	4	-3
+Down-to-earth	Simple and straightforward. Prefers practical and proven approaches.	0	1	-3
+Fun-loving	Cheerful, energetic and likes to have a good time.	1	2	5
+Nurturing	Lovingly caring and protective of others to help them grow and develop.	1	4	5
+Withdrawn	Socially detached, preferring to be alone or observed at a distance.	1	2	-5

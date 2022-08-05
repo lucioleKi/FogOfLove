@@ -37,8 +37,6 @@ Session drawScene(Session session, int chooser, std::string who, std::string dec
 		}
 	}
 	else if (who == "CH") {
-		std::cout << std::to_string(chooser);
-		std::cout << deck;
 		if (chooser == 2) {
 			if (deck == "Sweet")
 			{
@@ -46,7 +44,6 @@ Session drawScene(Session session, int chooser, std::string who, std::string dec
 				session.sweetS.erase(session.sweetS.begin());
 			}
 			else if (deck == "Serious") {
-				std::cout << "getSerious";
 				session.hand2.push_back(session.seriousS.at(0));
 				session.seriousS.erase(session.seriousS.begin());
 			}
@@ -105,7 +102,7 @@ Session RD(Session session, int chooser) {
 				index++;
 			}
 		}
-		std::cout << "Choose 1 DESTINY to reveal and then discard:\n";
+		std::cout << session.x1.getName()+", choose 1 DESTINY to reveal and then discard:\n";
 		int temp = select(index);
 		session.d1.at(hand.at(temp)).changeIn();
 		if (!session.d1.at(hand.at(temp)).getIn()) {
@@ -121,7 +118,7 @@ Session RD(Session session, int chooser) {
 				index++;
 			}
 		}
-		std::cout << "Choose 1 DESTINY to reveal and then discard:\n";
+		std::cout << session.x2.getName()+", choose 1 DESTINY to reveal and then discard:\n";
 		int temp = select(index);
 		session.d2.at(hand.at(temp)).changeIn();
 		if (!session.d2.at(hand.at(temp)).getIn()) {
@@ -168,7 +165,7 @@ void RK(Session session, int player) {
 			}
 			
 		}
-		std::cout << "Choose 1 DESTINY to reveal:\n";
+		std::cout <<session.x1.getName()+ ", choose 1 DESTINY to reveal:\n";
 		int temp = select(index);
 		std::cout << session.d1.at(hand.at(temp)).printFull();
 	}
@@ -182,7 +179,7 @@ void RK(Session session, int player) {
 			}
 			
 		}
-		std::cout << "Choose 1 DESTINY to reveal:\n";
+		std::cout << session.x2.getName() + ", choose 1 DESTINY to reveal:\n";
 		int temp = select(index);
 		std::cout << session.d2.at(hand.at(temp)).printFull();
 	}
@@ -200,7 +197,7 @@ void RR(Session session, int player) {
 				index++;
 			}
 		}
-		std::cout << "The randomly revealed DESTINY is:\n";
+		std::cout << session.x1.getName()+", your randomly revealed DESTINY is:\n";
 		int temp = rand()/RAND_MAX *index;
 		std::cout << session.d1.at(hand.at(temp)).printFull();
 	}
@@ -212,7 +209,7 @@ void RR(Session session, int player) {
 				index++;
 			}
 		}
-		std::cout << "The randomly revealed DESTINY is:\n";
+		std::cout << session.x2.getName()+", the randomly revealed DESTINY is:\n";
 		int temp = rand()/RAND_MAX * index;
 		std::cout << session.d2.at(hand.at(temp)).printFull();
 	}
@@ -226,7 +223,7 @@ Session SI(Session session, int chooser, std::string destiny) {
 	if (chooser == 1) {
 		int temp = 8;
 		if (destiny == "ANY") {
-			std::cout << "Choose one DESTINY to swap in:\n";
+			std::cout << session.x1.getName() + ", choose one DESTINY to swap in:\n";
 			for (int i = 0; i < session.d1.size(); i++) {
 				if (!session.d1.at(i).getIn()) {
 					std::cout << session.d1.at(i).printFull();
@@ -254,7 +251,7 @@ Session SI(Session session, int chooser, std::string destiny) {
 				}
 			}
 			if (available == 0) {
-				std::cout << "HEARTBREAKER and HONORABLE EXIT are already in your hand. No need to swap.\n";
+				std::cout << session.x1.getName() + ", HEARTBREAKER and HONORABLE EXIT are already in your hand. No need to swap.\n";
 				return session;
 			}
 			else if(available==1){
@@ -285,13 +282,13 @@ Session SI(Session session, int chooser, std::string destiny) {
 				}
 			}
 			if (temp == 8) {
-				std::cout << destiny + " is already in your hand. No need to swap.\n";
+				std::cout << session.x1.getName() + ", "+destiny + " is already in your hand. No need to swap.\n";
 				return session;
 			}
 		}
 		hand.clear();
 		index = 0;
-		std::cout << "Choose one DESTINY to swap out:\n";
+		std::cout << session.x1.getName() + ", choose one DESTINY to swap out:\n";
 		for (int i = 0; i < session.d1.size(); i++) {
 			if (session.d1.at(i).getIn()) {
 				std::cout << session.d1.at(i).printFull();
@@ -309,7 +306,7 @@ Session SI(Session session, int chooser, std::string destiny) {
 	else {
 		int temp = 8;
 		if (destiny == "ANY") {
-			std::cout << "Choose one DESTINY to swap in:\n";
+			std::cout << session.x2.getName() + ", choose one DESTINY to swap in:\n";
 			for (int i = 0; i < session.d2.size(); i++) {
 				if (!session.d2.at(i).getIn()) {
 					std::cout << session.d2.at(i).printFull();
@@ -338,7 +335,7 @@ Session SI(Session session, int chooser, std::string destiny) {
 				}
 			}
 			if (available == 0) {
-				std::cout << "HEARTBREAKER and HONORABLE EXIT are already in your hand. No need to swap.\n";
+				std::cout << session.x2.getName() + ", HEARTBREAKER and HONORABLE EXIT are already in your hand. No need to swap.\n";
 				return session;
 			}
 			else if (available == 1) {
@@ -369,12 +366,12 @@ Session SI(Session session, int chooser, std::string destiny) {
 				}
 			}
 			if (temp == 8) { 
-				std::cout << destiny + " is already in your hand. No need to swap.\n";
+				std::cout << session.x1.getName() + ", "+destiny + " is already in your hand. No need to swap.\n";
 				return session; }
 		}
 		hand.clear();
 		index = 0;
-		std::cout << "Choose one DESTINY to swap out:\n";
+		std::cout << session.x2.getName() + ", choose one DESTINY to swap out:\n";
 		for (int i = 0; i < session.d2.size(); i++) {
 			if (session.d2.at(i).getIn()) {
 				std::cout << session.d2.at(i).printFull();
@@ -405,10 +402,10 @@ Session SO(Session session, int chooser, std::string destiny) {
 			}
 		}
 		if (temp == 8) {
-			std::cout << destiny + " is not in your hand. No need to swap.\n";
+			std::cout << session.x1.getName() + ", " + destiny + " is not in your hand. No need to swap.\n";
 			return session;
 		}
-		std::cout << "Choose one DESTINY to swap in:\n";
+		std::cout << session.x1.getName() + ", choose one DESTINY to swap in:\n";
 		for (int i = 0; i < session.d1.size(); i++) {
 			if (!session.d1.at(i).getIn()) {
 				std::cout << session.d1.at(i).printFull();
@@ -432,10 +429,10 @@ Session SO(Session session, int chooser, std::string destiny) {
 			}
 		}
 		if (temp == 8) {
-			std::cout << destiny + " is not in your hand. No need to swap.\n";
+			std::cout << session.x2.getName() + ", "+destiny + " is not in your hand. No need to swap.\n";
 			return session;
 		}
-		std::cout << "Choose one DESTINY to swap in:\n";
+		std::cout << session.x2.getName() + ", choose one DESTINY to swap in:\n";
 		for (int i = 0; i < session.d2.size(); i++) {
 			if (!session.d2.at(i).getIn()) {
 				std::cout << session.d2.at(i).printFull();
@@ -464,7 +461,7 @@ Session DD(Session session, int player, std::string destiny) {
 					index++;
 				}
 			}
-			std::cout << "Select a DESTINY to discard:\n";
+			std::cout << session.x1.getName() + ", select a DESTINY to discard:\n";
 			int temp = select(index);
 			session.d1.at(hand.at(temp)).changeIn();
 			return session;
@@ -476,7 +473,7 @@ Session DD(Session session, int player, std::string destiny) {
 					return session;
 				}
 			}
-			std::cout << destiny + " is not in your hand. No need to discard.\n";
+			std::cout << session.x1.getName() + ", " + destiny + " is not in your hand. No need to discard.\n";
 			return session;
 		}
 	}
@@ -491,7 +488,7 @@ Session DD(Session session, int player, std::string destiny) {
 				}
 			}
 
-			std::cout << "Select a DESTINY to discard:\n";
+			std::cout << session.x2.getName() + ", select a DESTINY to discard:\n";
 			int temp = select(index);
 			session.d2.at(hand.at(temp)).changeIn();
 			return session;
@@ -503,7 +500,7 @@ Session DD(Session session, int player, std::string destiny) {
 					return session;
 				}
 			}
-			std::cout << destiny + " is not in your hand. No need to discard.\n";
+			std::cout << session.x2.getName() + ", "+destiny + " is not in your hand. No need to discard.\n";
 			return session;
 		}
 	}
@@ -527,7 +524,7 @@ Session RE(Session session, int chooser, std::string destiny) {
 				return session;
 			}
 			else {
-				std::cout << "Select a DESTINY to retrieve:\n";
+				std::cout << session.x1.getName() + ", select a DESTINY to retrieve:\n";
 				int temp = select(index);
 				session.d1.at(hand.at(temp)).changeIn();
 				return session;
@@ -541,12 +538,11 @@ Session RE(Session session, int chooser, std::string destiny) {
 					return session;
 				}
 			}
-			std::cout << destiny + " is in your hand. No need to retrieve.\n";
+			std::cout << session.x1.getName() + ", "+destiny + " is in your hand. No need to retrieve.\n";
 			return session;
 		}
 	}
 	else {
-		std::cout << "d2";
 		if (destiny == "ANY") {
 			std::vector<int> hand;
 			for (int i = 0; i < session.d2.size(); i++) {
@@ -561,7 +557,7 @@ Session RE(Session session, int chooser, std::string destiny) {
 				return session;
 			}
 			else {
-				std::cout << "Select a DESTINY to retrieve:\n";
+				std::cout << session.x2.getName() + ", select a DESTINY to retrieve:\n";
 				int temp = select(index);
 				session.d2.at(hand.at(temp)).changeIn();
 				return session;
@@ -574,7 +570,7 @@ Session RE(Session session, int chooser, std::string destiny) {
 					return session;
 				}
 			}
-			std::cout << destiny + " is in your hand. No need to retrieve.\n";
+			std::cout << session.x2.getName() + ", "+destiny + " is in your hand. No need to retrieve.\n";
 			return session;
 		}
 	}
@@ -583,7 +579,7 @@ Session RE(Session session, int chooser, std::string destiny) {
 
 Session CO(Session session, int chooser) {
 	if (chooser == 1) {
-		std::cout << session.x1.getName() + " , please select 1 out of the 3 occupations you received below.\n";
+		std::cout << session.x1.getName() + " , please select 1 out of the 3 occupations you receive below.\n";
 		std::vector<Occupation> occus1 = { session.occu.at(0), session.occu.at(1), session.occu.at(2) };
 		session.occu.erase(session.occu.begin(), session.occu.begin() + 3);
 		for (int i = 0; i < 3; i++) {
@@ -599,7 +595,7 @@ Session CO(Session session, int chooser) {
 		session.occu.push_back(occus1.at(1));
 	}
 	else {
-		std::cout << session.x2.getName()+" , please select 1 out of the 3 occupations you received below.\n";
+		std::cout << session.x2.getName()+" , please select 1 out of the 3 occupations you receive below.\n";
 		std::vector<Occupation> occus1 = { session.occu.at(0), session.occu.at(1), session.occu.at(2) };
 		session.occu.erase(session.occu.begin(), session.occu.begin() + 3);
 		for (int i = 0; i < 3; i++) {
@@ -629,18 +625,70 @@ Session SWO(Session session) {
 
 Session CTT(Session session, int chooser) {
 	if (chooser == 1) {
-
+		std::cout << session.x1.getName() + ", please discard 1 out of the 3 traits you have.\n";
+		std::cout << "1 = "+session.traits1.at(0).getName() + "\n2 = "+session.traits1.at(1).getName()+"\n3 = "+session.traits1.at(2).getName()+"\n";
+		int temp = select(3);
+		session.traits1.erase(session.traits1.begin() + temp);
+		std::cout << session.x1.getName() + " , please select 1 out of the 3 traits you receive below.\n";
+		std::vector<Trait> trait1 = { session.traits.at(0), session.traits.at(1), session.traits.at(2) };
+		session.traits.erase(session.traits.begin(), session.traits.begin() + 3);
+		for (int i = 0; i < 3; i++) {
+			std::cout << trait1.at(i).printFull();
+		}
+		temp = select(3);
+		session.traits1.push_back(trait1.at(temp));
+		
+		trait1.erase(trait1.begin() + temp);
+		session.traits.push_back(trait1.at(0));
+		session.traits.push_back(trait1.at(1));
 	}
 	else {
+		std::cout << session.x2.getName() + ", please discard 1 out of the 3 traits you have.\n";
+		std::cout << "1 = " + session.traits2.at(0).getName() + "\n2 = " + session.traits2.at(1).getName() + "\n3 = " + session.traits2.at(2).getName() + "\n";
+		int temp = select(3);
+		session.traits2.erase(session.traits2.begin() + temp);
+		std::cout << session.x2.getName() + " , please select 1 out of the 3 traits you receive below.\n";
+		std::vector<Trait> trait2 = { session.traits.at(0), session.traits.at(1), session.traits.at(2) };
+		session.traits.erase(session.traits.begin(), session.traits.begin() + 3);
+		for (int i = 0; i < 3; i++) {
+			std::cout << trait2.at(i).printFull();
+		}
+		temp = select(3);
+		session.traits2.push_back(trait2.at(temp));
 
+		trait2.erase(trait2.begin() + temp);
+		session.traits.push_back(trait2.at(0));
+		session.traits.push_back(trait2.at(1));
+	}
+	return session;
+};
+
+Session CRT(Session session, int chooser) {
+	if (chooser == 1) {
+		int temp = rand() / RAND_MAX * 3;
+		std::cout << session.x1.getName() + ", the randomly discarded trait is " + session.traits1.at(temp).getName()+"\n";
+		session.traits1.erase(session.traits1.begin() + temp);
+		temp = rand() / RAND_MAX * 3;
+		session.traits1.push_back(session.traits.at(temp));
+		std::cout << session.x1.getName() + ", the randomly chosen trait is " + session.traits1.at(2).getName()+"\n";
+		session.traits.erase(session.traits.begin() + temp);
+	}
+	else {
+		int temp = rand() / RAND_MAX * 3;
+		std::cout << session.x2.getName() + ", the randomly discarded trait is " + session.traits2.at(temp).getName()+"\n";
+		session.traits2.erase(session.traits2.begin() + temp);
+		temp = rand() / RAND_MAX * 3;
+		session.traits2.push_back(session.traits.at(temp));
+		std::cout << session.x2.getName() + ", the randomly chosen trait is " + session.traits2.at(2).getName()+"\n";
+		session.traits.erase(session.traits.begin() + temp);
 	}
 	return session;
 };
 
 Session DS(Session session, int chooser, std::string number) {
 	int num = std::stoi(number);
-	std::cout << "Discard a scene. \n";
 	if (chooser == 1) {
+		std::cout << session.x1.getName()+", discard a scene. \n";
 		for (int i = 0; i < num; i++) {
 			for (int j = 0; j < session.hand1.size(); j++) {
 				std::cout << std::to_string(j + 1) + " = " + session.hand1.at(j).getTitle() + "\n";
@@ -650,6 +698,7 @@ Session DS(Session session, int chooser, std::string number) {
 		}
 	}
 	else {
+		std::cout << session.x2.getName() + ", discard a scene. \n";
 		for (int i = 0; i < num; i++) {
 			for (int j = 0; j < session.hand2.size(); j++) {
 				std::cout << std::to_string(j + 1) + " = " + session.hand2.at(j).getTitle() + "\n";
@@ -662,14 +711,15 @@ Session DS(Session session, int chooser, std::string number) {
 };
 
 Session TRADE(Session session) {
-	std::cout << session.x1.getName() + "has the following SCENES in hand:\n";
+	std::cout << "twice\n";
+	std::cout << session.x1.getName() + " has the following SCENES in hand:\n";
 	for (int i = 0; i < session.hand1.size(); i++) {
 		std::cout << session.hand1.at(i).getTitle()+"\n";
 	}
-	std::cout << "Select a SCENE to give to " + session.x2.getName()+"\n";
+	std::cout << "Select a SCENE to give to " + session.x2.getName() + "\n";
 	int t1 = select(session.hand1.size());
 
-	std::cout << session.x2.getName() + "has the following SCENES in hand:\n";
+	std::cout << session.x2.getName() + " has the following SCENES in hand:\n";
 	for (int i = 0; i < session.hand2.size(); i++) {
 		std::cout << session.hand2.at(i).getTitle() + "\n";
 	}
@@ -685,7 +735,7 @@ Session TRADE(Session session) {
 void STELLL(Session session, int chooser) {
 	if (chooser == 1) {
 		if (session.secret1.size() > 0) {
-			std::cout << session.x1.getName() + "The randomly selected SECRET is:\n";
+			std::cout << session.x1.getName() + ", the randomly selected SECRET is:\n";
 			int temp = rand() / RAND_MAX * session.secret1.size();
 			std::cout << session.secret1.at(temp).getTitle();
 			std::cout << "\nTell " + session.x2.getName() + " whether you think it is beneficial for them to reveal it or not. \n1 = Yes\n2 = No\n";
@@ -695,7 +745,7 @@ void STELLL(Session session, int chooser) {
 	}
 	else {
 		if (session.secret2.size() > 0) {
-			std::cout << session.x2.getName() + "The randomly selected SECRET is:\n";
+			std::cout << session.x2.getName() + ", the randomly selected SECRET is:\n";
 			int temp = rand() / RAND_MAX * session.secret2.size();
 			std::cout << session.secret2.at(temp).getTitle();
 			std::cout << "\nTell " + session.x1.getName() + " whether you think it is beneficial for them to reveal it or not. \n1 = Yes\n2 = No\n";
@@ -706,4 +756,20 @@ void STELLL(Session session, int chooser) {
 	
 	
 	return;
+};
+
+Session DRC(Session session, int player) {
+	if (player == 1) {
+		std::cout << session.x1.getName() + ", the randomly discarded SCENE is:\n";
+		int temp = rand() / RAND_MAX * session.hand1.size();
+		std::cout << session.hand1.at(temp).getTitle();
+		session.hand1.erase(session.hand1.begin() + temp);
+	}
+	else {
+		std::cout << session.x2.getName() + ", the randomly discarded SCENE is:\n";
+		int temp = rand() / RAND_MAX * session.hand2.size();
+		std::cout << session.hand2.at(temp).getTitle();
+		session.hand2.erase(session.hand2.begin() + temp);
+	}
+	return session;
 };

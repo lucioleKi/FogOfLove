@@ -110,6 +110,3 @@ public:
 	std::vector<Additional> getAddis() { return additionals; };
 	std::string printFull();
 };
-
-//to-do functions
-std::vector<Scene> selectScenes();

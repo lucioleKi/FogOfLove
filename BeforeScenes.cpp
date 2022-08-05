@@ -94,37 +94,41 @@ Character startGender(int num) {
 		}
 };
 
-std::vector<Trait> startTraits(int num) {
+dealCards<std::vector<Trait>> startTraits(std::vector<Trait> deck) {
 	std::cout << "\033[2J\033[1;1H";
-	std::cout << "Player " << num << ", please select 3 out of the 5 traits you received below. Your traits cannot be seen by the other player.\n";
-	std::vector<Trait> traits = selectTraits();
-	std::vector<Trait> chosen;
-	for (int j = 1; j < 4; j++) {
-		std::cout << "Please select a trait: \n";
-		for (int i = 0; i < traits.size(); i++) {
-			std::cout << (i + 1) << " = " + traits.at(i).printFull();
+	
+	std::vector<Trait> trait1 = {deck.at(0), deck.at(1), deck.at(2), deck.at(3), deck.at(4)};
+	std::vector<Trait> trait2 = {deck.at(5), deck.at(6), deck.at(7), deck.at(8), deck.at(9)};
+	std::vector<Trait> chosen1, chosen2;
+	std::cout << "Player 1, please select 3 out of the 5 traits you received below. Your traits cannot be seen by the other player.\n";
+
+	deck.erase(deck.begin(), deck.begin() + 10);
+	for (int j = 0; j < 3; j++) {
+		for (int i = 0; i < trait1.size(); i++) {
+			std::cout << trait1.at(i).printFull();
 		}
-		while (1) {
-			int x{};
-			std::cin >> x;
-			if (x > 0 && x < (traits.size() + 1)) {
-				chosen.push_back(traits.at(x - 1));
-				traits.erase(traits.begin() + (x - 1));
-				break;
-			}
-			else {
-				std::cout << "\nYou entered " << x << ". Please reenter.\n";
-			}
-		}
+		int c1 = select(trait1.size());
+		chosen1.push_back(trait1.at(c1));
+		trait1.erase(trait1.begin() + c1);
 	}
-
-
-	std::cout << chosen.at(0).printFull();
-	std::cout << chosen.at(1).printFull();
-	std::cout << chosen.at(2).printFull();
-
-	//to-do: left-over cards at the bottom
-	return chosen;
+	deck.push_back(trait1.at(0));
+	deck.push_back(trait1.at(1));
+	std::cout << "\033[2J\033[1;1H";
+	std::cout << "Player 2, please select 1 out of the 3 traits you received below. Your traits cannot be seen by the other player.\n";
+	for (int j = 0; j < 3; j++) {
+		for (int i = 0; i < trait2.size(); i++) {
+			std::cout << trait2.at(i).printFull();
+		}
+		int c2 = select(trait2.size());
+		chosen2.push_back(trait2.at(c2));
+		trait2.erase(trait2.begin() + c2);
+	}
+	deck.push_back(trait2.at(0));
+	deck.push_back(trait2.at(1));
+	std::cout << "Player 1's traits are " + chosen1.at(0).getName()+", " + chosen1.at(1).getName()+", " + chosen1.at(2).getName() + ".\n";
+	std::cout << "Player 2's traits are " + chosen2.at(0).getName() + ", " + chosen2.at(1).getName() + ", " + chosen2.at(2).getName() + ".\n";
+	dealCards<std::vector<Trait>> d{ deck , chosen1, chosen2 };
+	return d;
 };
 
 
@@ -212,7 +216,7 @@ dealCards<std::vector<Feature>> startFeatures(std::vector<Feature> deck) {
 };
 
 Character changeName(Character player) {
-	
+	std::cout << "\033[2J\033[1;1H";
 	std::cout << "Player " + std::to_string(player.getIndex()) + ", please choose a name that is not your own name. Remember, you are playing fictional characters.\n";
 	std::string name;
 	

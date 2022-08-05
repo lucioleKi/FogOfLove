@@ -35,8 +35,12 @@ Session SWO(Session session);
 
 Session CTT(Session session, int chooser);
 
+Session CRT(Session session, int chooser);
+
 Session DS(Session session, int chooser, std::string number);
 
 Session TRADE(Session session);
 
 void STELLL(Session session, int chooser);
+
+Session DRC(Session session, int player);

@@ -36,6 +36,7 @@ N	not
 T	tell
 DD	discard
 DR	draw
+DRC	discard a random SCENE
 CH	CHOOSER
 OT	OTHER
 RD	reveal and then discard a DESTINY.

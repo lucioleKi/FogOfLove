@@ -80,7 +80,7 @@ Session resolveEffectsC(Session session, Chapter chapter, int choice1, int choic
 	}
 	if (additionalMatch == -1) { return session; };
 	std::vector<std::string> effects = chapter.getAddis().at(additionalMatch).getCode();
-	std::cout << effects.at(0)+"\n";
+	//std::cout << effects.at(0)+"\n";
 	session.x1.setSatisfaction(std::stoi(effects.at(2)));
 	session.x2.setSatisfaction(std::stoi(effects.at(2)));
 	return session;
@@ -328,11 +328,11 @@ Session resolveChoice(Session game, int chooser, int player, std::vector<std::st
 	if (code.size() > 0 && code.at(0) == "B") {
 		std::vector<std::string> B;
 		if (code.at(1).find_first_of("0123456789") != std::string::npos) {
-			if (doubleImpact == 1) {
+			if (doubleimpact == 1) {
 				game.x1.setSatisfaction(std::stoi(code.at(1)));
 				game.x2.setSatisfaction(std::stoi(code.at(1))*(-1));
 			}
-			else if(doubleImpact == 2){
+			else if(doubleimpact == 2){
 				game.x2.setSatisfaction(std::stoi(code.at(1)));
 				game.x1.setSatisfaction(std::stoi(code.at(1)) * (-1));
 			}
@@ -398,6 +398,7 @@ Session resolveChoice(Session game, int chooser, int player, std::vector<std::st
 			}
 			if (std::find(B.begin(), B.end(), "TRADE") != B.end()) {
 				int position = std::find(B.begin(), B.end(), "TRADE") - B.begin();
+				std::cout << "once\n";
 				game = TRADE(game);
 				B.erase(B.begin() + position);
 			}
@@ -405,6 +406,12 @@ Session resolveChoice(Session game, int chooser, int player, std::vector<std::st
 				int position = std::find(B.begin(), B.end(), "STELLL") - B.begin();
 				STELLL(game, 1);
 				STELLL(game, 2);
+				B.erase(B.begin() + position);
+			}
+			if (std::find(B.begin(), B.end(), "CTT") != B.end()) {
+				int position = std::find(B.begin(), B.end(), "CTT") - B.begin();
+				game = CTT(game, 1);
+				game = CTT(game, 2);
 				B.erase(B.begin() + position);
 			}
 			if (std::find(B.begin(), B.end(), "DOUBLEIMPACTB") != B.end()) {
@@ -427,6 +434,7 @@ Session resolveChoice(Session game, int chooser, int player, std::vector<std::st
 				game.carryOver.push_back("BEHALFCHO");
 				B.erase(B.begin() + position);
 			}
+
 
 		}
 		code.erase(code.begin(), code.begin() + index + 1);
@@ -542,6 +550,17 @@ Session resolveChoice(Session game, int chooser, int player, std::vector<std::st
 					game = CO(game, 1);
 				}
 				
+				OT.erase(OT.begin() + position);
+			}
+			if (std::find(OT.begin(), OT.end(), "CRT") != OT.end()) {
+				int position = std::find(OT.begin(), OT.end(), "CRT") - OT.begin();
+				if (chooser == 1) {
+					game = CRT(game, 2);
+				}
+				else {
+					game = CRT(game, 1);
+				}
+
 				OT.erase(OT.begin() + position);
 			}
 		}
@@ -665,6 +684,16 @@ Session resolveChoice(Session game, int chooser, int player, std::vector<std::st
 				STELLL(game, chooser);
 				CH.erase(CH.begin() + position);
 			}
+			if (std::find(CH.begin(), CH.end(), "CTT") != CH.end()) {
+				int position = std::find(CH.begin(), CH.end(), "CTT") - CH.begin();
+				game = CTT(game, chooser);
+				CH.erase(CH.begin() + position);
+			}
+			if (std::find(CH.begin(), CH.end(), "CRT") != CH.end()) {
+				int position = std::find(CH.begin(), CH.end(), "CRT") - CH.begin();
+				game = CRT(game, chooser);
+				CH.erase(CH.begin() + position);
+			}
 			if (std::find(CH.begin(), CH.end(), "RS") != CH.end()) {
 				int position = std::find(CH.begin(), CH.end(), "RS") - CH.begin();
 				if (chooser == 1) {
@@ -764,6 +793,28 @@ Session resolveChoice(Session game, int chooser, int player, std::vector<std::st
 				}
 				PA.erase(PA.begin() + position);
 			}
+			if (std::find(PA.begin(), PA.end(), "DRC") != PA.end()) {
+				int position = std::find(PA.begin(), PA.end(), "DRC") - PA.begin();
+				if (player == 1) {
+					DRC(game, 2);
+				}
+				else {
+					DRC(game, 1);
+				}
+				PA.erase(PA.begin() + position);
+			}
+			if (std::find(PA.begin(), PA.end(), "DECIDEFIRST") != PA.end()) {
+				int position = std::find(PA.begin(), PA.end(), "DECIDEFIRST") - PA.begin();
+				if (player == 1) {
+					game.carryOver.push_back("DECIDEFIRST");
+					game.carryOver.push_back(std::to_string(2));
+				}
+				else {
+					game.carryOver.push_back("DECIDEFIRST");
+					game.carryOver.push_back(std::to_string(1));
+				}
+				PA.erase(PA.begin() + position);
+			}
 		}
 		code.erase(code.begin() + other, code.begin() + other + index + 1);
 	}
@@ -821,6 +872,21 @@ Session resolveChoice(Session game, int chooser, int player, std::vector<std::st
 				int position = std::find(PL.begin(), PL.end(), "CO") - PL.begin();
 				game = CO(game, player);
 				PL.erase(PL.begin() + position);
+			}
+			if (std::find(PL.begin(), PL.end(), "DRC") != PL.end()) {
+				int position = std::find(PL.begin(), PL.end(), "DRC") - PL.begin();
+				game = DRC(game, player);
+				PL.erase(PL.begin() + position);
+			}
+			if (std::find(PL.begin(), PL.end(), "CTT") != PL.end()) {
+				int position = std::find(PL.begin(), PL.end(), "CTT") - PL.begin();
+				game = CTT(game, player);
+				PL.erase(PL.begin() + position);
+			}
+			if (std::find(PL.begin(), PL.end(), "DS") != PL.end()) {
+				int position = std::find(PL.begin(), PL.end(), "DS") - PL.begin();
+				game = DS(game, player, PL.at(position + 1));
+				PL.erase(PL.begin() + position, PL.begin() + position + 2);
 			}
 		}
 		code.erase(code.begin() + other, code.begin() + other + index + 1);

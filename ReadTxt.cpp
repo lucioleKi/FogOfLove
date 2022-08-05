@@ -67,6 +67,25 @@ std::vector<Occupation> importOccus(std::string fileName) {
 	return occus;
 };
 
+std::vector<Trait> importTraits(std::string fileName) {
+	std::ifstream fs(fileName);
+	std::string line;
+	std::vector<Trait> traits;
+	while (std::getline(fs, line)) {
+		std::vector<std::string> info;
+		split(line, '\t', info);
+		int goalType = std::stoi(info[2]);
+		TraitGoalType g = (TraitGoalType)goalType;
+		int temp = std::stoi(info[3]);
+		PersonalityDim p = (PersonalityDim)temp;
+		int number = std::stoi(info[4]);
+		Trait t = Trait{info[0], info[1], g, p, number};
+		traits.push_back(t);
+	}
+	traits = Shuffle(traits);
+	return traits;
+};
+
 std::vector<Chapter> importChapters(std::string fileName, std::string effects) {
 	std::ifstream fs(fileName);
 	std::string line;
@@ -110,9 +129,7 @@ std::vector<Scene> importScenes(std::string fileName, std::string effects) {
 	scenes = importEffects(scenes, effects);
 	std::map<std::string, std::string> vocab = importVocab("vocabulary.txt");
 	scenes = Vocab(scenes, vocab);
-
-	//scenes = Shuffle(scenes);
-	
+	scenes = Shuffle(scenes);
 	return scenes;
 };
 
@@ -136,7 +153,7 @@ Scene generateScene(std::vector<std::string> info) {
 	else {
 		scene.setExplain(info[3]);
 	}
-	if (w == 'B'||w == 'P'||w =='C'||w =='S'||w =='E') {
+	if (w == 'B'||w == 'P'||w =='C'||w =='S'||w =='E'||w =='N'||w == 'R') {
 		std::vector<Choice> choices;
 		for (int i = 6; i < info.size(); i++) {
 			Choice choice = { info[i] };

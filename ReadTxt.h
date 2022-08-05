@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "Feature.h"
 #include "Occupation.h"
+#include "Trait.h"
 #include <vector>
 #include <string>
 #include <map>
@@ -16,7 +17,7 @@ std::map<std::string, std::string> importVocab(std::string fileName);
 
 std::vector<Feature> importFeatures(std::string fileName);
 std::vector<Occupation> importOccus(std::string fileName);
-
+std::vector<Trait> importTraits(std::string fileName);
 
 
 std::vector<Chapter> importChapters(std::string fileName, std::string effects);

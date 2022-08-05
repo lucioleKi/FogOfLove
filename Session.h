@@ -8,6 +8,7 @@
 struct Session {
 	Character x1;
 	Character x2;
+	std::vector<Trait> traits;
 	std::vector<Trait> traits1;
 	std::vector<Trait> traits2;
 	std::vector<Occupation> occu;

@@ -20,7 +20,7 @@ void readyGame();
 
 Character startGender(int num);
 
-std::vector<Trait> startTraits(int num);
+dealCards<std::vector<Trait>> startTraits(std::vector<Trait> deck);
 
 dealCards<std::vector<Occupation>> startOccupation(std::vector<Occupation> deck);
 

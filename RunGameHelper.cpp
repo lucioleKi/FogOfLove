@@ -1,6 +1,7 @@
 #include "RunGameHelper.h"
 
 Session specialOp(Session session, int index, Deck deck, int turn, Scene scene) {
+	std::cout << "\033[2J\033[1;1H";
 	if (index == 26 && deck == Sweet) {
 		if (turn == 1) {
 			session.per.change(1, 4, 1);
@@ -21,7 +22,7 @@ Session specialOp(Session session, int index, Deck deck, int turn, Scene scene) 
 			session.per.change(1, 6, 1);
 			scene.setLine(scene.getLine() + "\nPLAYER discard up to 2 scenes. Sensitivity + 1.");
 			std::cout << scene.printFull();
-			std::cout << "Discard the first scene. If you do not wish to discard, choose the last option.\n";
+			std::cout << session.x1.getName()+", discard the first scene. If you do not wish to discard, choose the last option.\n";
 			for (int i = 0; i < session.hand1.size(); i++) {
 				std::cout << std::to_string(i + 1) + " = " + session.hand1.at(i).getTitle() + "\n";
 			}
@@ -34,7 +35,7 @@ Session specialOp(Session session, int index, Deck deck, int turn, Scene scene) 
 			else {
 				session.hand1.erase(session.hand1.begin() + temp);
 			}
-			std::cout << "Discard the second scene. If you do not wish to discard, choose the last option.\n";
+			std::cout << session.x1.getName()+", discard the second scene. If you do not wish to discard, choose the last option.\n";
 			for (int i = 0; i < session.hand1.size(); i++) {
 				std::cout << std::to_string(i + 1) + " = " + session.hand1.at(i).getTitle() + "\n";
 			}
@@ -54,7 +55,7 @@ Session specialOp(Session session, int index, Deck deck, int turn, Scene scene) 
 			session.per.change(2, 6, 1);
 			scene.setLine(scene.getLine() + "\nPLAYER discard up to 2 scenes. Sensitivity + 1.");
 			std::cout << scene.printFull();
-			std::cout << "Discard the first scene. If you do not wish to discard, choose the last option.\n";
+			std::cout << session.x2.getName()+", discard the first scene. If you do not wish to discard, choose the last option.\n";
 			for (int i = 0; i < session.hand2.size(); i++) {
 				std::cout << std::to_string(i + 1) + " = " + session.hand2.at(i).getTitle() + "\n";
 			}
@@ -67,7 +68,7 @@ Session specialOp(Session session, int index, Deck deck, int turn, Scene scene) 
 			else {
 				session.hand2.erase(session.hand2.begin() + temp);
 			}
-			std::cout << "Discard the second scene. If you do not wish to discard, choose the last option.\n";
+			std::cout << session.x2.getName()+", discard the second scene. If you do not wish to discard, choose the last option.\n";
 			for (int i = 0; i < session.hand2.size(); i++) {
 				std::cout << std::to_string(i + 1) + " = " + session.hand2.at(i).getTitle() + "\n";
 			}
@@ -92,7 +93,7 @@ Session specialOp(Session session, int index, Deck deck, int turn, Scene scene) 
 			scene.setLine(scene.getLine() + "\nPLAYER may discard any number of SCENES.");
 			std::cout << scene.printFull();
 			while (session.hand1.size() > 0) {
-				std::cout << "Discard a scene. If you do not wish to discard, choose the last option.\n";
+				std::cout << session.x1.getName()+", discard a scene. If you do not wish to discard, choose the last option.\n";
 				for (int i = 0; i < session.hand1.size(); i++) {
 					std::cout << std::to_string(i + 1) + " = " + session.hand1.at(i).getTitle() + "\n";
 				}
@@ -114,7 +115,7 @@ Session specialOp(Session session, int index, Deck deck, int turn, Scene scene) 
 			scene.setLine(scene.getLine() + "\nPLAYER may discard any number of SCENES.");
 			std::cout << scene.printFull();
 			while (session.hand2.size() > 0) {
-				std::cout << "Discard a scene. If you do not wish to discard, choose the last option.\n";
+				std::cout << session.x2.getName()+", discard a scene. If you do not wish to discard, choose the last option.\n";
 				for (int i = 0; i < session.hand2.size(); i++) {
 					std::cout << std::to_string(i + 1) + " = " + session.hand2.at(i).getTitle() + "\n";
 				}
@@ -138,7 +139,7 @@ Session specialOp(Session session, int index, Deck deck, int turn, Scene scene) 
 			session.per.change(1, 0, 1);
 			scene.setLine(scene.getLine() + "\nPLAYER discard a SCENE | Discipline + 1.");
 			std::cout << scene.printFull();
-			std::cout << "Discard a scene:\n";
+			std::cout << session.x1.getName()+", discard a scene:\n";
 			for (int i = 0; i < session.hand1.size(); i++) {
 				std::cout << std::to_string(i + 1) + " = " + session.hand1.at(i).getTitle() + "\n";
 			}
@@ -150,7 +151,7 @@ Session specialOp(Session session, int index, Deck deck, int turn, Scene scene) 
 			session.per.change(2, 0, 1);
 			scene.setLine(scene.getLine() + "\nPLAYER discard a SCENE | Discipline + 1.");
 			std::cout << scene.printFull();
-			std::cout << "Discard a scene:\n";
+			std::cout << session.x2.getName()+", discard a scene:\n";
 			for (int i = 0; i < session.hand2.size(); i++) {
 				std::cout << std::to_string(i + 1) + " = " + session.hand2.at(i).getTitle() + "\n";
 			}
@@ -232,6 +233,7 @@ Session drawFill(Session session, Deck d) {
 		case Sweet:
 			session.hand1.push_back(session.sweetS.at(0));
 			session.sweetS.erase(session.sweetS.begin());
+			break;
 		case Serious:
 			session.hand1.push_back(session.seriousS.at(0));
 			session.seriousS.erase(session.seriousS.begin());
@@ -248,6 +250,7 @@ Session drawFill(Session session, Deck d) {
 		case Sweet:
 			session.hand2.push_back(session.sweetS.at(0));
 			session.sweetS.erase(session.sweetS.begin());
+			break;
 		case Serious:
 			session.hand2.push_back(session.seriousS.at(0));
 			session.seriousS.erase(session.seriousS.begin());
@@ -263,18 +266,20 @@ Session drawFill(Session session, Deck d) {
 
 int chooseScene(Session session, int turn) {
 	if (turn == 1) {
-		for (int i = 0; i < 5; i++) {
+		std::cout << session.x1.getName()+", choose one of the following cards in your hand:\n";
+		for (int i = 0; i < session.hand1.size(); i++) {
 			//std::cout << session.hand1.at(i).printFull();
-			std::cout << session.hand1.at(i).getTitle();
+			std::cout << std::to_string(i+1)+" = "+ session.hand1.at(i).getTitle() + "\n";
 		}
-		return select(5);
+		return select(session.hand1.size());
 	}
 	else {
-		for (int i = 0; i < 5; i++) {
+		std::cout << session.x2.getName() + ", choose one of the following cards in your hand:\n";
+		for (int i = 0; i < session.hand2.size(); i++) {
 			//std::cout << session.hand2.at(i).printFull();
-			std::cout << session.hand2.at(i).getTitle();
+			std::cout << std::to_string(i + 1) + " = " + session.hand2.at(i).getTitle()+"\n";
 		}
-		return select(5);
+		return select(session.hand2.size());
 	}
 };
 
@@ -559,7 +564,8 @@ Session specialSecrets(Session session, Scene secret, int player) {
 };
 
 Session SEEffect(Session session, Scene SE, int player) {
-	if(SE.getIndex()==18||SE.getIndex()==20){
+	if(SE.getIndex()==21||SE.getIndex()==23){
+		//everything you did, let me hold you
 		std::cout << session.per.printFull();
 		if (player == 1) {
 			std::cout << session.x1.getName()+", choose an aspect:\n";
@@ -575,7 +581,8 @@ Session SEEffect(Session session, Scene SE, int player) {
 		}
 		
 	}
-	else if (SE.getIndex() == 21) {
+	else if (SE.getIndex() == 24) {
+		//amnesia
 		int max = session.secret1.size()+session.secret2.size();
 		if (max > 0) {
 			int temp = rand() / RAND_MAX * max;
@@ -602,10 +609,579 @@ Session SEEffect(Session session, Scene SE, int player) {
 			session.per.change(1, temp * 2 + 1, session.per.get1(temp * 2 + 1) * (-1));
 		}
 	}
+	else if (SE.getIndex() == 20 || SE.getIndex() == 26) {
+		//psychologist, a fortune cookie
+		session = CTT(session, player);
+	}
+	else if (SE.getIndex() == 22||SE.getIndex()==25||SE.getIndex()==27) {
+		//listen darling, like putty in my hands, self-help book
+		if (player == 1) {
+			std::cout << session.x1.getName() + ", guess the ASPECT of one of the PARTNER'S TRAIT GOALS.\n";
+		}
+		else {
+			std::cout << session.x2.getName() + ", guess the ASPECT of one of the PARTNER'S TRAIT GOALS.\n";
+		}
+		std::cout << "1 = Discipline + | 2 = Discipline -\n3 = Curiousity + | 4 = Curiousity -\n5 = Extroversion + | 6 = Extroversion -\n";
+		std::cout << "7 = Sensitivity + | 8 = Sensitivity -\n9 = Gentleness + | 10 = Gentleness -\n11 = Sincerity + | 12 = Sincerity -\n";
+		int temp = select(12);
+		session = guessAspect(session, temp, player);
+	}
 	return session;
 };
 
-Session situationEffect(Session session, Scene situation, int player) {
+
+Session reaction(Session session, Scene scene, int player, int position) {
+	//#19 the silent treatment, position 0 (after both chooses)
+	if (position == 0) {
+		session = r19(session);
+	}
+	else if (position == 1) {
+		//#28 the truth is a bit different, position 1 (after player chooses)
+		session = r28(session, player);
+	}
+	else if (position == 2) {
+		//29 ... after partner chooses scene
+		session = r29(session, player);
+	}
+	else if (position == 3) {
+		//30 that wasn't what i meant (after choices are revealed)
+		session = r30(session, player);
+	}
+	else if (position == 4) {
+		//18 you don't really mean that (after a choice made by partner)
+		//16 crocodile tears
+		session = r18(session, player);
+		session = r16(session, player);
+	}
+	else if (position == 5) {
+		//serious 30 but i do agree
+		session = rs30(session, player);
+	}	
+	return session;
+};
+
+Session r19(Session session) {
+	int temp = 2;
+	for (int i = 0; i < session.hand1.size(); i++) {
+		if (session.hand1.at(i).getDeck() == Drama && session.hand1.at(i).getIndex() == 17) {
+			while (temp == 2) {
+				std::cout << session.x1.getName() + ", do you wish to play Reaction: THE SILENT TREATMENT?\n1 = Yes\n2 = No\n3 = See card description\n";
+				temp = select(3);
+				if (temp == 0) {
+					session.carryOver.push_back("R19");
+					session.hand1.erase(session.hand1.begin() + i);
+					return session;
+				}
+				else if (temp == 1) {
+					return session;
+				}
+				else if (temp == 2) {
+					std::cout << session.hand1.at(i).printFull();
+				}
+			}
+		}
+	}
+	for (int i = 0; i < session.hand2.size(); i++) {
+		if (session.hand2.at(i).getDeck() == Drama && session.hand2.at(i).getIndex() == 17) {
+			while (temp == 2) {
+				std::cout << session.x2.getName() + ", do you wish to play Reaction: THE SILENT TREATMENT?\n1 = Yes\n2 = No\n3 = See card description\n";
+				temp = select(3);
+				if (temp == 0) {
+					session.carryOver.push_back("R19");
+					session.hand2.erase(session.hand2.begin() + i);
+					return session;
+				}
+				else if (temp == 1) {
+					return session;
+				}
+				else if (temp == 2) {
+					std::cout << session.hand2.at(i).printFull();
+				}
+			}
+		}
+	}
+	return session;
+};
+
+Session r28(Session session, int player) {
+	//check if the player has #28
+	int temp = 2;
+	if (player == 2) {
+		for (int i = 0; i < session.hand2.size(); i++) {
+			if (session.hand2.at(i).getDeck() == Drama && session.hand2.at(i).getIndex() == 28) {
+				while (temp == 2) {
+					std::cout << session.x2.getName() + ", do you wish to play Reaction: THE TRUTH IS A BIT DIFFERENT?\n1 = Yes\n2 = No\n3 = See card description\n";
+					temp = select(3);
+					if (temp == 0) {
+						session.per.change(2, 11, 1);
+						session.carryOver.push_back("R28");
+						session.hand2.erase(session.hand2.begin() + i);
+						return session;
+					}
+					else if (temp == 1) {
+						return session;
+					}
+					else if (temp == 2) {
+						std::cout << session.hand2.at(i).printFull();
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < session.hand1.size(); i++) {
+			if (session.hand1.at(i).getDeck() == Drama && session.hand1.at(i).getIndex() == 28) {
+				while (temp == 2) {
+					std::cout << session.x1.getName() + ", do you wish to play Reaction: THE TRUTH IS A BIT DIFFERENT?\n1 = Yes\n2 = No\n3 = See card description\n";
+					temp = select(3);
+					if (temp == 0) {
+						session.per.change(1, 11, 1);
+						session.carryOver.push_back("R28");
+						session.hand1.erase(session.hand1.begin() + i);
+						return session;
+					}
+					else if (temp == 1) {
+						return session;
+					}
+					else if (temp == 2) {
+						std::cout << session.hand1.at(i).printFull();
+					}
+				}
+			}
+		}
+	}
+	return session;
+}
+
+Session r29(Session session, int player) {
+	//check if the partner has #29
+	int temp = 2;
+	if (player == 1) {
+		for (int i = 0; i < session.hand2.size(); i++) {
+			if (session.hand2.at(i).getDeck() == Drama && session.hand2.at(i).getIndex() == 29) {
+				while (temp == 2) {
+					std::cout << session.x2.getName() + ", do you wish to play Reaction: ... [IGNORING THE QUESTION]\n1 = Yes\n2 = No\n3 = See card description\n";
+					temp = select(3);
+					if (temp == 0) {
+						session.x1.setSatisfaction(-1);
+						session.carryOver.push_back("R29");
+						session.hand2.erase(session.hand2.begin() + i);
+						return session;
+					}
+					else if (temp == 1) {
+						return session;
+					}
+					else if (temp == 2) {
+						std::cout << session.hand2.at(i).printFull();
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < session.hand1.size(); i++) {
+			if (session.hand1.at(i).getDeck() == Drama && session.hand1.at(i).getIndex() == 29) {
+				while (temp == 2) {
+					std::cout << session.x1.getName() + ", do you wish to play Reaction: ... [IGNORING THE QUESTION]\n1 = Yes\n2 = No\n3 = See card description\n";
+					temp = select(3);
+					if (temp == 0) {
+						session.x2.setSatisfaction(-1);
+						session.carryOver.push_back("R29");
+						session.hand1.erase(session.hand1.begin() + i);
+						return session;
+					}
+					else if (temp == 1) {
+						return session;
+					}
+					else if (temp == 2) {
+						std::cout << session.hand1.at(i).printFull();
+					}
+				}
+			}
+		}
+	}
+	return session;
+};
+
+Session r30(Session session, int player) {
+	int temp = 2;
+	if (player == 0) {
+
 	
+		for (int i = 0; i < session.hand1.size(); i++) {
+		if (session.hand1.at(i).getDeck() == Drama && session.hand1.at(i).getIndex() == 30) {
+			while (temp == 2) {
+				std::cout << session.x1.getName() + ", do you wish to play Reaction: SORRY, THAT WASN'T WHAT I MEANT...\n1 = Yes\n2 = No\n3 = See card description\n";
+				temp = select(3);
+				if (temp == 0) {
+					session.carryOver.push_back("R301");
+					session.hand1.erase(session.hand1.begin() + i);
+					return session;
+				}
+				else if (temp == 1) {
+					return session;
+				}
+				else if (temp == 2) {
+					std::cout << session.hand1.at(i).printFull();
+				}
+			}
+		}
+	}
+		for (int i = 0; i < session.hand2.size(); i++) {
+		if (session.hand2.at(i).getDeck() == Drama && session.hand2.at(i).getIndex() == 30) {
+			while (temp == 2) {
+				std::cout << session.x2.getName() + ", do you wish to play Reaction: SORRY, THAT WASN'T WHAT I MEANT...\n1 = Yes\n2 = No\n3 = See card description\n";
+				temp = select(3);
+				if (temp == 0) {
+					session.carryOver.push_back("R302");
+					session.hand2.erase(session.hand2.begin() + i);
+					return session;
+				}
+				else if (temp == 1) {
+					return session;
+				}
+				else if (temp == 2) {
+					std::cout << session.hand2.at(i).printFull();
+				}
+			}
+		}
+	}
+	}
+	else if (player == 1) {
+		for (int i = 0; i < session.hand1.size(); i++) {
+			if (session.hand1.at(i).getDeck() == Drama && session.hand1.at(i).getIndex() == 30) {
+				while (temp == 2) {
+					std::cout << session.x1.getName() + ", do you wish to play Reaction: SORRY, THAT WASN'T WHAT I MEANT...\n1 = Yes\n2 = No\n3 = See card description\n";
+					temp = select(3);
+					if (temp == 0) {
+						session.carryOver.push_back("R301");
+						session.hand1.erase(session.hand1.begin() + i);
+						return session;
+					}
+					else if (temp == 1) {
+						return session;
+					}
+					else if (temp == 2) {
+						std::cout << session.hand1.at(i).printFull();
+					}
+				}
+			}
+		}
+	}
+	else if (player == 2) {
+		for (int i = 0; i < session.hand2.size(); i++) {
+			if (session.hand2.at(i).getDeck() == Drama && session.hand2.at(i).getIndex() == 30) {
+				while (temp == 2) {
+					std::cout << session.x2.getName() + ", do you wish to play Reaction: SORRY, THAT WASN'T WHAT I MEANT...\n1 = Yes\n2 = No\n3 = See card description\n";
+					temp = select(3);
+					if (temp == 0) {
+						session.carryOver.push_back("R302");
+						session.hand2.erase(session.hand2.begin() + i);
+						return session;
+					}
+					else if (temp == 1) {
+						return session;
+					}
+					else if (temp == 2) {
+						std::cout << session.hand2.at(i).printFull();
+					}
+				}
+			}
+		}
+	}
+	return session;
+};
+
+Session r18(Session session, int player) {
+	//check if the other player has #18
+	int temp = 2;
+	if (player == 1) {
+		for (int i = 0; i < session.hand2.size(); i++) {
+			if (session.hand2.at(i).getDeck() == Drama && session.hand2.at(i).getIndex() == 18) {
+				while (temp == 2) {
+					std::cout << session.x2.getName() + ", do you wish to play Reaction: YOU DON'T REALLY MEAN THAT\n1 = Yes\n2 = No\n3 = See card description\n";
+					temp = select(3);
+					if (temp == 0) {
+						session.carryOver.push_back("R182");
+						session.hand2.erase(session.hand2.begin() + i);
+						return session;
+					}
+					else if (temp == 1) {
+						return session;
+					}
+					else if (temp == 2) {
+						std::cout << session.hand2.at(i).printFull();
+					}
+				}
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < session.hand1.size(); i++) {
+			if (session.hand1.at(i).getDeck() == Drama && session.hand1.at(i).getIndex() == 18) {
+				while (temp == 2) {
+					std::cout << session.x1.getName() + ", do you wish to play Reaction: YOU DON'T REALLY MEAN THAT\n1 = Yes\n2 = No\n3 = See card description\n";
+					temp = select(3);
+					if (temp == 0) {
+						session.carryOver.push_back("R181");
+						session.hand1.erase(session.hand1.begin() + i);
+						return session;
+					}
+					else if (temp == 1) {
+						return session;
+					}
+					else if (temp == 2) {
+						std::cout << session.hand1.at(i).printFull();
+					}
+				}
+			}
+		}
+	}
+	return session;
+};
+
+Session rs30(Session session, int player) {
+	//check if any player has Serious #30
+	int temp = 2;
+	if (player == 2) {
+		for (int i = 0; i < session.hand2.size(); i++) {
+			if (session.hand2.at(i).getDeck() == Serious && session.hand2.at(i).getIndex() == 30) {
+				while (temp == 2) {
+					std::cout << session.x2.getName() + ", do you wish to play Reaction: BUT I DO AGREE\n1 = Yes\n2 = No\n3 = See card description\n";
+					temp = select(3);
+					if (temp == 0) {
+						session.carryOver.push_back("RS302");
+						session.hand2.erase(session.hand2.begin() + i);
+						return session;
+					}
+					else if (temp == 1) {
+						return session;
+					}
+					else if (temp == 2) {
+						std::cout << session.hand2.at(i).printFull();
+					}
+				}
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < session.hand1.size(); i++) {
+			if (session.hand1.at(i).getDeck() == Serious && session.hand1.at(i).getIndex() == 30) {
+				while (temp == 2) {
+					std::cout << session.x1.getName() + ", do you wish to play Reaction: BUT I DO AGREE\n1 = Yes\n2 = No\n3 = See card description\n";
+					temp = select(3);
+					if (temp == 0) {
+						session.carryOver.push_back("RS301");
+						session.hand1.erase(session.hand1.begin() + i);
+						return session;
+					}
+					else if (temp == 1) {
+						return session;
+					}
+					else if (temp == 2) {
+						std::cout << session.hand1.at(i).printFull();
+					}
+				}
+			}
+		}
+	}
+	return session;
+};
+
+Session r16(Session session, int player) {
+	int temp = 2;
+	if (player == 2) {
+		for (int i = 0; i < session.hand1.size(); i++) {
+			if (session.hand1.at(i).getDeck() == Drama && session.hand1.at(i).getIndex() == 16) {
+				while (temp == 2) {
+					std::cout << session.x1.getName() + ", do you wish to play Reaction: CROCODILE TEARS\n1 = Yes\n2 = No\n3 = See card description\n";
+					temp = select(3);
+					if (temp == 0) {
+						session.carryOver.push_back("R162");
+						std::cout << session.hand1.at(i).printFull();
+						int choice = select(2);
+						session = resolveEffectsP(session, player, session.hand1.at(i), choice);
+						session.hand1.erase(session.hand1.begin() + i);
+						session = drawFill(session, Drama);
+						return session;
+					}
+					else if (temp == 1) {
+						return session;
+					}
+					else if (temp == 2) {
+						std::cout << session.hand1.at(i).printFull();
+					}
+				}
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < session.hand2.size(); i++) {
+			if (session.hand2.at(i).getDeck() == Drama && session.hand2.at(i).getIndex() == 16) {
+				while (temp == 2) {
+					std::cout << session.x2.getName() + ", do you wish to play Reaction: CROCODILE TEARS\n1 = Yes\n2 = No\n3 = See card description\n";
+					temp = select(3);
+					if (temp == 0) {
+						session.carryOver.push_back("R161");
+						std::cout << session.hand1.at(i).printFull();
+						int choice = select(2);
+						session = resolveEffectsP(session, player, session.hand1.at(i), choice);
+						session.hand2.erase(session.hand2.begin() + i);
+						session = drawFill(session, Drama);
+						return session;
+					}
+					else if (temp == 1) {
+						return session;
+					}
+					else if (temp == 2) {
+						std::cout << session.hand2.at(i).printFull();
+					}
+				}
+			}
+		}
+	}
+	return session;
+};
+
+Session reactionEffect(Session session, Scene scene, int index, int player, int choice) {
+	if (index == 19) {
+		if (player == 1) {
+			session.x1.setSatisfaction(-2);
+			session.x2.setSatisfaction(-1);
+			session = DRC(session, 1);
+			session = DRC(session, 2);
+			session = drawScene(session, 1, "CH", "Drama");
+			session = resolveChoice(session, 2, 2, scene.getChoices().at(choice).getCode());
+		}
+		else {
+			session.x2.setSatisfaction(-2);
+			session.x1.setSatisfaction(-1);
+			session = DRC(session, 1);
+			session = DRC(session, 2);
+			session = drawScene(session, 2, "CH", "Drama");
+			session = resolveChoice(session, 1, 1, scene.getChoices().at(choice).getCode());
+		}
+
+	}
+	else if (index == 28||index ==29) {
+		if (player == 1) {
+			session = drawScene(session, 1, "CH", "Drama");
+			if (scene.getWho() == 'B') {
+				session = resolveChoice(session, 2, 2, scene.getChoices().at(choice).getCode());
+			}
+		}
+		else {
+			session = drawScene(session, 2, "CH", "Drama");
+			if (scene.getWho() == 'B') {
+				session = resolveChoice(session, 1, 1, scene.getChoices().at(choice).getCode());
+			}
+		}
+	}
+	else if (index == 18) {
+		if (player == 1) {
+			session = SI(session, 1, "DOMINANT");
+			session = drawScene(session, 1, "CH", "Drama");
+			session.x2.setSatisfaction(-2);
+
+		}
+		else {
+			session = SI(session, 2, "DOMINANT");
+			session = drawScene(session, 2, "CH", "Drama");
+			session.x1.setSatisfaction(-2);
+		}
+	}
+
+	return session;
+}
+
+Session guessAspect(Session session, int guess, int player) {
+	if (player == 1) {
+		for (int i = 0; i < 3; i++) {
+			if (session.traits2.at(i).getDim() == (PersonalityDim)(guess-1)/2) {
+				if (session.traits2.at(i).getNum() > 0 && guess % 2 == 0 || session.traits2.at(i).getNum() < 0 && guess % 2 == 1) {
+					std::cout << session.x2.getName() + ", " + session.traits2.at(i).getName() + " has been discarded.\n";
+					session.traits2.erase(session.traits2.begin() + i);
+					std::cout << session.x2.getName() + " , please select 1 out of the 3 traits you receive below.\n";
+					std::vector<Trait> trait2 = { session.traits.at(0), session.traits.at(1), session.traits.at(2) };
+					session.traits.erase(session.traits.begin(), session.traits.begin() + 3);
+					for (int i = 0; i < 3; i++) {
+						std::cout << trait2.at(i).printFull();
+					}
+					int temp = select(3);
+					session.traits2.push_back(trait2.at(temp));
+
+					trait2.erase(trait2.begin() + temp);
+					session.traits.push_back(trait2.at(0));
+					session.traits.push_back(trait2.at(1));
+				}
+			}
+		}
+		
+	}
+	else {
+		for (int i = 0; i < 3; i++) {
+			if (session.traits1.at(i).getDim() == (PersonalityDim)(guess - 1) / 2) {
+				if (session.traits1.at(i).getNum() > 0 && guess % 2 == 0 || session.traits1.at(i).getNum() < 0 && guess % 2 == 1) {
+					std::cout << session.x1.getName() + ", " + session.traits1.at(i).getName()+" has been discarded.\n";
+					session.traits1.erase(session.traits1.begin() + i);
+					std::cout << session.x1.getName() + " , please select 1 out of the 3 traits you receive below.\n";
+					std::vector<Trait> trait1 = { session.traits.at(0), session.traits.at(1), session.traits.at(2) };
+					session.traits.erase(session.traits.begin(), session.traits.begin() + 3);
+					for (int i = 0; i < 3; i++) {
+						std::cout << trait1.at(i).printFull();
+					}
+					int temp = select(3);
+					session.traits1.push_back(trait1.at(temp));
+
+					trait1.erase(trait1.begin() + temp);
+					session.traits.push_back(trait1.at(0));
+					session.traits.push_back(trait1.at(1));
+				}
+			}
+		}
+	}
+	return session;
+};
+
+Session traitGoals(Session session) {
+	int number = 0;
+	for (int i = 0; i < 3; i++) {
+		PersonalityDim pd = session.traits1.at(i).getDim();
+		int goal = session.traits1.at(i).getNum();
+		if (session.traits1.at(i).getType() == Individual) {
+			number = session.per.get1((int)pd) - session.per.get1(((int)pd) + 1);
+		}
+		else if (session.traits1.at(i).getType() == Shared) {
+			number = session.per.getShared((int)pd) - session.per.getShared(((int)pd) + 1);
+		}
+		if (goal * (-1) < number && number < 0 || goal < number && number>0) {
+			session.x1.setSatisfaction(3);
+			std::cout << session.x1.getName() + " achieved the TRAIT GOAL for " + session.traits1.at(i).getName() + ". \n";
+		}
+		else {
+			session.x1.setSatisfaction(-1);
+			std::cout << session.x1.getName() + " missed the TRAIT GOAL for " + session.traits1.at(i).getName() + ". \n";
+		}
+	}
+	for (int i = 0; i < 3; i++) {
+		PersonalityDim pd = session.traits2.at(i).getDim();
+		int goal = session.traits2.at(i).getNum();
+		if (session.traits2.at(i).getType() == Individual) {
+			number = session.per.get2((int)pd) - session.per.get2(((int)pd) + 1);
+		}
+		else if (session.traits2.at(i).getType() == Shared) {
+			number = session.per.getShared((int)pd) - session.per.getShared(((int)pd) + 1);
+		}
+		if (goal * (-1) < number && number < 0 || goal < number && number>0) {
+			session.x2.setSatisfaction(3);
+			std::cout << session.x2.getName() + " achieved the TRAIT GOAL for " + session.traits2.at(i).getName() + ". \n";
+		}
+		else {
+			session.x2.setSatisfaction(-1);
+			std::cout << session.x2.getName() + " missed the TRAIT GOAL for " + session.traits2.at(i).getName() + ". \n";
+		}
+	}
 	return session;
 };

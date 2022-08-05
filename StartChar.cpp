@@ -30,8 +30,11 @@ Session startSession() {
 	readyGame();
 	Character x1 = startGender(1);
 	Character x2 = startGender(2);
-	std::vector<Trait> traits1 = startTraits(1);
-	std::vector<Trait> traits2 = startTraits(2);
+	std::vector<Trait> traits = importTraits("trait.txt");
+	dealCards<std::vector<Trait>> t3 = startTraits(traits);
+	traits = t3.deck;
+	std::vector<Trait> trait1 = t3.p1;
+	std::vector<Trait> trait2 = t3.p2;
 	std::vector<Occupation> occus = importOccus("occupation.txt");
 	dealCards<std::vector<Occupation>>o3 = startOccupation(occus);
 	occus = o3.deck;
@@ -77,37 +80,33 @@ Session startSession() {
 	std::vector<std::string> c;
 	std::vector<Scene> secret1;
 	std::vector<Scene> secret2;
-	Session game{ x1, x2, traits1, traits2, occus, occu1, occu2, features, fea1, fea2, per, plot, d1, d2, chapters, sweetS, seriousS, dramaS, hand1, hand2, c, secret1, secret2};
-	//game = ApplyEffect(game, 1, game.occu1.getDim(), game.occu1.getNum());
-	//game = ApplyEffect(game, 2, game.occu2.getDim(), game.occu2.getNum());
+	Session game{ x1, x2, traits, trait1, trait2, occus, occu1, occu2, features, fea1, fea2, per, plot, d1, d2, chapters, sweetS, seriousS, dramaS, hand1, hand2, c, secret1, secret2};
 	return game;
 };
 
 Session runGame(Session session) {
 	
 	std::string alphabet = "OABCD";
+	Scene scene = session.sweetS.at(0);
 	int turn = 1;
 	session = drawStarting(session);
-	for (int j = 0; j <1; j++) {
+	for (int j = 0; j < session.chapters.size(); j++) {
 		std::cout << "\033[2J\033[1;1H";
 		char choice1;
 		char choice2;
-		std::cout<<session.chapters.at(j).printFull();
-		std::cout << session.x1.getName()+", make your choice for the chapter.\n";
+		std::cout << session.chapters.at(j).printFull();
+		std::cout << session.x1.getName() + ", make your choice for the chapter.\n";
 		int temp1 = select(session.chapters.at(j).getChoices().size());
 		choice1 = alphabet[temp1];
 		std::cout << session.x2.getName() + ", make your choice for the chapter.\n";
 		int temp2 = select(session.chapters.at(j).getChoices().size());
-		choice2= alphabet[temp2];
-		session = resolveEffectsC(session,session.chapters.at(j), temp1, temp2);
-		session.secret1.push_back(session.dramaS.at(12));
-		session.secret1.push_back(session.seriousS.at(26));
-		session.secret2.push_back(session.sweetS.at(28));
+		choice2 = alphabet[temp2];
+		session = resolveEffectsC(session, session.chapters.at(j), temp1, temp2);
 		int behalf = 0;
 		for (int i = 0; i < session.chapters.at(j).getLength(); i++) {
-			//std::cout << "\033[2J\033[1;1H";
-			
-			
+			std::cout << "\033[2J\033[1;1H";
+
+
 
 			int doubleImpact = 0;
 			int position = 0;
@@ -126,39 +125,201 @@ Session runGame(Session session) {
 			}
 			if (std::find(session.carryOver.begin(), session.carryOver.end(), "BEHALF") != session.carryOver.end()) {
 				position = std::find(session.carryOver.begin(), session.carryOver.end(), "BEHALF") - session.carryOver.begin();
-				behalf ++;
+				behalf++;
 			}
 			int behalfCho = 0;
 			if (std::find(session.carryOver.begin(), session.carryOver.end(), "BEHALFCHO") != session.carryOver.end()) {
 				position = std::find(session.carryOver.begin(), session.carryOver.end(), "BEHALFCHO") - session.carryOver.begin();
 				behalfCho = 1;
 			}
-			
+
 
 			int index = 8;
 			if (behalf != 0) {
 				if (turn == 1) {
-					//index = chooseScene(session, 2);
+					index = chooseScene(session, 2);
+					
+					
 				}
 				else {
-					//index = chooseScene(session, 1);
+					index = chooseScene(session, 1);
+					
 				}
 			}
 			else {
-				//index = chooseScene(session, turn);
+				index = chooseScene(session, turn);
+				if (turn == 1) {
+					while (session.hand1.at(index).getWho() == 'R' || session.hand1.at(index).getWho() == 'N') {
+						std::cout << session.x1.getName() + ", you have to discard the reaction as a minor scene.\n";
+						session.hand1.erase(session.hand1.begin() + index);
+						session = drawFill(session, session.chapters.at(j).getDraw().at(0));
+						index = chooseScene(session, turn);
+					}
+					while ( session.hand1.at(index).getWho() == 'V') {
+						std::cout << session.x1.getName() + ", do you want to discard this minor scene?\n1 = Yes\n2 = No\n";
+						int temp = select(2);
+						if (temp == 0) {
+							session.hand1.erase(session.hand1.begin() + index);
+							session = drawFill(session, session.chapters.at(j).getDraw().at(0));
+							index = chooseScene(session, turn);
+						}
+						else {
+							break;
+						}
+					}
+					
+				}
+				else {
+					while (session.hand2.at(index).getWho() == 'R' || session.hand2.at(index).getWho() == 'N') {
+						std::cout << session.x2.getName() + ", you have to discard the reaction as a minor scene.\n";
+						session.hand2.erase(session.hand2.begin() + index);
+						session = drawFill(session, session.chapters.at(j).getDraw().at(0));
+						index = chooseScene(session, turn);
+					}
+					while (session.hand2.at(index).getWho() == 'V') {
+						std::cout << session.x2.getName() + ", do you want to discard this minor scene?\n1 = Yes\n2 = No\n";
+						int temp = select(2);
+						if (temp == 0) {
+							session.hand2.erase(session.hand2.begin() + index);
+							session = drawFill(session, session.chapters.at(j).getDraw().at(0));
+							index = chooseScene(session, turn);
+						}
+						else {
+							break;
+						}
+					}
+					
+				}
 			}
-			
-			Scene scene = session.hand1.at(0);
 
+			//get the current scene
+			if (turn == 1) {
+				scene = session.hand1.at(index);
+				session.hand1.erase(session.hand1.begin() + index);
+			}
+			else {
+				scene = session.hand2.at(index);
+				session.hand2.erase(session.hand2.begin() + index);
+			}
+
+			//resolve effects before players' choices
 			session = specialOp(session, scene.getIndex(), scene.getDeck(), turn, scene);
+			if (turn == 1) {
+				scene = session.hand1.at(session.hand1.size()-1);
+				session.hand1.erase(session.hand1.begin() + session.hand1.size() - 1);
+			}
+			else {
+				scene = session.hand2.at(session.hand2.size() - 1);
+				session.hand2.erase(session.hand2.begin() + session.hand2.size() - 1);
+			}
+
+			//discard minor scene and draw new scenes
+			while (scene.getWho() == 'R' || scene.getWho() == 'N' || scene.getWho() == 'V') {
+				if (turn == 1) {
+
+				}
+				else {
+
+				}
+				std::cout << session.x1.getName() + ", do you want to discard this minor scene?\n1 = Yes\n2 = No\n";
+				int temp = select(2);
+				if (temp == 0) {
+
+				}
+				else {
+					break;
+				}
+			}
 
 			if (scene.getWho() == 'B') {
+				//check if a reaction at place 0 can be played
+				session = reaction(session, scene, turn, 0);
 				std::cout << session.x1.getName() + ", make your choice for the scene.\n";
 				temp1 = select(scene.getChoices().size());
 				choice1 = alphabet[temp1];
+				session = reaction(session, scene, 1, 1);
+				session = reaction(session, scene, 2, 4);
 				std::cout << session.x2.getName() + ", make your choice for the scene.\n";
 				temp2 = select(scene.getChoices().size());
 				choice2 = alphabet[temp2];
+				session = reaction(session, scene, 2, 1);
+				session = reaction(session, scene, 1, 4);
+				session = reaction(session, scene, 0, 3);
+				if (temp2 != temp1) {
+					session = reaction(session, scene, 0, 5);
+				}
+				int reaction = 1;
+				int rsize = 10;
+				while (session.carryOver.size()>0&&rsize>session.carryOver.size()) {
+					rsize = session.carryOver.size();
+					if (std::find(session.carryOver.begin(), session.carryOver.end(), "R19") != session.carryOver.end()) {
+						//todo: only partner choose effect
+						position = std::find(session.carryOver.begin(), session.carryOver.end(), "R19") - session.carryOver.begin();
+						session.carryOver.erase(session.carryOver.begin() + position);
+						if (turn == 1) {
+							session = reactionEffect(session, scene, 19, turn, temp2);
+						}
+						else {
+							session = reactionEffect(session, scene, 19, turn, temp1);
+						}
+
+						continue;
+					}
+					if (std::find(session.carryOver.begin(), session.carryOver.end(), "R28") != session.carryOver.end()) {
+						position = std::find(session.carryOver.begin(), session.carryOver.end(), "R28") - session.carryOver.begin();
+						session.carryOver.erase(session.carryOver.begin() + position);
+						if (turn == 1) {
+							session = reactionEffect(session, scene, 28, turn, temp2);
+						}
+						else {
+							session = reactionEffect(session, scene, 28, turn, temp1);
+						}
+						continue;
+					}
+					if (std::find(session.carryOver.begin(), session.carryOver.end(), "R301") != session.carryOver.end() || std::find(session.carryOver.begin(), session.carryOver.end(), "R181") != session.carryOver.end() || std::find(session.carryOver.begin(), session.carryOver.end(), "R161") != session.carryOver.end()) {
+						if (std::find(session.carryOver.begin(), session.carryOver.end(), "R301") != session.carryOver.end()) {
+							position = std::find(session.carryOver.begin(), session.carryOver.end(), "R301") - session.carryOver.begin();
+						}
+						else if (std::find(session.carryOver.begin(), session.carryOver.end(), "R181") != session.carryOver.end()) {
+							position = std::find(session.carryOver.begin(), session.carryOver.end(), "R181") - session.carryOver.begin();
+						}
+						else {
+							position = std::find(session.carryOver.begin(), session.carryOver.end(), "R161") - session.carryOver.begin();
+						}
+						session.carryOver.erase(session.carryOver.begin() + position);
+						std::cout << session.x1.getName() + ", make your choice for the scene again.\n";
+						temp1 = select(scene.getChoices().size());
+						choice1 = alphabet[temp1];
+					}else if (std::find(session.carryOver.begin(), session.carryOver.end(), "R302") != session.carryOver.end() || std::find(session.carryOver.begin(), session.carryOver.end(), "R182") != session.carryOver.end() || std::find(session.carryOver.begin(), session.carryOver.end(), "R162") != session.carryOver.end()) {
+						if (std::find(session.carryOver.begin(), session.carryOver.end(), "R302") != session.carryOver.end()) {
+							position = std::find(session.carryOver.begin(), session.carryOver.end(), "R302") - session.carryOver.begin();
+						}
+						else if (std::find(session.carryOver.begin(), session.carryOver.end(), "R182") != session.carryOver.end()) {
+							position = std::find(session.carryOver.begin(), session.carryOver.end(), "R182") - session.carryOver.begin();
+						}
+						else {
+							position = std::find(session.carryOver.begin(), session.carryOver.end(), "R162") - session.carryOver.begin();
+						}
+						session.carryOver.erase(session.carryOver.begin() + session.carryOver.size() - 1);
+						std::cout << session.x2.getName() + ", make your choice for the scene again.\n";
+						temp2 = select(scene.getChoices().size());
+						choice2 = alphabet[temp2];
+					}
+					if (std::find(session.carryOver.begin(), session.carryOver.end(), "RS301") != session.carryOver.end()) {
+						position = std::find(session.carryOver.begin(), session.carryOver.end(), "RS301") - session.carryOver.begin();
+						session.carryOver.erase(session.carryOver.begin() + position);
+						temp2 = temp1;
+						session = drawFill(session, session.chapters.at(j).getDraw().at(0));
+					}
+					else if (std::find(session.carryOver.begin(), session.carryOver.end(), "RS302") != session.carryOver.end()) {
+						position = std::find(session.carryOver.begin(), session.carryOver.end(), "RS302") - session.carryOver.begin();
+						session.carryOver.erase(session.carryOver.begin() + position);
+						temp1 = temp2;
+						session = drawFill(session, session.chapters.at(j).getDraw().at(0));
+					}
+				}
+
+				//todo: situation #6 DECIDEFIRST partner chooses first
 				if (behalfCho != 0) {
 					session = resolveEffectsB(session, turn, scene, temp2, temp1);
 					session = resolveAddi(session, turn, scene, temp2, temp1);
@@ -167,24 +328,104 @@ Session runGame(Session session) {
 					session = resolveEffectsB(session, turn, scene, temp1, temp2);
 					session = resolveAddi(session, turn, scene, temp1, temp2);
 				}
-				
+
 				//std::cout << session.hand1.at(5).printFull();
 				if (doubleImpact != 0) {
+					position = std::find(session.carryOver.begin(), session.carryOver.end(), "DOUBLEIMPACT") - session.carryOver.begin();
 					session.carryOver.erase(session.carryOver.begin() + position, session.carryOver.begin() + position + 2);
 				}
 				if (doubleImpactB != 0) {
+					if (std::find(session.carryOver.begin(), session.carryOver.end(), "DOUBLEIMPACTPT") != session.carryOver.end()) {
+						position = std::find(session.carryOver.begin(), session.carryOver.end(), "DOUBLEIMPACTPT") - session.carryOver.begin();
+					}
+					else {
+						position = std::find(session.carryOver.begin(), session.carryOver.end(), "DOUBLEIMPACTB") - session.carryOver.begin();
+					}
 					session.carryOver.erase(session.carryOver.begin() + position);
 				}
 				if (behalf == 2) {
+					position = std::find(session.carryOver.begin(), session.carryOver.end(), "BEHALF") - session.carryOver.begin();
 					session.carryOver.erase(session.carryOver.begin() + position);
 				}
 				if (behalfCho != 0) {
+					position = std::find(session.carryOver.begin(), session.carryOver.end(), "BEHALFCHO") - session.carryOver.begin();
 					session.carryOver.erase(session.carryOver.begin() + position);
 				}
 			}
-			else if(scene.getWho()=='P') {
+			else if (scene.getWho() == 'P') {
+				session = reaction(session, scene, turn, 2);
+				if (session.carryOver.size() > 0) {
+					if (std::find(session.carryOver.begin(), session.carryOver.end(), "R29") != session.carryOver.end()) {
+						position = std::find(session.carryOver.begin(), session.carryOver.end(), "R29") - session.carryOver.begin();
+						session.carryOver.erase(session.carryOver.begin() + position);
+						if (turn == 1) {
+							session = reactionEffect(session, scene, 29, turn, temp2);
+						}
+						else {
+							session = reactionEffect(session, scene, 29, turn, temp1);
+						}
+						continue;
+					}
+				}
+				if (turn == 1) {
+					std::cout << session.x1.getName() + ", make your choice for the scene.\n";
+				}
+				else {
+					std::cout << session.x2.getName() + ", make your choice for the scene.\n";
+				}
 				int temp = select(scene.getChoices().size());
 				choice1 = alphabet[temp];
+				session = reaction(session, scene, turn, 1);
+				if (turn == 1) {
+					session = reaction(session, scene, 2, 4);
+				}
+				else {
+					session = reaction(session, scene, 1, 4);
+				}
+				session = reaction(session, scene, turn, 3);
+				int rsize = 10;
+				while (session.carryOver.size() > 0&&rsize>session.carryOver.size()) {
+					rsize == session.carryOver.size();
+					if (std::find(session.carryOver.begin(), session.carryOver.end(), "R28") != session.carryOver.end()) {
+						position = std::find(session.carryOver.begin(), session.carryOver.end(), "R28") - session.carryOver.begin();
+						session.carryOver.erase(session.carryOver.begin() + session.carryOver.size() - 1);
+						if (turn == 1) {
+							session = reactionEffect(session, scene, 28, turn, temp);
+						}
+						else {
+							session = reactionEffect(session, scene, 28, turn, temp);
+						}
+						continue;
+					}
+					if (std::find(session.carryOver.begin(), session.carryOver.end(), "R301") != session.carryOver.end() || std::find(session.carryOver.begin(), session.carryOver.end(), "R181") != session.carryOver.end()) {
+						if (std::find(session.carryOver.begin(), session.carryOver.end(), "R181") != session.carryOver.end()) {
+							session = reactionEffect(session, scene, 18, 2, temp);
+							position = std::find(session.carryOver.begin(), session.carryOver.end(), "R181") - session.carryOver.begin();
+						}
+						else {
+							position = std::find(session.carryOver.begin(), session.carryOver.end(), "R301") - session.carryOver.begin();
+						}
+						
+						session.carryOver.erase(session.carryOver.begin() + position);
+						std::cout << session.x1.getName() + ", make your choice for the scene again.\n";
+						temp = select(scene.getChoices().size());
+						choice1 = alphabet[temp];
+						
+					}
+					else if (std::find(session.carryOver.begin(), session.carryOver.end(), "R302") != session.carryOver.end() || std::find(session.carryOver.begin(), session.carryOver.end(), "R182") != session.carryOver.end()) {
+						if (std::find(session.carryOver.begin(), session.carryOver.end(), "R182") != session.carryOver.end()) {
+							session = reactionEffect(session, scene, 18, 1, temp);
+							position = std::find(session.carryOver.begin(), session.carryOver.end(), "R182") - session.carryOver.begin();
+						}
+						else {
+							position = std::find(session.carryOver.begin(), session.carryOver.end(), "R302") - session.carryOver.begin();
+						}
+						session.carryOver.erase(session.carryOver.begin() + position);
+						std::cout << session.x2.getName() + ", make your choice for the scene again.\n";
+						temp = select(scene.getChoices().size());
+						choice1 = alphabet[temp];
+					}
+				}
 				if (behalfCho != 0) {
 					if (turn == 1) {
 						std::cout << session.x2.getName() + ", make your choice for the scene.\n";
@@ -194,26 +435,33 @@ Session runGame(Session session) {
 						std::cout << session.x1.getName() + ", make your choice for the scene.\n";
 						session = resolveEffectsP(session, 1, scene, temp);
 					}
-					
+
 				}
 				else {
 					session = resolveEffectsP(session, turn, scene, temp);
+					
+
+
 				}
-				
+
 				if (doubleImpact != 0) {
+					position = std::find(session.carryOver.begin(), session.carryOver.end(), "DOUBLEIMPACT") - session.carryOver.begin();
 					session.carryOver.erase(session.carryOver.begin() + position, session.carryOver.begin() + position + 2);
 				}
 				if (doubleImpactB != 0) {
+					position = std::find(session.carryOver.begin(), session.carryOver.end(), "DOUBLEIMPACTB") - session.carryOver.begin();
 					session.carryOver.erase(session.carryOver.begin() + position);
 				}
 				if (behalf == 2) {
+					position = std::find(session.carryOver.begin(), session.carryOver.end(), "BEHALF") - session.carryOver.begin();
 					session.carryOver.erase(session.carryOver.begin() + position);
 				}
 				if (behalfCho != 0) {
+					position = std::find(session.carryOver.begin(), session.carryOver.end(), "BEHALFCHO") - session.carryOver.begin();
 					session.carryOver.erase(session.carryOver.begin() + position);
 				}
 				//check if secrets are revealed
-				if (std::find(session.carryOver.begin(), session.carryOver.end(), "RS") != session.carryOver.end()|| std::find(session.carryOver.begin(), session.carryOver.end(), "RSS") != session.carryOver.end()|| std::find(session.carryOver.begin(), session.carryOver.end(), "RSALL") != session.carryOver.end()) {
+				if (std::find(session.carryOver.begin(), session.carryOver.end(), "RS") != session.carryOver.end() || std::find(session.carryOver.begin(), session.carryOver.end(), "RSS") != session.carryOver.end() || std::find(session.carryOver.begin(), session.carryOver.end(), "RSALL") != session.carryOver.end()) {
 					if (std::find(session.carryOver.begin(), session.carryOver.end(), "RS") != session.carryOver.end()) {
 						position = std::find(session.carryOver.begin(), session.carryOver.end(), "RS") - session.carryOver.begin();
 					}
@@ -223,14 +471,14 @@ Session runGame(Session session) {
 					else {
 						position = std::find(session.carryOver.begin(), session.carryOver.end(), "RSALL") - session.carryOver.begin();
 					}
-						
+
 					int index = std::stoi(session.carryOver.at(position + 1));
 					i = i + index;
 					for (int k = 0; k < index; k++) {
 						switch (index)
 						{
 						case 1:
-							if (turn == 1||session.carryOver.at(0)=="RSS"&&session.secret1.size()>0) {
+							if (turn == 1 || session.carryOver.at(0) == "RSS" && session.secret1.size() > 0) {
 								scene = session.secret1.at(0);
 								session.secret1.erase(session.secret1.begin());
 							}
@@ -250,7 +498,7 @@ Session runGame(Session session) {
 							}
 							break;
 						}
-						
+
 
 						std::cout << scene.printFull();
 						if (scene.getWho() == 'C') {
@@ -261,17 +509,25 @@ Session runGame(Session session) {
 						else if (scene.getWho() == 'T') {
 							session = resolveChoice(session, turn, turn, scene.getAddis().at(1).getCode());
 						}
-						
+
 					}
 					session.carryOver.erase(session.carryOver.begin(), session.carryOver.begin() + 2);
-										
+
 				}
 			}
 			else if (scene.getWho() == 'S') {
-				session = resolveEffectsB(session, turn, scene, 0, 0);
-				if (scene.getIndex() == 34) {
-					session = resolveEffectsB(session, turn, scene, 1, 1);
+				if (scene.getIndex() == 19) {
+					session = resolveChoice(session, turn, turn, scene.getChoices().at(0).getCode());
 				}
+				else {
+					session = resolveEffectsB(session, turn, scene, 0, 0);
+					if (scene.getIndex() == 34) {
+						session = resolveEffectsB(session, turn, scene, 1, 1);
+					}
+				}
+				std::cout << "Press enter to start the next turn: ";
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 			}
 			else if (scene.getWho() == 'E') {
 				session = SEEffect(session, scene, turn);
@@ -322,13 +578,13 @@ Session runGame(Session session) {
 			else {
 				turn = 1;
 			}
-			std::cout << std::to_string(session.x1.getSatisfaction());
-			std::cout << std::to_string(session.x2.getSatisfaction());
+			std::cout << "\n"+session.x1.getName() + "\'s satisfaction: " + std::to_string(session.x1.getSatisfaction()) + "\n";
+			std::cout << session.x2.getName() + "\'s satisfaction: " + std::to_string(session.x2.getSatisfaction())+"\n\n";
 			session = drawFill(session, session.chapters.at(j).getDraw().at(0));
 		}
+
+
 	}
-	
-	
 	return session;
 };
 
@@ -349,6 +605,7 @@ Session resolution(Session session) {
 	std::cout << "3. Reveal your TRAITS and check if you have realized your TRAIT GOALS.\n";
 	std::cout << " - Each achieved TRAIT GOAL is +3 to you.\n";
 	std::cout << " - Each missed TRAIT GOAL is -1 to you.\n";
+	session = traitGoals(session);
 	std::cout << "4. Now you can see if you have fulfilled your characters\' DESTINIES.\n";
 	if (fullfilDestiny(session, 1, findDestiny(session, 1), findDestiny(session,2)) == 1) {
 		std::cout << session.x1.getName() + " has fulfilled the DESTINY: " + session.d1.at(findDestiny(session, 1)).getName() + ". Congrats!\n";
@@ -366,3 +623,4 @@ Session resolution(Session session) {
 	std::cout << "Thank you for playing the game :)\n";
 	return session;
 };
+
