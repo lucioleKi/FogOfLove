@@ -1,5 +1,7 @@
 # FogOfLove
-A console version of the two-player board game Fog of Love. Still in progress.
+A console version of the two-player board game Fog of Love. All game functions are now completed. Testing in progress.
+
+---Development Log---
 
 6/25/2022
 
@@ -42,3 +44,8 @@ Next step: Finish resolving effects that carries on to the next round. Make secr
 Completed: Effect: Mirror, DoubleThree, Trade, Double Impact, reveal secret, resolve unrevealed secrets. Special effect #2, 4, 5, Situation #1-5
 
 Next step: Reactions, Trait-related funtions, minor scenes.
+
+8/5/2022
+Completed: ALL GAME FUNCTIONS ARE NOW COMPLETED!!!
+
+Next step: Testing, testing, testing...
