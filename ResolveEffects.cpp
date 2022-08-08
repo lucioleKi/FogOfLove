@@ -12,6 +12,7 @@ Session resolveEffectsC(Session session, Chapter chapter, int choice1, int choic
 	Choice c1 = chapter.getChoices().at(choice1);
 	Choice c2 = chapter.getChoices().at(choice2);
 	if (c1.getCode().size() ==3 ) {
+		std::cout << session.x1.getName() + " has the following DESTINIES in hand:\n";
 		int index = 0;
 		std::vector<int> hand;
 		for (int i = 0; i < session.d1.size(); i++) {
@@ -21,25 +22,41 @@ Session resolveEffectsC(Session session, Chapter chapter, int choice1, int choic
 				index++;
 			}
 		}
-		std::cout << "Select a DESTINY to discard:\n";
-		int temp = select(index);
-		session.d1.at(hand.at(temp)).changeIn();
+		if (hand.size() == 2) {
+			std::cout << "You only have 2 DESTINIES in hand. You cannot discard a DESTINY now.\n";
+			return session;
+		}
+		else {
+			std::cout << session.x1.getName() + ", select a DESTINY to discard:\n";
+			int temp = select(index);
+			session.d1.at(hand.at(temp)).changeIn();
+		}
+		
 	}
-	else if (c1.getCode().size() == 4) {
+	else if (c1.getCode().size() == 7) {
+		std::cout << session.x1.getName() + " has the following DESTINIES in hand:\n";
 		int index = 0;
 		std::vector<int> hand;
 		for (int i = 0; i < session.d1.size(); i++) {
-			if (session.d1.at(i).getIn()&&session.d1.at(i).getName()!=c1.getCode().at(3)) {
+			if (session.d1.at(i).getIn()&&session.d1.at(i).getName()!=c1.getCode().at(6)) {
 				std::cout << session.d1.at(i).printFull();
 				hand.push_back(i);
 				index++;
 			}
 		}
-		std::cout << "Select a DESTINY to discard:\n";
-		int temp = select(index);
-		session.d1.at(hand.at(temp)).changeIn();
+		if (hand.size() == 2) {
+			std::cout << "You only have 2 DESTINIES in hand. You cannot discard a DESTINY now.\n";
+			return session;
+		}
+		else {
+			std::cout << session.x1.getName() + ", select a DESTINY to discard:\n";
+			int temp = select(index);
+			session.d1.at(hand.at(temp)).changeIn();
+		}
+		
 	}
 	if (c2.getCode().size() ==3) {
+		std::cout << session.x2.getName() + " has the following DESTINIES in hand:\n";
 		int index = 0;
 		std::vector<int> hand;
 		for (int i = 0; i < session.d2.size(); i++) {
@@ -49,23 +66,38 @@ Session resolveEffectsC(Session session, Chapter chapter, int choice1, int choic
 				index++;
 			}
 		}
-		std::cout << "Select a DESTINY to discard:\n";
-		int temp = select(index);
-		session.d2.at(hand.at(temp)).changeIn();
+		if (hand.size() == 2) {
+			std::cout << "You only have 2 DESTINIES in hand. You cannot discard a DESTINY now.\n";
+			return session;
+		}
+		else {
+			std::cout << session.x2.getName() + ", select a DESTINY to discard:\n";
+			int temp = select(index);
+			session.d2.at(hand.at(temp)).changeIn();
+		}
+		
 	}
-	else if (c2.getCode().size() == 4) {
+	else if (c2.getCode().size() == 7) {
+		std::cout << session.x2.getName() + " has the following DESTINIES in hand:\n";
 		int index = 0;
 		std::vector<int> hand;
 		for (int i = 0; i < session.d2.size(); i++) {
-			if (session.d2.at(i).getIn() && session.d2.at(i).getName() != c2.getCode().at(3)) {
+			if (session.d2.at(i).getIn() && session.d2.at(i).getName() != c2.getCode().at(6)) {
 				std::cout << session.d2.at(i).printFull();
 				hand.push_back(i);
 				index++;
 			}
 		}
-		std::cout << "Select a DESTINY to discard:\n";
-		int temp = select(index);
-		session.d2.at(hand.at(temp)).changeIn();
+		if (hand.size() == 2) {
+			std::cout << "You only have 2 DESTINIES in hand. You cannot discard a DESTINY now.\n";
+			return session;
+		}
+		else {
+			std::cout << session.x2.getName() + ", select a DESTINY to discard:\n";
+			int temp = select(index);
+			session.d2.at(hand.at(temp)).changeIn();
+		}
+		
 	}
 
 	int additionalMatch = -1;
@@ -202,8 +234,6 @@ Session resolveEffectsB(Session game, int turn, Scene scene, int choice1, int ch
 		game = resolveChoice(game, 1, turn, c1.getCode());
 	}
 	
-	
-	std::cout << game.per.printFull();
 	return game;
 };
 
@@ -299,7 +329,6 @@ Session resolveEffectsP(Session game, int turn, Scene scene, int choice1) {
 			
 		}
 	}
-	std::cout << game.per.printFull();
 	//resolve satisfaction
 	if (doubleImpact == 0) {
 		game = resolveChoice(game, other, turn, c1.getCode());
@@ -344,7 +373,7 @@ Session resolveChoice(Session game, int chooser, int player, std::vector<std::st
 			game.x2.setSatisfaction(std::stoi(code.at(1)));
 			code.erase(code.begin() + 1);
 		}
-		while (1 + index < code.size()) {
+		while (1 + index < code.size()&&code.at(index+1)!="PA") {
 			B.push_back(code.at(1 + index));
 			index++;
 		}
@@ -398,7 +427,6 @@ Session resolveChoice(Session game, int chooser, int player, std::vector<std::st
 			}
 			if (std::find(B.begin(), B.end(), "TRADE") != B.end()) {
 				int position = std::find(B.begin(), B.end(), "TRADE") - B.begin();
-				std::cout << "once\n";
 				game = TRADE(game);
 				B.erase(B.begin() + position);
 			}
@@ -968,7 +996,7 @@ std::vector<std::string> match2(int c1, int c2, int player) {
 	}
 	else if (c1 == 2 && c2 == 2) {
 		//CC
-		return { "MC", "MBC", "M", "MAB", "MABC", "M/CDE", "E" };
+		return { "MC", "MCD", "MBC", "M", "MAB", "MABC", "M/CDE", "E" };
 	}
 	else if (c1 == 2 && c2 == 3 && player == 1 || c2 == 2 && c1 == 3 && player == 2) {
 		//CD
@@ -980,7 +1008,7 @@ std::vector<std::string> match2(int c1, int c2, int player) {
 	}
 	else if (c1 == 3 && c2 == 3) {
 		//DD
-		return { "MD", "M/CDE", "CBD-MD", "M", "E" };
+		return { "MD", "MCD", "M/CDE", "CBD-MD", "M", "E" };
 	}
 
 
@@ -1003,7 +1031,16 @@ codePlayer resolveCABCD(int turn, Scene scene, int c1, int c2, std::vector<std::
 
 	}
 	if (std::find(code.begin(), code.end(), "CB") != code.end()) {
-		replace(code.begin(), code.end(), "CB", "OT");
+		int position = std::find(code.begin(), code.end(), std::string("CB")) - code.begin();
+
+		if (c1 == 1) {
+			chooser = 1;
+			replace(code.begin(), code.end(), "CB", "PL");
+		}
+		else {
+			chooser = 2;
+			replace(code.begin(), code.end(), "CB", "PA");
+		}
 	}
 	if (std::find(code.begin(), code.end(), "CC") != code.end()) {
 		if (c1 == 2) {
@@ -1021,9 +1058,11 @@ codePlayer resolveCABCD(int turn, Scene scene, int c1, int c2, std::vector<std::
 		replace(code.begin(), code.end(), "CD", "CH");
 		if (c1 == 3) {
 			chooser = 1;
+			replace(code.begin(), code.end(), "CD", "PL");
 		}
 		else {
 			chooser = 2;
+			replace(code.begin(), code.end(), "CD", "PA");
 		}
 	}
 	if (std::find(code.begin(), code.end(), "A/B") != code.end()) {

@@ -48,16 +48,5 @@ std::string Trait::printFull() {
 		y = "Sincerity";
 		break;
 	}
-	return trai_name + ": " + trai_desc + "Trait goal: " + x + " " + y + " balance is " + std::to_string(trai_num) + " or more.\n";
+	return trai_name + ": " + trai_desc + " Trait goal: " + x + " " + y + " balance is " + std::to_string(trai_num) + " or more.\n";
 };
-
-std::vector<Trait> selectTraits() {
-	Trait trai1 = Trait{ "Patient",  "Able to remain calm and not become annoyed while experiencing delays and problems. ", Individual, Sincerity, 3};
-	Trait trai2 = Trait{ "Promiscuous", "Having an unselective and casual approach to engaging in sexual relationships. ", Individual, Curiosity, 1};
-	Trait trai3 = Trait{ "Jealous", "Showing envious resentment of others\' success. Being suspicious and possessive towards others. ", Individual, Sensitivity, 3 };
-	Trait trai4 = Trait{ "Task-oriented", "Concerned with one\'s activities and goals rather than other people. ", Shared, Sincerity, -5};
-	Trait trai5 = Trait{"Perfectionist", "Refusing to accept anything less than perfection. Demands the highest standards possible. ", Shared, Discipline, 5};
-	Trait trai6 = Trait{"Just", "Having a strong sense of what\'s right and what\'s wrong. ", Shared, Sincerity, 5};
-	std::vector<Trait> traits3{trai1, trai2, trai3, trai4, trai5};
-	return traits3;
-}

@@ -84,7 +84,6 @@ Session specialOp(Session session, int index, Deck deck, int turn, Scene scene) 
 			session.hand2.push_back(scene);
 			return session;
 		}
-		return session;
 	}
 
 	else if (index == 13 && deck == Drama || index == 10 && deck == Drama) {
@@ -167,11 +166,13 @@ Session specialOp(Session session, int index, Deck deck, int turn, Scene scene) 
 			session.per.change(1, 10, 1);
 			scene.setLine(scene.getLine() + "\nPLAYER Sincerity + 1.");
 			std::cout << scene.printFull();
+			session.hand1.push_back(scene);
 		}
 		else {
 			session.per.change(2, 10, 1);
 			scene.setLine(scene.getLine() + "\nPLAYER Sincerity + 1.");
 			std::cout << scene.printFull();
+			session.hand2.push_back(scene);
 		}
 	}
 	else if (index == 28 && deck == Serious) {
@@ -180,12 +181,14 @@ Session specialOp(Session session, int index, Deck deck, int turn, Scene scene) 
 			session.per.change(1, 0, 1);
 			scene.setLine(scene.getLine() + "\nPLAYER Sincerity + 1, Discipline + 1.");
 			std::cout << scene.printFull();
+			session.hand1.push_back(scene);
 		}
 		else {
 			session.per.change(2, 10, 1);
 			session.per.change(2, 0, 1);
 			scene.setLine(scene.getLine() + "\nPLAYER Sincerity + 1, Discipline + 1.");
 			std::cout << scene.printFull();
+			session.hand2.push_back(scene);
 		}
 	}
 	else {
@@ -300,6 +303,7 @@ Session chooseDestiny(Session session) {
 		std::cout << session.x1.getName()+", select a final DESTINY:\n";
 		temp = select(index);
 		session.d1.at(hand.at(temp)).changeIn();
+		index = 0;
 		hand.clear();
 		for (int i = 0; i < session.d2.size(); i++) {
 			if (session.d2.at(i).getIn()) {
@@ -509,8 +513,6 @@ Session unrevealedSecrets(Session session) {
 				
 			}
 		}
-		std::cout<<std::to_string(session.x1.getSatisfaction());
-		std::cout<<std::to_string(session.x2.getSatisfaction());
 	}
 	return session;
 };
@@ -569,12 +571,14 @@ Session SEEffect(Session session, Scene SE, int player) {
 		std::cout << session.per.printFull();
 		if (player == 1) {
 			std::cout << session.x1.getName()+", choose an aspect:\n";
+			std::cout << "1 = Discipline. 2 = Curiousity. 3 = Extroversion. 4 = Sensitivity. 5 = Gentleness. 6 = Sincerity.\n";
 			int temp = select(6);
 			session.per.change(2, temp * 2, session.per.get2(temp*2)*(-1));
 			session.per.change(2, temp * 2 + 1, session.per.get2(temp * 2 + 1) * (-1));
 		}
 		else {
 			std::cout << session.x2.getName() + ", choose an aspect:\n";
+			std::cout << "1 = Discipline. 2 = Curiousity. 3 = Extroversion. 4 = Sensitivity. 5 = Gentleness. 6 = Sincerity.\n";
 			int temp = select(6);
 			session.per.change(1, temp * 2, session.per.get1(temp * 2) * (-1));
 			session.per.change(1, temp * 2 + 1, session.per.get1(temp * 2 + 1) * (-1));
@@ -598,12 +602,14 @@ Session SEEffect(Session session, Scene SE, int player) {
 		std::cout << session.per.printFull();
 		if (player == 1) {
 			std::cout << session.x1.getName() + ", choose an aspect:\n";
+			std::cout << "1 = Discipline. 2 = Curiousity. 3 = Extroversion. 4 = Sensitivity. 5 = Gentleness. 6 = Sincerity.\n";
 			int temp = select(6);
 			session.per.change(2, temp * 2, session.per.get2(temp * 2) * (-1));
 			session.per.change(2, temp * 2 + 1, session.per.get2(temp * 2 + 1) * (-1));
 		}
 		else {
 			std::cout << session.x2.getName() + ", choose an aspect:\n";
+			std::cout << "1 = Discipline. 2 = Curiousity. 3 = Extroversion. 4 = Sensitivity. 5 = Gentleness. 6 = Sincerity.\n";
 			int temp = select(6);
 			session.per.change(1, temp * 2, session.per.get1(temp * 2) * (-1));
 			session.per.change(1, temp * 2 + 1, session.per.get1(temp * 2 + 1) * (-1));
@@ -1115,10 +1121,11 @@ Session guessAspect(Session session, int guess, int player) {
 					trait2.erase(trait2.begin() + temp);
 					session.traits.push_back(trait2.at(0));
 					session.traits.push_back(trait2.at(1));
+					return session;
 				}
 			}
 		}
-		
+		std::cout << "The guess is incorrect.\n";
 	}
 	else {
 		for (int i = 0; i < 3; i++) {
@@ -1138,9 +1145,11 @@ Session guessAspect(Session session, int guess, int player) {
 					trait1.erase(trait1.begin() + temp);
 					session.traits.push_back(trait1.at(0));
 					session.traits.push_back(trait1.at(1));
+					return session;
 				}
 			}
 		}
+		std::cout << "The guess is incorrect.\n";
 	}
 	return session;
 };
@@ -1184,4 +1193,18 @@ Session traitGoals(Session session) {
 		}
 	}
 	return session;
+};
+
+void seeBoard(Session session, int turn) {
+	std::cout << "\033[2J\033[1;1H";
+	std::cout << "Player 1:\nName: "+session.x1.getName()+"\nOccupation: "+session.occu1.getName();
+	std::cout << "\nTraits: "+session.traits1.at(0).getName()+", "+session.traits1.at(1).getName()+", "+session.traits1.at(2).getName() + ".\n";
+	std::cout << "Player 2:\nName: " + session.x2.getName() + "\nOccupation: " + session.occu2.getName();
+	std::cout << "\nTraits: " + session.traits2.at(0).getName() + ", " + session.traits2.at(1).getName() + ", " + session.traits2.at(2).getName() + ".\n\n";
+	std::cout << session.per.printFull();
+	std::cout << "\n" + session.x1.getName() + "\'s satisfaction: " + std::to_string(session.x1.getSatisfaction()) + "\n";
+	std::cout << session.x2.getName() + "\'s satisfaction: " + std::to_string(session.x2.getSatisfaction()) + "\n";
+	std::cout << "Press enter to start the next turn: ";
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	return;
 };

@@ -94,13 +94,18 @@ Session drawScene(Session session, int chooser, std::string who, std::string dec
 Session RD(Session session, int chooser) {
 	std::vector<int> hand;
 	if (chooser == 1) {
+		std::cout << session.x1.getName() + " has the following DESTINIES in hand:\n";
 		int index = 0;
 		for (int i = 0; i < session.d1.size(); i++) {
 			if (session.d1.at(i).getIn()) {
-				std::cout << std::to_string(index)+" = " +session.d1.at(i).printFull();
+				std::cout << std::to_string(index+1)+" = " +session.d1.at(i).printFull();
 				hand.push_back(i);
 				index++;
 			}
+		}
+		if (hand.size() == 2) {
+			std::cout << "You only have 2 DESTINIES in hand. You cannot discard a DESTINY now.\n";
+			return session;
 		}
 		std::cout << session.x1.getName()+", choose 1 DESTINY to reveal and then discard:\n";
 		int temp = select(index);
@@ -110,13 +115,18 @@ Session RD(Session session, int chooser) {
 		}
 	}
 	else {
+		std::cout << session.x2.getName() + " has the following DESTINIES in hand:\n";
 		int index = 0;
 		for (int i = 0; i < session.d2.size(); i++) {
 			if (session.d2.at(i).getIn()) {
-				std::cout << std::to_string(index) + " = " + session.d2.at(i).printFull();
+				std::cout << std::to_string(index+1) + " = " + session.d2.at(i).printFull();
 				hand.push_back(i);
 				index++;
 			}
+		}
+		if (hand.size() == 2) {
+			std::cout << "You only have 2 DESTINIES in hand. You cannot discard a DESTINY now.\n";
+			return session;
 		}
 		std::cout << session.x2.getName()+", choose 1 DESTINY to reveal and then discard:\n";
 		int temp = select(index);
@@ -155,6 +165,7 @@ void RI(Session session, int player, std::string destiny) {
 void RK(Session session, int player) {
 	std::vector<int> hand;
 	if (player == 1) {
+		std::cout << session.x1.getName() + " has the following DESTINIES in hand:\n";
 		int index = 0;
 		for (int i = 0; i < session.d1.size(); i++) {
 
@@ -170,6 +181,7 @@ void RK(Session session, int player) {
 		std::cout << session.d1.at(hand.at(temp)).printFull();
 	}
 	else {
+		std::cout << session.x2.getName() + " has the following DESTINIES in hand:\n";
 		int index = 0;
 		for (int i = 0; i < session.d2.size(); i++) {
 			if (session.d2.at(i).getIn()) {
@@ -393,6 +405,7 @@ Session SO(Session session, int chooser, std::string destiny) {
 	int temp = 8;
 	int SO = 8;
 	if (chooser == 1) {
+		std::cout << session.x1.getName() + " has the following DESTINIES in hand:\n";
 		for (int i = 0; i < session.d1.size(); i++) {
 			if (session.d1.at(i).getName() == destiny && session.d1.at(i).getIn()) {
 				std::cout << session.d1.at(i).printFull();
@@ -420,6 +433,7 @@ Session SO(Session session, int chooser, std::string destiny) {
 		session.d1.at(hand.at(temp)).changeIn();
 	}
 	else {
+		std::cout << session.x2.getName() + " has the following DESTINIES in hand:\n";
 		for (int i = 0; i < session.d2.size(); i++) {
 			if (session.d2.at(i).getName() == destiny && session.d2.at(i).getIn()) {
 				std::cout << session.d2.at(i).printFull();
@@ -452,14 +466,20 @@ Session SO(Session session, int chooser, std::string destiny) {
 Session DD(Session session, int player, std::string destiny) {
 	int index = 0;
 	if (player == 1) {
+		std::vector<int> hand;
 		if (destiny == "ANY") {
-			std::vector<int> hand;
+			std::cout << session.x1.getName() + " has the following DESTINIES in hand:\n";
+			
 			for (int i = 0; i < session.d1.size(); i++) {
 				if (session.d1.at(i).getIn()) {
 					std::cout << session.d1.at(i).printFull();
 					hand.push_back(i);
 					index++;
 				}
+			}
+			if (hand.size() == 2) {
+				std::cout << "You only have 2 DESTINIES in hand. You cannot discard a DESTINY now.\n";
+				return session;
 			}
 			std::cout << session.x1.getName() + ", select a DESTINY to discard:\n";
 			int temp = select(index);
@@ -472,14 +492,23 @@ Session DD(Session session, int player, std::string destiny) {
 					session.d1.at(i).changeIn();
 					return session;
 				}
+				if (session.d1.at(i).getIn()) {
+					hand.push_back(i);
+				}
+			}
+			if (hand.size() == 2) {
+				std::cout << "You only have 2 DESTINIES in hand. You cannot discard a DESTINY now.\n";
+				return session;
 			}
 			std::cout << session.x1.getName() + ", " + destiny + " is not in your hand. No need to discard.\n";
 			return session;
 		}
 	}
 	else {
+		std::vector<int> hand;
 		if (destiny == "ANY") {
-			std::vector<int> hand;
+			std::cout << session.x2.getName() + " has the following DESTINIES in hand:\n";
+			
 			for (int i = 0; i < session.d2.size(); i++) {
 				if (session.d2.at(i).getIn()) {
 					std::cout << session.d2.at(i).printFull();
@@ -487,7 +516,10 @@ Session DD(Session session, int player, std::string destiny) {
 					index++;
 				}
 			}
-
+			if (hand.size() == 2) {
+				std::cout << "You only have 2 DESTINIES in hand. You cannot discard a DESTINY now.\n";
+				return session;
+			}
 			std::cout << session.x2.getName() + ", select a DESTINY to discard:\n";
 			int temp = select(index);
 			session.d2.at(hand.at(temp)).changeIn();
@@ -499,6 +531,13 @@ Session DD(Session session, int player, std::string destiny) {
 					session.d2.at(i).changeIn();
 					return session;
 				}
+				if (session.d2.at(i).getIn()) {
+					hand.push_back(i);
+				}
+			}
+			if (hand.size() == 2) {
+				std::cout << "You only have 2 DESTINIES in hand. You cannot discard a DESTINY now.\n";
+				return session;
 			}
 			std::cout << session.x2.getName() + ", "+destiny + " is not in your hand. No need to discard.\n";
 			return session;
@@ -510,6 +549,7 @@ Session DD(Session session, int player, std::string destiny) {
 Session RE(Session session, int chooser, std::string destiny) {
 	int index = 0;
 	if (chooser == 1) {
+		std::cout << session.x1.getName() + " does not have the following DESTINIES in hand:\n";
 		if (destiny == "ANY") {
 			std::vector<int> hand;
 			for (int i = 0; i < session.d1.size(); i++) {
@@ -543,6 +583,7 @@ Session RE(Session session, int chooser, std::string destiny) {
 		}
 	}
 	else {
+		std::cout << session.x2.getName() + " does not have the following DESTINIES in hand:\n";
 		if (destiny == "ANY") {
 			std::vector<int> hand;
 			for (int i = 0; i < session.d2.size(); i++) {
@@ -711,19 +752,18 @@ Session DS(Session session, int chooser, std::string number) {
 };
 
 Session TRADE(Session session) {
-	std::cout << "twice\n";
 	std::cout << session.x1.getName() + " has the following SCENES in hand:\n";
 	for (int i = 0; i < session.hand1.size(); i++) {
 		std::cout << session.hand1.at(i).getTitle()+"\n";
 	}
-	std::cout << "Select a SCENE to give to " + session.x2.getName() + "\n";
+	std::cout << "Select a SCENE to give to " + session.x2.getName() + ":\n";
 	int t1 = select(session.hand1.size());
 
 	std::cout << session.x2.getName() + " has the following SCENES in hand:\n";
 	for (int i = 0; i < session.hand2.size(); i++) {
 		std::cout << session.hand2.at(i).getTitle() + "\n";
 	}
-	std::cout << "Select a SCENE to give to " + session.x1.getName()+"\n";
+	std::cout << "Select a SCENE to give to " + session.x1.getName()+":\n";
 	int t2 = select(session.hand2.size());
 	session.hand1.push_back(session.hand2.at(t2));
 	session.hand2.push_back(session.hand1.at(t1));

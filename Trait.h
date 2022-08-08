@@ -24,6 +24,3 @@ public:
 	std::string print() { return "(" + trai_name + ": " + trai_desc + "\n" + std::to_string(trai_type) + ", " + std::to_string(trai_dim) + ", " + std::to_string(trai_num) + ")\n"; };
 	std::string printFull();
 };
-
-
-std::vector<Trait> selectTraits();

@@ -57,3 +57,5 @@ Session reactionEffect(Session session, Scene scene, int index, int player, int 
 Session guessAspect(Session session, int guess, int player);
 
 Session traitGoals(Session session);
+
+void seeBoard(Session session, int turn);

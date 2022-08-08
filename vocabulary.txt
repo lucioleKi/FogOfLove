@@ -5,6 +5,7 @@ MC	Match C:
 MD	Match D:
 MAB	Match A or B:
 MBC	Match B or C:
+MCD	Match C or D:
 MABC	Match A, B, or C:
 M/CDE	Match or one chose D:
 CBD/MD	Chose B and D or match D:
