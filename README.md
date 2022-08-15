@@ -66,4 +66,5 @@ I learned so much about C++ during the past two months. I completed 55 entries o
 Cheers and off to my next jouney!
 
 8/15/2022
+
 Fixed bugs in BeforeScenes.cpp and trait.txt. Add a link for my Fog of Love GUI version.
