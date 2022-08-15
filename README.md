@@ -1,6 +1,8 @@
 # FogOfLove
 
-A console version of the two-player board game Fog of Love. Next step: Make a GUI version of Fog of Love. 
+A console version of the two-player board game Fog of Love. 
+
+I am making a GUI version of Fog of Love here using QT: https://github.com/lucioleKi/FogOfLoveQt1. Check it out!
 
 Please support the Fog of Love designers and buy the actual board game. I own a copy of this game. This coding project is personal and not for profit. I am a programmer, but not a game designer. I do not intend to encourage any copyright infringement or piracy here. 
 
@@ -62,3 +64,6 @@ Testing is completed, but there are definitely bugs I didn't catch. My developme
 I learned so much about C++ during the past two months. I completed 55 entries on my trello board. I thought developing a game by myself would be lonely and frustrating. It was a bit frustrating when certain bugs came up, but overall the experience was enjoyable, and not lonely at all. I was accompanied by Game Programming Patterns by Robert Nystrom. This was an eye-opening first-book for me. I would recommend it to anyone who wants to develop games.
 
 Cheers and off to my next jouney!
+
+8/15/2022
+Fixed bugs in BeforeScenes.cpp and trait.txt. Add a link for my Fog of Love GUI version.
