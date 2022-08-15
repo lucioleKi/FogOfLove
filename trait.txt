@@ -4,7 +4,7 @@ Jealous	Showing envious resentment of others' success. Being suspicious and poss
 Just	Having a strong sense of what's right and what's wrong.	1	5	5
 Task-oriented	Concerned with one's activities and goals rather than other people.	1	2	-5
 Perfectionist	Refusing to accept anything less than perfection. Demands the highest standards possible.	1	0	5
-Spiritual	Embracing the humble belief that there are things greater than oneself.	0	5	3	
+Spiritual	Embracing the humble belief that there are things greater than oneself.	0	5	3
 Narrow-minded	Judgmental and unreceptive to novel ideas or opinion.	1	1	-5
 Greedy	Having an excessive and selfish desire for money or possessions.	0	5	-3
 Intense	Passionate, vocal and very serious about one's emotions and thoughts.	0	2	3
@@ -13,7 +13,7 @@ Adventurous	Willing to take risks and try new experiences, showing boldness in d
 Manipulative	Scheming and trying to influence the behavior of others for one's own advantage.	1	5	-5
 Sensual	Appreciating arousing gratification of the senses; seeking to explore sensory pleasure.	1	1	5
 Subservient	Prepared to obey others without questions, considering own wishes as less important.	0	4	3
-Disorganized	Lacking coherence or systematic structure leading to various levels of disorder.	1	0	-5	
+Disorganized	Lacking coherence or systematic structure leading to various levels of disorder.	1	0	-5
 Conservative	Favors traditional views and values. Often in opposition to change.	1	1	-5
 Macho	Aggressive pride in one's masculine qualities; being overly assertive and dominating.	1	4	-5
 Hardened	Able to withstand hardship and deal with bad experiences without being emotionally affected.	0	3	-3

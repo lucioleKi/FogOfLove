@@ -114,7 +114,7 @@ dealCards<std::vector<Trait>> startTraits(std::vector<Trait> deck) {
 	deck.push_back(trait1.at(0));
 	deck.push_back(trait1.at(1));
 	std::cout << "\033[2J\033[1;1H";
-	std::cout << "Player 2, please select 1 out of the 3 traits you received below. Your traits cannot be seen by the other player.\n";
+	std::cout << "Player 2, please select 3 out of the 5 traits you received below. Your traits cannot be seen by the other player.\n";
 	for (int j = 0; j < 3; j++) {
 		for (int i = 0; i < trait2.size(); i++) {
 			std::cout << trait2.at(i).printFull();
